@@ -54,7 +54,7 @@ public class AmqpItemWriterAutoConfiguration {
 	}
 
 	@ConditionalOnProperty(name = "spring.batch.job.amqpitemwriter.jsonConverterEnabled", havingValue = "true",
-			matchIfMissing = true)
+matchIfMissing = true)
 	@Bean
 	public MessageConverter messageConverter() {
 		return new Jackson2JsonMessageConverter();

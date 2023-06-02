@@ -57,14 +57,14 @@ public class JobConfiguration {
 	@Bean
 	public Job job1() {
 		return new JobBuilder("job1", this.jobRepository)
-			.start(new StepBuilder("job1step1", this.jobRepository).tasklet(new Tasklet() {
-				@Override
-				public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-					logger.info("Job1 was run");
-					return RepeatStatus.FINISHED;
-				}
-			}, transactionManager).build())
-			.build();
+	.start(new StepBuilder("job1step1", this.jobRepository).tasklet(new Tasklet() {
+		@Override
+		public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+			logger.info("Job1 was run");
+			return RepeatStatus.FINISHED;
+		}
+	}, transactionManager).build())
+	.build();
 	}
 
 	static class RuntimeHint implements RuntimeHintsRegistrar {
@@ -72,9 +72,9 @@ public class JobConfiguration {
 		@Override
 		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
 			hints.proxies()
-				.registerJdkProxy(builder -> builder
-					.proxiedInterfaces(TypeReference.of("org.springframework.batch.core.launch.JobOperator"))
-					.proxiedInterfaces(SpringProxy.class, Advised.class, DecoratingProxy.class));
+		.registerJdkProxy(builder -> builder
+	.proxiedInterfaces(TypeReference.of("org.springframework.batch.core.launch.JobOperator"))
+	.proxiedInterfaces(SpringProxy.class, Advised.class, DecoratingProxy.class));
 		}
 
 	}

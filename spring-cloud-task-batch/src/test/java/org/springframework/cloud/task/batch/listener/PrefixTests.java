@@ -75,16 +75,16 @@ public class PrefixTests {
 		@Bean
 		public Job job(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 			return new JobBuilder("job", jobRepository)
-					.start(new StepBuilder("step1", jobRepository).tasklet((contribution, chunkContext) -> {
-						System.out.println("Executed");
-						return RepeatStatus.FINISHED;
-					}, transactionManager).build()).build();
+		.start(new StepBuilder("step1", jobRepository).tasklet((contribution, chunkContext) -> {
+			System.out.println("Executed");
+			return RepeatStatus.FINISHED;
+		}, transactionManager).build()).build();
 		}
 
 		@Bean
 		public DataSource dataSource() {
 			return new EmbeddedDatabaseBuilder().addScript("classpath:schema-h2.sql").setType(EmbeddedDatabaseType.H2)
-					.build();
+		.build();
 		}
 
 		@Bean

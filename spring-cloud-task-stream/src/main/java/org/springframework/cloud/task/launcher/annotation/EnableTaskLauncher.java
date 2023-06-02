@@ -55,7 +55,7 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({ TaskLauncherSink.class })
+@Import({TaskLauncherSink.class})
 public @interface EnableTaskLauncher {
 
 }

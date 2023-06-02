@@ -59,7 +59,7 @@ public class EventEmittingItemProcessListener implements ItemProcessListener, Or
 	}
 
 	public EventEmittingItemProcessListener(MessagePublisher messagePublisher, int order,
-			TaskEventProperties properties) {
+TaskEventProperties properties) {
 		this(messagePublisher, properties);
 		this.order = order;
 	}
@@ -75,11 +75,11 @@ public class EventEmittingItemProcessListener implements ItemProcessListener, Or
 		}
 		else if (item.equals(result)) {
 			this.messagePublisher.publish(this.properties.getItemProcessEventBindingName(),
-					"item equaled result after processing");
+		"item equaled result after processing");
 		}
 		else {
 			this.messagePublisher.publish(this.properties.getItemProcessEventBindingName(),
-					"item did not equal result after processing");
+		"item did not equal result after processing");
 		}
 	}
 
@@ -89,7 +89,7 @@ public class EventEmittingItemProcessListener implements ItemProcessListener, Or
 			logger.debug("Executing onProcessError: " + e.getMessage(), e);
 		}
 		this.messagePublisher.publishWithThrowableHeader(this.properties.getItemProcessEventBindingName(),
-				"Exception while item was being processed", e.getMessage());
+	"Exception while item was being processed", e.getMessage());
 	}
 
 	@Override

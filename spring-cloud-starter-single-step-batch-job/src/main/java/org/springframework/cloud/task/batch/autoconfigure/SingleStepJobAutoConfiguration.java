@@ -80,10 +80,10 @@ public class SingleStepJobAutoConfiguration {
 	public Job job(ItemReader<Map<String, Object>> itemReader, ItemWriter<Map<String, Object>> itemWriter) {
 
 		SimpleStepBuilder<Map<String, Object>, Map<String, Object>> stepBuilder = new StepBuilder(
-				this.properties.getStepName(), this.jobRepository)
-						.<Map<String, Object>, Map<String, Object>>chunk(this.properties.getChunkSize(),
-								this.transactionManager)
-						.reader(itemReader);
+	this.properties.getStepName(), this.jobRepository)
+	.<Map<String, Object>, Map<String, Object>>chunk(this.properties.getChunkSize(),
+this.transactionManager)
+	.reader(itemReader);
 
 		stepBuilder.processor(this.itemProcessor);
 

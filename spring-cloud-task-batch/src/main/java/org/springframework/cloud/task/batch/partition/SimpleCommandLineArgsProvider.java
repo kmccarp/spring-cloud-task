@@ -68,7 +68,7 @@ public class SimpleCommandLineArgsProvider implements CommandLineArgsProvider, T
 	public List<String> getCommandLineArgs(ExecutionContext executionContext) {
 
 		int listSize = this.taskExecution.getArguments().size()
-				+ (this.appendedArgs != null ? this.appendedArgs.size() : 0);
+	+ (this.appendedArgs != null ? this.appendedArgs.size() : 0);
 
 		List<String> args = new ArrayList<>(listSize);
 

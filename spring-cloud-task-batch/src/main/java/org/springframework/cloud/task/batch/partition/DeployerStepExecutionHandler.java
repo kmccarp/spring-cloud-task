@@ -88,15 +88,15 @@ public class DeployerStepExecutionHandler implements CommandLineRunner {
 		validateRequest();
 
 		Long jobExecutionId = Long
-				.parseLong(this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_JOB_EXECUTION_ID));
+	.parseLong(this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_JOB_EXECUTION_ID));
 		Long stepExecutionId = Long
-				.parseLong(this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_EXECUTION_ID));
+	.parseLong(this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_EXECUTION_ID));
 		StepExecution stepExecution = this.jobExplorer.getStepExecution(jobExecutionId, stepExecutionId);
 
 		if (stepExecution == null) {
 			throw new NoSuchStepException(
-					String.format("No StepExecution could be located for step execution id %s within job execution %s",
-							stepExecutionId, jobExecutionId));
+		String.format("No StepExecution could be located for step execution id %s within job execution %s",
+	stepExecutionId, jobExecutionId));
 		}
 
 		String stepName = this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_NAME);
@@ -104,7 +104,7 @@ public class DeployerStepExecutionHandler implements CommandLineRunner {
 
 		try {
 			this.logger.debug(String.format("Executing step %s with step execution id %s and job execution id %s",
-					stepExecution.getStepName(), stepExecutionId, jobExecutionId));
+		stepExecution.getStepName(), stepExecutionId, jobExecutionId));
 
 			step.execute(stepExecution);
 		}
@@ -121,16 +121,16 @@ public class DeployerStepExecutionHandler implements CommandLineRunner {
 
 	private void validateRequest() {
 		Assert.isTrue(this.environment.containsProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_JOB_EXECUTION_ID),
-				"A job execution id is required");
+	"A job execution id is required");
 		Assert.isTrue(this.environment.containsProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_EXECUTION_ID),
-				"A step execution id is required");
+	"A step execution id is required");
 		Assert.isTrue(this.environment.containsProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_NAME),
-				"A step name is required");
+	"A step name is required");
 
 		Assert.isTrue(
-				this.stepLocator.getStepNames()
-						.contains(this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_NAME)),
-				"The step requested cannot be found in the provided BeanFactory");
+	this.stepLocator.getStepNames()
+.contains(this.environment.getProperty(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_NAME)),
+	"The step requested cannot be found in the provided BeanFactory");
 	}
 
 }

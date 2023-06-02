@@ -55,10 +55,10 @@ public class TaskDatabaseInitializerTests {
 	public void testDefaultContext() {
 		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(TestConfiguration.class, EmbeddedDataSourceConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
+	PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 		assertThat(new JdbcTemplate(this.context.getBean(DataSource.class)).queryForList("select * from TASK_EXECUTION")
-				.size()).isEqualTo(0);
+	.size()).isEqualTo(0);
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class TaskDatabaseInitializerTests {
 	public void testNoTaskConfiguration() {
 		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(EmptyConfiguration.class, EmbeddedDataSourceConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
+	PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 		assertThat(this.context.getBeanNamesForType(SimpleTaskRepository.class).length).isEqualTo(0);
 	}
@@ -83,7 +83,7 @@ public class TaskDatabaseInitializerTests {
 	public void testMultipleDataSourcesContext() {
 		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(SimpleTaskAutoConfiguration.class, EmbeddedDataSourceConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
+	PropertyPlaceholderAutoConfiguration.class);
 		DataSource dataSource = mock(DataSource.class);
 		this.context.getBeanFactory().registerSingleton("mockDataSource", dataSource);
 		assertThatExceptionOfType(BeanCreationException.class).isThrownBy(() -> {

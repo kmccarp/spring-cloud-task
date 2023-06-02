@@ -75,8 +75,8 @@ public final class TaskExecutionCreator {
 	 */
 	public static TaskExecution completeExecution(TaskRepository taskRepository, TaskExecution expectedTaskExecution) {
 		return taskRepository.completeTaskExecution(expectedTaskExecution.getExecutionId(),
-				expectedTaskExecution.getExitCode(), expectedTaskExecution.getEndTime(),
-				expectedTaskExecution.getExitMessage(), expectedTaskExecution.getErrorMessage());
+	expectedTaskExecution.getExitCode(), expectedTaskExecution.getEndTime(),
+	expectedTaskExecution.getExitMessage(), expectedTaskExecution.getErrorMessage());
 	}
 
 }

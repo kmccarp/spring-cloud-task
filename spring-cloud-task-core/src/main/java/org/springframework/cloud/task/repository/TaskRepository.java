@@ -54,7 +54,7 @@ public interface TaskRepository {
 	 */
 	@Transactional("${spring.cloud.task.transaction-manager:springCloudTaskTransactionManager}")
 	TaskExecution completeTaskExecution(long executionId, Integer exitCode, LocalDateTime endTime, String exitMessage,
-			String errorMessage);
+String errorMessage);
 
 	/**
 	 * Notifies the repository that a taskExecution needs to be created.
@@ -100,7 +100,7 @@ public interface TaskRepository {
 	 */
 	@Transactional("${spring.cloud.task.transaction-manager:springCloudTaskTransactionManager}")
 	TaskExecution startTaskExecution(long executionid, String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId);
+String externalExecutionId);
 
 	/**
 	 * Notifies the repository to update the taskExecution's externalExecutionId.
@@ -123,6 +123,6 @@ public interface TaskRepository {
 	 */
 	@Transactional("${spring.cloud.task.transaction-manager:springCloudTaskTransactionManager}")
 	TaskExecution startTaskExecution(long executionid, String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId, Long parentExecutionId);
+String externalExecutionId, Long parentExecutionId);
 
 }

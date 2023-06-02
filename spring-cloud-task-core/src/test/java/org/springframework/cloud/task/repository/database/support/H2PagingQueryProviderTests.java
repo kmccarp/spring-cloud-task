@@ -66,11 +66,11 @@ class H2PagingQueryProviderTests {
 			queryProvider.setSortKeys(sortKeys);
 
 			List<String> firstPage = jdbcTemplate.queryForList(queryProvider.getPageQuery(PageRequest.of(0, 2)),
-					String.class);
+		String.class);
 			assertThat(firstPage).containsExactly("Spring", "Cloud");
 
 			List<String> secondPage = jdbcTemplate.queryForList(queryProvider.getPageQuery(PageRequest.of(1, 2)),
-					String.class);
+		String.class);
 			assertThat(secondPage).containsExactly("Task");
 		});
 	}

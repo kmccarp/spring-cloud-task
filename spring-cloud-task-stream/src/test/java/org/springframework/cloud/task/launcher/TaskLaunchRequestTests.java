@@ -43,15 +43,15 @@ public class TaskLaunchRequestTests {
 		map.put("bar", "baz");
 
 		TaskLaunchRequest request = new TaskLaunchRequest(URI, Collections.EMPTY_LIST, Collections.EMPTY_MAP,
-				Collections.EMPTY_MAP, null);
+	Collections.EMPTY_MAP, null);
 		TaskLaunchRequest request2 = new TaskLaunchRequest(URI, Collections.EMPTY_LIST, Collections.EMPTY_MAP,
-				Collections.EMPTY_MAP, null);
+	Collections.EMPTY_MAP, null);
 		assertThat(request.equals(null)).isFalse();
 		assertThat(request.equals("nope")).isFalse();
 		assertThat(request.equals(request)).isTrue();
 		assertThat(request.equals(request2)).isTrue();
 		TaskLaunchRequest requestDiff = new TaskLaunchRequest("https://oops", Collections.EMPTY_LIST,
-				Collections.EMPTY_MAP, Collections.EMPTY_MAP, null);
+	Collections.EMPTY_MAP, Collections.EMPTY_MAP, null);
 		assertThat(request.equals(requestDiff)).isFalse();
 
 		requestDiff = new TaskLaunchRequest(URI, args, Collections.EMPTY_MAP, Collections.EMPTY_MAP, null);
@@ -73,11 +73,11 @@ public class TaskLaunchRequestTests {
 	@Test
 	public void testApplicationName() {
 		TaskLaunchRequest request = new TaskLaunchRequest(URI, Collections.EMPTY_LIST, Collections.EMPTY_MAP,
-				Collections.EMPTY_MAP, null);
+	Collections.EMPTY_MAP, null);
 		assertThat(request.getApplicationName().startsWith("Task-")).isTrue();
 
 		request = new TaskLaunchRequest(URI, Collections.EMPTY_LIST, Collections.EMPTY_MAP, Collections.EMPTY_MAP,
-				APP_NAME);
+	APP_NAME);
 		assertThat(request.getApplicationName()).isEqualTo(APP_NAME);
 	}
 

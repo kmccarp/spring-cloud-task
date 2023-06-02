@@ -40,13 +40,13 @@ public class ObservationTaskAutoConfiguration {
 
 	@Bean
 	static ObservationCommandLineRunnerBeanPostProcessor observedCommandLineRunnerBeanPostProcessor(
-			BeanFactory beanFactory) {
+BeanFactory beanFactory) {
 		return new ObservationCommandLineRunnerBeanPostProcessor(beanFactory);
 	}
 
 	@Bean
 	static ObservationApplicationRunnerBeanPostProcessor observedApplicationRunnerBeanPostProcessor(
-			BeanFactory beanFactory) {
+BeanFactory beanFactory) {
 		return new ObservationApplicationRunnerBeanPostProcessor(beanFactory);
 	}
 

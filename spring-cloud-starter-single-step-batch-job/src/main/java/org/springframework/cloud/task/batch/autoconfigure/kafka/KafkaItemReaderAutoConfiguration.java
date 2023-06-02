@@ -43,7 +43,7 @@ import org.springframework.util.StringUtils;
  * @since 2.3
  */
 @AutoConfiguration
-@EnableConfigurationProperties({ KafkaProperties.class, KafkaItemReaderProperties.class })
+@EnableConfigurationProperties({KafkaProperties.class, KafkaItemReaderProperties.class})
 @AutoConfigureAfter(BatchAutoConfiguration.class)
 public class KafkaItemReaderAutoConfiguration {
 
@@ -54,20 +54,20 @@ public class KafkaItemReaderAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = "spring.batch.job.kafkaitemreader", name = "name")
 	public KafkaItemReader<Object, Map<String, Object>> kafkaItemReader(
-			KafkaItemReaderProperties kafkaItemReaderProperties) {
+KafkaItemReaderProperties kafkaItemReaderProperties) {
 		Properties consumerProperties = new Properties();
 		consumerProperties.putAll(this.kafkaProperties.getConsumer().buildProperties());
 		validateProperties(kafkaItemReaderProperties);
 		if (kafkaItemReaderProperties.getPartitions() == null
-				|| kafkaItemReaderProperties.getPartitions().size() == 0) {
+	|| kafkaItemReaderProperties.getPartitions().size() == 0) {
 			kafkaItemReaderProperties.setPartitions(new ArrayList<>(1));
 			kafkaItemReaderProperties.getPartitions().add(0);
 		}
 		return new KafkaItemReaderBuilder<Object, Map<String, Object>>()
-				.partitions(kafkaItemReaderProperties.getPartitions()).consumerProperties(consumerProperties)
-				.name(kafkaItemReaderProperties.getName())
-				.pollTimeout(Duration.ofSeconds(kafkaItemReaderProperties.getPollTimeOutInSeconds()))
-				.saveState(kafkaItemReaderProperties.isSaveState()).topic(kafkaItemReaderProperties.getTopic()).build();
+	.partitions(kafkaItemReaderProperties.getPartitions()).consumerProperties(consumerProperties)
+	.name(kafkaItemReaderProperties.getName())
+	.pollTimeout(Duration.ofSeconds(kafkaItemReaderProperties.getPollTimeOutInSeconds()))
+	.saveState(kafkaItemReaderProperties.isSaveState()).topic(kafkaItemReaderProperties.getTopic()).build();
 	}
 
 	private void validateProperties(KafkaItemReaderProperties kafkaItemReaderProperties) {
@@ -81,7 +81,7 @@ public class KafkaItemReaderAutoConfiguration {
 			throw new IllegalArgumentException("GroupId must not be empty or null");
 		}
 		if (this.kafkaProperties.getBootstrapServers() == null
-				|| this.kafkaProperties.getBootstrapServers().size() == 0) {
+	|| this.kafkaProperties.getBootstrapServers().size() == 0) {
 			throw new IllegalArgumentException("Bootstrap Servers must be configured");
 		}
 	}

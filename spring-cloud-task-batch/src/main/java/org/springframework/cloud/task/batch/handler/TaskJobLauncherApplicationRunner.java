@@ -92,7 +92,7 @@ public class TaskJobLauncherApplicationRunner extends JobLauncherApplicationRunn
 	 * taskBatchProperties.
 	 */
 	public TaskJobLauncherApplicationRunner(JobLauncher jobLauncher, JobExplorer jobExplorer,
-			JobRepository jobRepository, TaskBatchProperties taskBatchProperties) {
+JobRepository jobRepository, TaskBatchProperties taskBatchProperties) {
 		super(jobLauncher, jobExplorer, jobRepository);
 		this.taskJobLauncher = jobLauncher;
 		this.taskJobExplorer = jobExplorer;
@@ -115,7 +115,7 @@ public class TaskJobLauncherApplicationRunner extends JobLauncherApplicationRunn
 
 	@Override
 	protected void execute(Job job, JobParameters jobParameters) throws JobExecutionAlreadyRunningException,
-			JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
+JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 		String jobName = job.getName();
 		JobParameters parameters = jobParameters;
 		boolean jobInstanceExists = this.taskJobRepository.isJobInstanceExists(jobName, parameters);
@@ -140,7 +140,7 @@ public class TaskJobLauncherApplicationRunner extends JobLauncherApplicationRunn
 			JobParametersIncrementer incrementer = job.getJobParametersIncrementer();
 			if (incrementer != null) {
 				JobParameters nextParameters = new JobParametersBuilder(jobParameters, this.taskJobExplorer)
-						.getNextJobParameters(job).toJobParameters();
+			.getNextJobParameters(job).toJobParameters();
 				parameters = merge(nextParameters, jobParameters);
 			}
 		}
@@ -189,9 +189,9 @@ public class TaskJobLauncherApplicationRunner extends JobLauncherApplicationRunn
 		StringBuilder message = new StringBuilder("The following Jobs have failed: \n");
 		for (JobExecution failedJobExecution : failedJobExecutions) {
 			message.append(String.format(
-					"Job %s failed during " + "execution for job instance id %s with jobExecutionId of %s \n",
-					failedJobExecution.getJobInstance().getJobName(), failedJobExecution.getJobId(),
-					failedJobExecution.getId()));
+		"Job %s failed during " + "execution for job instance id %s with jobExecutionId of %s \n",
+		failedJobExecution.getJobInstance().getJobName(), failedJobExecution.getJobId(),
+		failedJobExecution.getId()));
 		}
 
 		logger.error(message);

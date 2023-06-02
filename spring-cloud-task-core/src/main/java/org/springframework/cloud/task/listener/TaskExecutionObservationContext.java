@@ -29,8 +29,7 @@ import org.springframework.cloud.task.repository.TaskExecution;
  * @author Glenn Renfro
  * @since 3.0.0
  */
-public class TaskExecutionObservationContext extends Observation.Context
-		implements Supplier<TaskExecutionObservationContext> {
+public class TaskExecutionObservationContext extends Observation.Contextimplements Supplier<TaskExecutionObservationContext> {
 
 	private final TaskExecution taskExecution;
 

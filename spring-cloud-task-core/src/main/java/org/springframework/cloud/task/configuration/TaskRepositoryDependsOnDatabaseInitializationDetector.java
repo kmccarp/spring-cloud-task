@@ -27,8 +27,7 @@ import org.springframework.cloud.task.repository.TaskRepository;
  *
  * @author Henning Pöttker
  */
-class TaskRepositoryDependsOnDatabaseInitializationDetector
-		extends AbstractBeansOfTypeDependsOnDatabaseInitializationDetector {
+class TaskRepositoryDependsOnDatabaseInitializationDetectorextends AbstractBeansOfTypeDependsOnDatabaseInitializationDetector {
 
 	@Override
 	protected Set<Class<?>> getDependsOnDatabaseInitializationBeanTypes() {

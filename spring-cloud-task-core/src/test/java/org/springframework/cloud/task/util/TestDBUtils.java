@@ -72,11 +72,11 @@ public final class TestDBUtils {
 			@Override
 			public TaskExecution mapRow(ResultSet rs, int rownumber) throws SQLException {
 				TaskExecution taskExecution = new TaskExecution(rs.getLong("TASK_EXECUTION_ID"),
-						StringUtils.hasText(rs.getString("EXIT_CODE")) ? Integer.valueOf(rs.getString("EXIT_CODE"))
-								: null,
-						rs.getString("TASK_NAME"), rs.getObject("START_TIME", LocalDateTime.class),
-						rs.getObject("END_TIME", LocalDateTime.class), rs.getString("EXIT_MESSAGE"), new ArrayList<>(0),
-						rs.getString("ERROR_MESSAGE"), rs.getString("EXTERNAL_EXECUTION_ID"));
+			StringUtils.hasText(rs.getString("EXIT_CODE")) ? Integer.valueOf(rs.getString("EXIT_CODE"))
+		: null,
+			rs.getString("TASK_NAME"), rs.getObject("START_TIME", LocalDateTime.class),
+			rs.getObject("END_TIME", LocalDateTime.class), rs.getString("EXIT_MESSAGE"), new ArrayList<>(0),
+			rs.getString("ERROR_MESSAGE"), rs.getString("EXTERNAL_EXECUTION_ID"));
 				return taskExecution;
 			}
 		});
@@ -109,7 +109,7 @@ public final class TestDBUtils {
 	 * {@link PagingQueryProvider}.
 	 */
 	public static PagingQueryProvider getPagingQueryProvider(String databaseProductName, String whereClause)
-			throws Exception {
+throws Exception {
 		DataSource dataSource = getMockDataSource(databaseProductName);
 		Map<String, Order> orderMap = new TreeMap<>();
 		orderMap.put("START_TIME", Order.DESCENDING);
@@ -158,7 +158,7 @@ public final class TestDBUtils {
 	 */
 	public static DataFieldMaxValueIncrementer getIncrementer(DataSource dataSource) {
 		DataFieldMaxValueIncrementerFactory incrementerFactory = new DefaultDataFieldMaxValueIncrementerFactory(
-				dataSource);
+	dataSource);
 		String databaseType = null;
 		try {
 			databaseType = DatabaseType.fromMetaData(dataSource).name();
@@ -174,7 +174,7 @@ public final class TestDBUtils {
 
 	private static void populateParamsToDB(DataSource dataSource, TaskExecution taskExecution) {
 		String sql = "SELECT * FROM TASK_EXECUTION_PARAMS WHERE TASK_EXECUTION_ID = '" + taskExecution.getExecutionId()
-				+ "'";
+	+ "'";
 
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);

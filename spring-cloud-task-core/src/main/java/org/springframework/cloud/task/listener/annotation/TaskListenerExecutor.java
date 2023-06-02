@@ -42,7 +42,7 @@ public class TaskListenerExecutor implements TaskExecutionListener {
 	private Map<Method, Set<Object>> failedTaskInstances;
 
 	public TaskListenerExecutor(Map<Method, Set<Object>> beforeTaskInstances,
-			Map<Method, Set<Object>> afterTaskInstances, Map<Method, Set<Object>> failedTaskInstances) {
+Map<Method, Set<Object>> afterTaskInstances, Map<Method, Set<Object>> failedTaskInstances) {
 
 		this.beforeTaskInstances = beforeTaskInstances;
 		this.afterTaskInstances = afterTaskInstances;
@@ -75,11 +75,11 @@ public class TaskListenerExecutor implements TaskExecutionListener {
 	@Override
 	public void onTaskFailed(TaskExecution taskExecution, Throwable throwable) {
 		executeTaskListenerWithThrowable(taskExecution, throwable, this.failedTaskInstances.keySet(),
-				this.failedTaskInstances);
+	this.failedTaskInstances);
 	}
 
 	private void executeTaskListener(TaskExecution taskExecution, Set<Method> methods,
-			Map<Method, Set<Object>> instances) {
+Map<Method, Set<Object>> instances) {
 		for (Method method : methods) {
 			for (Object instance : instances.get(method)) {
 				try {
@@ -90,21 +90,21 @@ public class TaskListenerExecutor implements TaskExecutionListener {
 				}
 				catch (InvocationTargetException e) {
 					throw new TaskExecutionException(
-							String.format("Failed to process @BeforeTask or @AfterTask" + " annotation because: %s",
-									e.getTargetException().getMessage()),
-							e);
+				String.format("Failed to process @BeforeTask or @AfterTask" + " annotation because: %s",
+			e.getTargetException().getMessage()),
+				e);
 				}
 				catch (IllegalArgumentException e) {
 					throw new TaskExecutionException(
-							"taskExecution parameter " + "is required for @BeforeTask and @AfterTask annotated methods",
-							e);
+				"taskExecution parameter " + "is required for @BeforeTask and @AfterTask annotated methods",
+				e);
 				}
 			}
 		}
 	}
 
 	private void executeTaskListenerWithThrowable(TaskExecution taskExecution, Throwable throwable, Set<Method> methods,
-			Map<Method, Set<Object>> instances) {
+Map<Method, Set<Object>> instances) {
 		for (Method method : methods) {
 			for (Object instance : instances.get(method)) {
 				try {
@@ -115,13 +115,13 @@ public class TaskListenerExecutor implements TaskExecutionListener {
 				}
 				catch (InvocationTargetException e) {
 					throw new TaskExecutionException(
-							String.format("Failed to process @FailedTask " + "annotation because: %s",
-									e.getTargetException().getMessage()),
-							e);
+				String.format("Failed to process @FailedTask " + "annotation because: %s",
+			e.getTargetException().getMessage()),
+				e);
 				}
 				catch (IllegalArgumentException e) {
 					throw new TaskExecutionException("taskExecution and throwable parameters "
-							+ "are required for @FailedTask annotated methods", e);
+				+ "are required for @FailedTask annotated methods", e);
 				}
 			}
 		}

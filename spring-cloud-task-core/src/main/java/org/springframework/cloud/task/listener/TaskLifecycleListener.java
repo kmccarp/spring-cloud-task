@@ -80,8 +80,7 @@ import org.springframework.util.StringUtils;
  * @author Michael Minella
  * @author Glenn Renfro
  */
-public class TaskLifecycleListener
-		implements ApplicationListener<ApplicationEvent>, SmartLifecycle, DisposableBean, Ordered {
+public class TaskLifecycleListenerimplements ApplicationListener<ApplicationEvent>, SmartLifecycle, DisposableBean, Ordered {
 
 	private static final Log logger = LogFactory.getLog(TaskLifecycleListener.class);
 
@@ -136,10 +135,10 @@ public class TaskLifecycleListener
 	 * to initialize TaskListenerExecutor for a task
 	 */
 	public TaskLifecycleListener(TaskRepository taskRepository, TaskNameResolver taskNameResolver,
-			ApplicationArguments applicationArguments, TaskExplorer taskExplorer, TaskProperties taskProperties,
-			TaskListenerExecutorObjectFactory taskListenerExecutorObjectFactory,
-			@Autowired(required = false) ObservationRegistry observationRegistry,
-			TaskObservationCloudKeyValues taskObservationCloudKeyValues) {
+ApplicationArguments applicationArguments, TaskExplorer taskExplorer, TaskProperties taskProperties,
+TaskListenerExecutorObjectFactory taskListenerExecutorObjectFactory,
+@Autowired(required = false) ObservationRegistry observationRegistry,
+TaskObservationCloudKeyValues taskObservationCloudKeyValues) {
 		Assert.notNull(taskRepository, "A taskRepository is required");
 		Assert.notNull(taskNameResolver, "A taskNameResolver is required");
 		Assert.notNull(taskExplorer, "A taskExplorer is required");
@@ -154,7 +153,7 @@ public class TaskLifecycleListener
 		this.taskListenerExecutorObjectFactory = taskListenerExecutorObjectFactory;
 		observationRegistry = observationRegistry == null ? ObservationRegistry.NOOP : observationRegistry;
 		this.taskObservations = new TaskObservations(observationRegistry, taskObservationCloudKeyValues,
-				observationConvention);
+	observationConvention);
 	}
 
 	/**
@@ -204,8 +203,8 @@ public class TaskLifecycleListener
 
 			setExitMessage(invokeOnTaskEnd(this.taskExecution));
 			this.taskRepository.completeTaskExecution(this.taskExecution.getExecutionId(),
-					this.taskExecution.getExitCode(), this.taskExecution.getEndTime(),
-					this.taskExecution.getExitMessage(), this.taskExecution.getErrorMessage());
+		this.taskExecution.getExitCode(), this.taskExecution.getEndTime(),
+		this.taskExecution.getExitMessage(), this.taskExecution.getErrorMessage());
 
 			this.finished = true;
 
@@ -236,7 +235,7 @@ public class TaskLifecycleListener
 				TaskExecutionException taskExecutionException = (TaskExecutionException) exception;
 				if (taskExecutionException.getCause() instanceof InvocationTargetException) {
 					InvocationTargetException invocationTargetException = (InvocationTargetException) taskExecutionException
-							.getCause();
+				.getCause();
 					if (invocationTargetException != null && invocationTargetException.getTargetException() != null) {
 						exception = invocationTargetException.getTargetException();
 					}
@@ -271,17 +270,17 @@ public class TaskLifecycleListener
 				}
 				if (this.taskProperties.getExecutionid() != null) {
 					TaskExecution taskExecution = this.taskExplorer
-							.getTaskExecution(this.taskProperties.getExecutionid());
+				.getTaskExecution(this.taskProperties.getExecutionid());
 					Assert.notNull(taskExecution, String.format("Invalid TaskExecution, ID %s not found",
-							this.taskProperties.getExecutionid()));
+				this.taskProperties.getExecutionid()));
 					Assert.isNull(taskExecution.getEndTime(),
-							String.format("Invalid TaskExecution, ID %s task is already complete",
-									this.taskProperties.getExecutionid()));
+				String.format("Invalid TaskExecution, ID %s task is already complete",
+			this.taskProperties.getExecutionid()));
 					LocalDateTime startDate = (taskExecution.getStartTime() == null) ? LocalDateTime.now()
-							: taskExecution.getStartTime();
+				: taskExecution.getStartTime();
 					this.taskExecution = this.taskRepository.startTaskExecution(this.taskProperties.getExecutionid(),
-							this.taskNameResolver.getTaskName(), startDate, args,
-							this.taskProperties.getExternalExecutionId(), this.taskProperties.getParentExecutionId());
+				this.taskNameResolver.getTaskName(), startDate, args,
+				this.taskProperties.getExternalExecutionId(), this.taskProperties.getParentExecutionId());
 				}
 				else {
 					TaskExecution taskExecution = new TaskExecution();
@@ -344,7 +343,7 @@ public class TaskLifecycleListener
 				String errorMessage = stackTraceToString(listenerException);
 				if (StringUtils.hasText(listenerTaskExecution.getErrorMessage())) {
 					errorMessage = String.format("%s :Task also threw this Exception: %s", errorMessage,
-							listenerTaskExecution.getErrorMessage());
+				listenerTaskExecution.getErrorMessage());
 				}
 				logger.error(errorMessage);
 				listenerTaskExecution.setErrorMessage(errorMessage);
@@ -370,7 +369,7 @@ public class TaskLifecycleListener
 				String errorMessage;
 				if (StringUtils.hasText(listenerTaskExecution.getErrorMessage())) {
 					errorMessage = String.format("%s :While handling " + "this error: %s",
-							listenerException.getMessage(), listenerTaskExecution.getErrorMessage());
+				listenerException.getMessage(), listenerTaskExecution.getErrorMessage());
 				}
 				else {
 					errorMessage = listenerTaskExecution.getErrorMessage();
@@ -389,9 +388,9 @@ public class TaskLifecycleListener
 		LocalDateTime endTime = taskExecution.getEndTime();
 
 		return new TaskExecution(taskExecution.getExecutionId(), taskExecution.getExitCode(),
-				taskExecution.getTaskName(), startTime, endTime, taskExecution.getExitMessage(),
-				Collections.unmodifiableList(taskExecution.getArguments()), taskExecution.getErrorMessage(),
-				taskExecution.getExternalExecutionId());
+	taskExecution.getTaskName(), startTime, endTime, taskExecution.getExitMessage(),
+	Collections.unmodifiableList(taskExecution.getArguments()), taskExecution.getErrorMessage(),
+	taskExecution.getExternalExecutionId());
 	}
 
 	@Override

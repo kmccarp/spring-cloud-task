@@ -52,11 +52,11 @@ public class SingleTaskConfiguration {
 	public SingleInstanceTaskListener taskListener(TaskNameResolver resolver, ApplicationContext applicationContext) {
 		if (this.taskConfigurer.getTaskDataSource() == null) {
 			return new SingleInstanceTaskListener(new PassThruLockRegistry(), resolver, this.taskProperties,
-					this.applicationEventPublisher, applicationContext);
+		this.applicationEventPublisher, applicationContext);
 		}
 
 		return new SingleInstanceTaskListener(this.taskConfigurer.getTaskDataSource(), resolver, this.taskProperties,
-				this.applicationEventPublisher, applicationContext);
+	this.applicationEventPublisher, applicationContext);
 	}
 
 }

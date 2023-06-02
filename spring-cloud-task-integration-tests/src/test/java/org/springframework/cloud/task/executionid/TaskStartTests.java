@@ -66,7 +66,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { TaskStartTests.TaskLauncherConfiguration.class })
+@SpringBootTest(classes = {TaskStartTests.TaskLauncherConfiguration.class})
 public class TaskStartTests {
 
 	private final static int WAIT_INTERVAL = 500;
@@ -90,7 +90,7 @@ public class TaskStartTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	private DataSource dataSource;
@@ -165,7 +165,7 @@ public class TaskStartTests {
 		TaskExecution te = taskExecutions.iterator().next();
 		assertThat(taskExecutions.getTotalElements()).as("Only one row is expected").isEqualTo(1);
 		assertThat(taskExecutions.iterator().next().getExitCode().intValue()).as("return code should be 0")
-				.isEqualTo(0);
+	.isEqualTo(0);
 	}
 
 	@Test
@@ -182,7 +182,7 @@ public class TaskStartTests {
 		TaskExecution te = taskExecutions.iterator().next();
 		assertThat(taskExecutions.getTotalElements()).as("Only one row is expected").isEqualTo(1);
 		assertThat(taskExecutions.iterator().next().getExitCode().intValue()).as("return code should be 0")
-				.isEqualTo(0);
+	.isEqualTo(0);
 		assertThat(this.taskExplorer.getTaskExecution(1).getTaskName()).isEqualTo("batchEvents");
 	}
 
@@ -192,7 +192,7 @@ public class TaskStartTests {
 		LocalDateTime startDate = LocalDateTime.now();
 		Thread.sleep(500);
 		TaskExecution taskExecution = new TaskExecution(1, 0, TASK_EXECUTION_NAME, startDate, LocalDateTime.now(),
-				"foo", Collections.emptyList(), "foo", "bar", null);
+	"foo", Collections.emptyList(), "foo", "bar", null);
 		this.taskRepository.createTaskExecution(taskExecution);
 		assertThat(this.taskExplorer.getTaskExecutionCount()).as("Only one row is expected").isEqualTo(1);
 
@@ -202,7 +202,7 @@ public class TaskStartTests {
 		Page<TaskExecution> taskExecutions = this.taskExplorer.findAll(PageRequest.of(0, 10));
 		assertThat(taskExecutions.getTotalElements()).as("Only one row is expected").isEqualTo(1);
 		assertThat(taskExecutions.iterator().next().getExitCode().intValue()).as("return code should be 0")
-				.isEqualTo(0);
+	.isEqualTo(0);
 		assertThat(this.taskExplorer.getTaskExecution(1).getStartTime().isEqual(startDate)).isTrue();
 
 	}
@@ -226,7 +226,7 @@ public class TaskStartTests {
 
 	@Test
 	public void testDuplicateTaskExecutionWithSingleInstanceEnabled() throws Exception {
-		String[] params = { "--spring.cloud.task.single-instance-enabled=true", "--spring.cloud.task.name=foo" };
+		String[] params = {"--spring.cloud.task.single-instance-enabled=true", "--spring.cloud.task.name=foo"};
 		boolean testFailed = false;
 		try {
 			this.taskRepository.createTaskExecution();
@@ -236,11 +236,11 @@ public class TaskStartTests {
 		}
 		catch (ApplicationContextException taskException) {
 			assertThat(taskException.getCause().getMessage()).isEqualTo("Failed to process "
-					+ "@BeforeTask or @AfterTask annotation because: Task with name \"foo\" is already running.");
+		+ "@BeforeTask or @AfterTask annotation because: Task with name \"foo\" is already running.");
 			testFailed = true;
 		}
 		assertThat(testFailed)
-				.as("Expected TaskExecutionException for because  of " + "single-instance-enabled is enabled").isTrue();
+	.as("Expected TaskExecutionException for because  of " + "single-instance-enabled is enabled").isTrue();
 
 	}
 
@@ -249,8 +249,8 @@ public class TaskStartTests {
 		this.taskRepository.createTaskExecution();
 		TaskExecution execution = this.taskRepository.createTaskExecution();
 		this.taskRepository.startTaskExecution(execution.getExecutionId(), "bar", LocalDateTime.now(),
-				new ArrayList<>(), "");
-		String[] params = { "--spring.cloud.task.name=bar" };
+	new ArrayList<>(), "");
+		String[] params = {"--spring.cloud.task.name=bar"};
 		enableLock("bar");
 		this.applicationContext = getTaskApplication(1).run(params);
 		assertThat(waitForDBToBePopulated()).isTrue();
@@ -270,7 +270,7 @@ public class TaskStartTests {
 	private boolean tableExists() throws SQLException {
 		boolean result;
 		try (Connection conn = this.dataSource.getConnection();
-				ResultSet res = conn.getMetaData().getTables(null, null, "TASK_EXECUTION", new String[] { "TABLE" })) {
+				ResultSet res = conn.getMetaData().getTables(null, null, "TASK_EXECUTION", new String[]{"TABLE"})) {
 			result = res.next();
 		}
 		return result;
@@ -309,7 +309,7 @@ public class TaskStartTests {
 			try {
 				if (defaultServer == null) {
 					server = Server.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
-							String.valueOf(randomPort)).start();
+				String.valueOf(randomPort)).start();
 					defaultServer = server;
 				}
 			}

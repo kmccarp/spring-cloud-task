@@ -107,10 +107,10 @@ public class TaskBatchExecutionListenerFactoryBean implements FactoryBean<TaskBa
 
 		if (AopUtils.isJdkDynamicProxy(this.taskExplorer)) {
 			SimpleTaskExplorer dereferencedTaskRepository = (SimpleTaskExplorer) ((Advised) this.taskExplorer)
-					.getTargetSource().getTarget();
+		.getTargetSource().getTarget();
 
 			taskExecutionDao = (MapTaskExecutionDao) ReflectionUtils.getField(taskExecutionDaoField,
-					dereferencedTaskRepository);
+		dereferencedTaskRepository);
 		}
 		else {
 			taskExecutionDao = (MapTaskExecutionDao) ReflectionUtils.getField(taskExecutionDaoField, this.taskExplorer);

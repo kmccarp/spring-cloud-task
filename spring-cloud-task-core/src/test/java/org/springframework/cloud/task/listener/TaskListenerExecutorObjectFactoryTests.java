@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2.1.0
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { TaskListenerExecutorObjectFactoryTests.TaskExecutionListenerConfiguration.class })
+@ContextConfiguration(classes = {TaskListenerExecutorObjectFactoryTests.TaskExecutionListenerConfiguration.class})
 @DirtiesContext
 public class TaskListenerExecutorObjectFactoryTests {
 
@@ -83,7 +83,7 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyTaskStartupListener() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
@@ -96,13 +96,13 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyTaskFailedListener() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
 
 			this.taskListenerExecutor.onTaskFailed(createSampleTaskExecution(FAIL_LISTENER),
-					new IllegalStateException("oops"));
+		new IllegalStateException("oops"));
 			validateSingleEntry(FAIL_LISTENER);
 		});
 	}
@@ -110,7 +110,7 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyTaskEndListener() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
@@ -123,14 +123,14 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyAllListener() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
 
 			this.taskListenerExecutor.onTaskStartup(createSampleTaskExecution(BEFORE_LISTENER));
 			this.taskListenerExecutor.onTaskFailed(createSampleTaskExecution(FAIL_LISTENER),
-					new IllegalStateException("oops"));
+		new IllegalStateException("oops"));
 			this.taskListenerExecutor.onTaskEnd(createSampleTaskExecution(AFTER_LISTENER));
 			assertThat(taskExecutionListenerResults.size()).isEqualTo(3);
 			assertThat(taskExecutionListenerResults.get(0).getTaskName()).isEqualTo(BEFORE_LISTENER);
@@ -142,7 +142,7 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyTaskStartupListenerWithMultipleInstances() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
@@ -155,13 +155,13 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyTaskFailedListenerWithMultipleInstances() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
 
 			this.taskListenerExecutor.onTaskFailed(createSampleTaskExecution(FAIL_LISTENER),
-					new IllegalStateException("oops"));
+		new IllegalStateException("oops"));
 			validateSingleEventWithMultipleInstances(FAIL_LISTENER);
 		});
 	}
@@ -169,7 +169,7 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyTaskEndListenerWithMultipleInstances() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
@@ -182,14 +182,14 @@ public class TaskListenerExecutorObjectFactoryTests {
 	@Test
 	public void verifyAllListenerWithMultipleInstances() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
+	.withUserConfiguration(TaskExecutionListenerMultipleInstanceConfiguration.class);
 
 		applicationContextRunner.run((context) -> {
 			setup(context);
 
 			this.taskListenerExecutor.onTaskStartup(createSampleTaskExecution(BEFORE_LISTENER));
 			this.taskListenerExecutor.onTaskFailed(createSampleTaskExecution(FAIL_LISTENER),
-					new IllegalStateException("oops"));
+		new IllegalStateException("oops"));
 			this.taskListenerExecutor.onTaskEnd(createSampleTaskExecution(AFTER_LISTENER));
 			assertThat(taskExecutionListenerResults.size()).isEqualTo(6);
 			assertThat(taskExecutionListenerResults.get(0).getTaskName()).isEqualTo(BEFORE_LISTENER);

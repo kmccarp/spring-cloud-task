@@ -66,7 +66,7 @@ public class BatchJobApplicationTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	private File outputFile;
@@ -92,35 +92,35 @@ public class BatchJobApplicationTests {
 	@Test
 	public void testFileReaderJdbcWriter() throws Exception {
 		getSpringApplication().run(SingleStepBatchJobApplication.class, "--spring.profiles.active=ffreader,jdbcwriter",
-				"--spring.datasource.username=" + DATASOURCE_USER_NAME, "--spring.datasource.url=" + DATASOURCE_URL,
-				"--spring.datasource.driver-class-name=" + DATASOURCE_DRIVER_CLASS_NAME,
-				"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD, "foo=testFileReaderJdbcWriter");
+	"--spring.datasource.username=" + DATASOURCE_USER_NAME, "--spring.datasource.url=" + DATASOURCE_URL,
+	"--spring.datasource.driver-class-name=" + DATASOURCE_DRIVER_CLASS_NAME,
+	"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD, "foo=testFileReaderJdbcWriter");
 		validateDBResult();
 	}
 
 	@Test
 	public void testJdbcReaderJdbcWriter() throws Exception {
 		getSpringApplication().run(SingleStepBatchJobApplication.class,
-				"--spring.profiles.active=jdbcreader,jdbcwriter",
-				"--spring.datasource.username=" + DATASOURCE_USER_NAME, "--spring.datasource.url=" + DATASOURCE_URL,
-				"--spring.datasource.driver-class-name=" + DATASOURCE_DRIVER_CLASS_NAME,
-				"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD, "foo=testJdbcReaderJdbcWriter");
+	"--spring.profiles.active=jdbcreader,jdbcwriter",
+	"--spring.datasource.username=" + DATASOURCE_USER_NAME, "--spring.datasource.url=" + DATASOURCE_URL,
+	"--spring.datasource.driver-class-name=" + DATASOURCE_DRIVER_CLASS_NAME,
+	"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD, "foo=testJdbcReaderJdbcWriter");
 		validateDBResult();
 	}
 
 	@Test
 	public void testJdbcReaderFlatfileWriter() throws Exception {
 		getSpringApplication().run(SingleStepBatchJobApplication.class, "--spring.profiles.active=jdbcreader,ffwriter",
-				"--spring.datasource.username=" + DATASOURCE_USER_NAME, "--spring.datasource.url=" + DATASOURCE_URL,
-				"--spring.datasource.driver-class-name=" + DATASOURCE_DRIVER_CLASS_NAME,
-				"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD, "foo=testJdbcReaderFlatfileWriter");
+	"--spring.datasource.username=" + DATASOURCE_USER_NAME, "--spring.datasource.url=" + DATASOURCE_URL,
+	"--spring.datasource.driver-class-name=" + DATASOURCE_DRIVER_CLASS_NAME,
+	"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD, "foo=testJdbcReaderFlatfileWriter");
 		validateFileResult();
 	}
 
 	@Test
 	public void testFileReaderFileWriter() throws Exception {
 		getSpringApplication().run(SingleStepBatchJobApplication.class, "--spring.profiles.active=ffreader,ffwriter",
-				"foo=testFileReaderFileWriter");
+	"foo=testFileReaderFileWriter");
 		validateFileResult();
 	}
 
@@ -129,8 +129,8 @@ public class BatchJobApplicationTests {
 
 		if (defaultServer == null) {
 			server = Server
-				.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort", String.valueOf(randomPort))
-				.start();
+		.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort", String.valueOf(randomPort))
+		.start();
 			defaultServer = server;
 			DriverManagerDataSource dataSource = new DriverManagerDataSource();
 			dataSource.setDriverClassName(DATASOURCE_DRIVER_CLASS_NAME);
@@ -148,7 +148,7 @@ public class BatchJobApplicationTests {
 	private void validateFileResult() throws Exception {
 		assertThat(Assertions.linesOf(this.outputFile, StandardCharsets.UTF_16).size()).isEqualTo(6);
 		assertThat(Assertions.contentOf((new ClassPathResource("testresult.txt")).getFile())
-			.equals(new FileSystemResource(this.outputFile)));
+	.equals(new FileSystemResource(this.outputFile)));
 	}
 
 	private void validateDBResult() {

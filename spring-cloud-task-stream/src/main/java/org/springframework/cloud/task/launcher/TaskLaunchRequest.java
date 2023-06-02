@@ -57,7 +57,7 @@ public class TaskLaunchRequest implements Serializable {
 	 * the launched task name will be "Task-`hash code of the TaskLaunchRequest`.
 	 */
 	public TaskLaunchRequest(String uri, List<String> commandlineArguments, Map<String, String> environmentProperties,
-			Map<String, String> deploymentProperties, String applicationName) {
+Map<String, String> deploymentProperties, String applicationName) {
 		Assert.hasText(uri, "uri must not be empty nor null.");
 
 		this.uri = uri;
@@ -122,14 +122,14 @@ public class TaskLaunchRequest implements Serializable {
 	 */
 	public void setApplicationName(String applicationName) {
 		this.applicationName = !StringUtils.hasText(applicationName) ? "Task-" + UUID.randomUUID().toString()
-				: applicationName;
+	: applicationName;
 	}
 
 	@Override
 	public String toString() {
 		return "TaskLaunchRequest{" + "uri='" + this.uri + '\'' + ", commandlineArguments=" + this.commandlineArguments
-				+ ", environmentProperties=" + this.environmentProperties + ", deploymentProperties="
-				+ this.deploymentProperties + '}';
+	+ ", environmentProperties=" + this.environmentProperties + ", deploymentProperties="
+	+ this.deploymentProperties + '}';
 	}
 
 	@Override

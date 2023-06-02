@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableTask
 @SpringBootApplication
-@EnableConfigurationProperties({ TimestampTaskProperties.class })
+@EnableConfigurationProperties({TimestampTaskProperties.class})
 public class TaskApplication {
 
 	private static final Log logger = LogFactory.getLog(TaskApplication.class);

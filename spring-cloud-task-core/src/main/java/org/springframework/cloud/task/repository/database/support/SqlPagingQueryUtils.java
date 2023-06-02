@@ -72,7 +72,7 @@ public final class SqlPagingQueryUtils {
 	 * @param sql the sql statement to be appended.
 	 */
 	public static void buildWhereClause(AbstractSqlPagingQueryProvider provider, boolean remainingPageQuery,
-			StringBuilder sql) {
+StringBuilder sql) {
 		if (remainingPageQuery) {
 			sql.append(" WHERE ");
 			if (provider.getWhereClause() != null) {

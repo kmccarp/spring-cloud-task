@@ -77,7 +77,7 @@ public class EventEmittingItemReadListener implements ItemReadListener, Ordered 
 		}
 
 		this.messagePublisher.publishWithThrowableHeader(this.properties.getItemReadEventBindingName(),
-				"Exception while item was being read", ex.getMessage());
+	"Exception while item was being read", ex.getMessage());
 	}
 
 	@Override

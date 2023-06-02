@@ -59,29 +59,29 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 
 	@Override
 	public TaskExecution createTaskExecution(String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId) {
+String externalExecutionId) {
 		return createTaskExecution(taskName, startTime, arguments, externalExecutionId, null);
 	}
 
 	@Override
 	public TaskExecution createTaskExecution(String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId, Long parentExecutionId) {
+String externalExecutionId, Long parentExecutionId) {
 		long taskExecutionId = getNextExecutionId();
 		TaskExecution taskExecution = new TaskExecution(taskExecutionId, null, taskName, startTime, null, null,
-				arguments, null, externalExecutionId, parentExecutionId);
+	arguments, null, externalExecutionId, parentExecutionId);
 		this.taskExecutions.put(taskExecutionId, taskExecution);
 		return taskExecution;
 	}
 
 	@Override
 	public TaskExecution startTaskExecution(long executionId, String taskName, LocalDateTime startTime,
-			List<String> arguments, String externalExecutionid) {
+List<String> arguments, String externalExecutionid) {
 		return startTaskExecution(executionId, taskName, startTime, arguments, externalExecutionid, null);
 	}
 
 	@Override
 	public TaskExecution startTaskExecution(long executionId, String taskName, LocalDateTime startTime,
-			List<String> arguments, String externalExecutionid, Long parentExecutionId) {
+List<String> arguments, String externalExecutionid, Long parentExecutionId) {
 		TaskExecution taskExecution = this.taskExecutions.get(executionId);
 		taskExecution.setTaskName(taskName);
 		taskExecution.setStartTime(startTime);
@@ -95,7 +95,7 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 
 	@Override
 	public void completeTaskExecution(long executionId, Integer exitCode, LocalDateTime endTime, String exitMessage,
-			String errorMessage) {
+String errorMessage) {
 		if (!this.taskExecutions.containsKey(executionId)) {
 			throw new IllegalStateException("Invalid TaskExecution, ID " + executionId + " not found.");
 		}
@@ -256,7 +256,7 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 
 	private Page getPageFromList(List<TaskExecution> executionList, Pageable pageable, long maxSize) {
 		long toIndex = (pageable.getOffset() + pageable.getPageSize() > executionList.size()) ? executionList.size()
-				: pageable.getOffset() + pageable.getPageSize();
+	: pageable.getOffset() + pageable.getPageSize();
 		return new PageImpl<>(executionList.subList((int) pageable.getOffset(), (int) toIndex), pageable, maxSize);
 	}
 
@@ -274,8 +274,8 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 		}
 
 		Assert.isTrue(taskNamesAsList.size() == taskNames.length,
-				String.format("Task names must not contain any empty elements but %s of %s were empty or null.",
-						taskNames.length - taskNamesAsList.size(), taskNames.length));
+	String.format("Task names must not contain any empty elements but %s of %s were empty or null.",
+taskNames.length - taskNamesAsList.size(), taskNames.length));
 
 		final Map<String, TaskExecution> tempTaskExecutions = new HashMap<>();
 
@@ -285,14 +285,14 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 			}
 
 			final TaskExecution tempTaskExecution = tempTaskExecutions
-					.get(taskExecutionMapEntry.getValue().getTaskName());
+		.get(taskExecutionMapEntry.getValue().getTaskName());
 			if (tempTaskExecution == null
-					|| tempTaskExecution.getStartTime().isBefore(taskExecutionMapEntry.getValue().getStartTime())
-					|| (tempTaskExecution.getStartTime().equals(taskExecutionMapEntry.getValue().getStartTime())
-							&& tempTaskExecution.getExecutionId() < taskExecutionMapEntry.getValue()
-									.getExecutionId())) {
+		|| tempTaskExecution.getStartTime().isBefore(taskExecutionMapEntry.getValue().getStartTime())
+		|| (tempTaskExecution.getStartTime().equals(taskExecutionMapEntry.getValue().getStartTime())
+		&& tempTaskExecution.getExecutionId() < taskExecutionMapEntry.getValue()
+		.getExecutionId())) {
 				tempTaskExecutions.put(taskExecutionMapEntry.getValue().getTaskName(),
-						taskExecutionMapEntry.getValue());
+			taskExecutionMapEntry.getValue());
 			}
 		}
 		final List<TaskExecution> latestTaskExecutions = new ArrayList<>(tempTaskExecutions.values());
@@ -312,7 +312,7 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 		}
 		else {
 			throw new IllegalStateException(
-					"Only expected a single TaskExecution but received " + taskExecutions.size());
+		"Only expected a single TaskExecution but received " + taskExecutions.size());
 		}
 	}
 

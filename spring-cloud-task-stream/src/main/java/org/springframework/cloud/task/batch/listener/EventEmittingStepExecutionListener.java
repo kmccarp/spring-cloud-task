@@ -51,7 +51,7 @@ public class EventEmittingStepExecutionListener implements StepExecutionListener
 	}
 
 	public EventEmittingStepExecutionListener(MessagePublisher messagePublisher, int order,
-			TaskEventProperties properties) {
+TaskEventProperties properties) {
 		this(messagePublisher, properties);
 		this.order = order;
 	}
@@ -59,13 +59,13 @@ public class EventEmittingStepExecutionListener implements StepExecutionListener
 	@Override
 	public void beforeStep(StepExecution stepExecution) {
 		this.messagePublisher.publish(this.properties.getStepExecutionEventBindingName(),
-				new StepExecutionEvent(stepExecution));
+	new StepExecutionEvent(stepExecution));
 	}
 
 	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
 		this.messagePublisher.publish(this.properties.getStepExecutionEventBindingName(),
-				new StepExecutionEvent(stepExecution));
+	new StepExecutionEvent(stepExecution));
 
 		return stepExecution.getExitStatus();
 	}

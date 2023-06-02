@@ -91,8 +91,8 @@ public class TaskExecution {
 	}
 
 	public TaskExecution(long executionId, Integer exitCode, String taskName, LocalDateTime startTime,
-			LocalDateTime endTime, String exitMessage, List<String> arguments, String errorMessage,
-			String externalExecutionId, Long parentExecutionId) {
+LocalDateTime endTime, String exitMessage, List<String> arguments, String errorMessage,
+String externalExecutionId, Long parentExecutionId) {
 
 		Assert.notNull(arguments, "arguments must not be null");
 		this.executionId = executionId;
@@ -108,11 +108,11 @@ public class TaskExecution {
 	}
 
 	public TaskExecution(long executionId, Integer exitCode, String taskName, LocalDateTime startTime,
-			LocalDateTime endTime, String exitMessage, List<String> arguments, String errorMessage,
-			String externalExecutionId) {
+LocalDateTime endTime, String exitMessage, List<String> arguments, String errorMessage,
+String externalExecutionId) {
 
 		this(executionId, exitCode, taskName, startTime, endTime, exitMessage, arguments, errorMessage,
-				externalExecutionId, null);
+	externalExecutionId, null);
 	}
 
 	public long getExecutionId() {
@@ -194,10 +194,10 @@ public class TaskExecution {
 	@Override
 	public String toString() {
 		return "TaskExecution{" + "executionId=" + this.executionId + ", parentExecutionId=" + this.parentExecutionId
-				+ ", exitCode=" + this.exitCode + ", taskName='" + this.taskName + '\'' + ", startTime="
-				+ this.startTime + ", endTime=" + this.endTime + ", exitMessage='" + this.exitMessage + '\''
-				+ ", externalExecutionId='" + this.externalExecutionId + '\'' + ", errorMessage='" + this.errorMessage
-				+ '\'' + ", arguments=" + this.arguments + '}';
+	+ ", exitCode=" + this.exitCode + ", taskName='" + this.taskName + '\'' + ", startTime="
+	+ this.startTime + ", endTime=" + this.endTime + ", exitMessage='" + this.exitMessage + '\''
+	+ ", externalExecutionId='" + this.externalExecutionId + '\'' + ", errorMessage='" + this.errorMessage
+	+ '\'' + ", arguments=" + this.arguments + '}';
 	}
 
 }

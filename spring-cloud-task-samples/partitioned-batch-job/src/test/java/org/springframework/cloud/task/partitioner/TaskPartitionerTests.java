@@ -50,7 +50,7 @@ import org.springframework.test.util.TestSocketUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { TaskPartitionerTests.TaskLauncherConfiguration.class })
+@SpringBootTest(classes = {TaskPartitionerTests.TaskLauncherConfiguration.class})
 public class TaskPartitionerTests {
 
 	private final static String DATASOURCE_USER_NAME = "SA";
@@ -66,7 +66,7 @@ public class TaskPartitionerTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	private TaskExplorer taskExplorer;
@@ -117,8 +117,8 @@ public class TaskPartitionerTests {
 		Page<TaskExecution> taskExecutions = this.taskExplorer.findAll(PageRequest.of(0, 10));
 		assertThat(taskExecutions.getTotalElements()).as("Five rows are expected").isEqualTo(5);
 		assertThat(this.taskExplorer.getTaskExecutionCountByTaskName("PartitionedBatchJobTask"))
-			.as("Only One master is expected")
-			.isEqualTo(1);
+	.as("Only One master is expected")
+	.isEqualTo(1);
 		for (TaskExecution taskExecution : taskExecutions) {
 			assertThat(taskExecution.getExitCode().intValue()).as("return code should be 0").isEqualTo(0);
 		}
@@ -132,8 +132,8 @@ public class TaskPartitionerTests {
 			Server server;
 			try {
 				server = Server
-					.createTcpServer("-tcp", "-ifNotExists", "-tcpAllowOthers", "-tcpPort", String.valueOf(randomPort))
-					.start();
+			.createTcpServer("-tcp", "-ifNotExists", "-tcpAllowOthers", "-tcpPort", String.valueOf(randomPort))
+			.start();
 			}
 			catch (SQLException e) {
 				throw new IllegalStateException(e);

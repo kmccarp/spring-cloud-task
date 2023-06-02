@@ -51,7 +51,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { TaskInitializerTests.TaskLauncherConfiguration.class })
+@SpringBootTest(classes = {TaskInitializerTests.TaskLauncherConfiguration.class})
 public class TaskInitializerTests {
 
 	private final static int WAIT_INTERVAL = 500;
@@ -75,7 +75,7 @@ public class TaskInitializerTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	private DataSource dataSource;
@@ -122,7 +122,7 @@ public class TaskInitializerTests {
 	@Test
 	public void testNotInitialized() throws Exception {
 		SpringApplication myapp = new SpringApplication(TaskStartApplication.class);
-		String[] properties = { "--spring.cloud.task.initialize-enabled=false" };
+		String[] properties = {"--spring.cloud.task.initialize-enabled=false"};
 		assertThatExceptionOfType(ApplicationContextException.class).isThrownBy(() -> {
 			this.applicationContext = myapp.run(properties);
 		});
@@ -131,7 +131,7 @@ public class TaskInitializerTests {
 	@Test
 	public void testWithInitialized() throws Exception {
 		SpringApplication myapp = new SpringApplication(TaskStartApplication.class);
-		String[] properties = { "--spring.cloud.task.initialize-enabled=true" };
+		String[] properties = {"--spring.cloud.task.initialize-enabled=true"};
 		this.applicationContext = myapp.run(properties);
 		assertThat(waitForDBToBePopulated()).isTrue();
 
@@ -139,13 +139,13 @@ public class TaskInitializerTests {
 		TaskExecution te = taskExecutions.iterator().next();
 		assertThat(taskExecutions.getTotalElements()).as("Only one row is expected").isEqualTo(1);
 		assertThat(taskExecutions.iterator().next().getExitCode().intValue()).as("return code should be 0")
-				.isEqualTo(0);
+	.isEqualTo(0);
 	}
 
 	@Test
 	public void testNotInitializedOriginalProperty() throws Exception {
 		SpringApplication myapp = new SpringApplication(TaskStartApplication.class);
-		String[] properties = { "--spring.cloud.task.initialize.enable=false" };
+		String[] properties = {"--spring.cloud.task.initialize.enable=false"};
 		assertThatExceptionOfType(ApplicationContextException.class).isThrownBy(() -> {
 			this.applicationContext = myapp.run(properties);
 		});
@@ -154,7 +154,7 @@ public class TaskInitializerTests {
 	@Test
 	public void testWithInitializedOriginalProperty() throws Exception {
 		SpringApplication myapp = new SpringApplication(TaskStartApplication.class);
-		String[] properties = { "--spring.cloud.task.initialize.enable=true" };
+		String[] properties = {"--spring.cloud.task.initialize.enable=true"};
 		this.applicationContext = myapp.run(properties);
 		assertThat(waitForDBToBePopulated()).isTrue();
 
@@ -162,13 +162,13 @@ public class TaskInitializerTests {
 		TaskExecution te = taskExecutions.iterator().next();
 		assertThat(taskExecutions.getTotalElements()).as("Only one row is expected").isEqualTo(1);
 		assertThat(taskExecutions.iterator().next().getExitCode().intValue()).as("return code should be 0")
-				.isEqualTo(0);
+	.isEqualTo(0);
 	}
 
 	private boolean tableExists() throws SQLException {
 		boolean result;
 		try (Connection conn = this.dataSource.getConnection();
-				ResultSet res = conn.getMetaData().getTables(null, null, "TASK_EXECUTION", new String[] { "TABLE" })) {
+				ResultSet res = conn.getMetaData().getTables(null, null, "TASK_EXECUTION", new String[]{"TABLE"})) {
 			result = res.next();
 		}
 		return result;
@@ -197,7 +197,7 @@ public class TaskInitializerTests {
 			try {
 				if (defaultServer == null) {
 					server = Server.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
-							String.valueOf(randomPort)).start();
+				String.valueOf(randomPort)).start();
 					defaultServer = server;
 				}
 			}

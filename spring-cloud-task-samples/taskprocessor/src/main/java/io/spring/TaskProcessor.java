@@ -52,7 +52,7 @@ public class TaskProcessor {
 			}
 			if (StringUtils.hasText(this.processorProperties.getDataSourceDriverClassName())) {
 				properties.put("spring_datasource_driverClassName",
-						this.processorProperties.getDataSourceDriverClassName());
+			this.processorProperties.getDataSourceDriverClassName());
 			}
 			if (StringUtils.hasText(this.processorProperties.getDataSourceUserName())) {
 				properties.put("spring_datasource_username", this.processorProperties.getDataSourceUserName());
@@ -63,7 +63,7 @@ public class TaskProcessor {
 			properties.put("payload", message);
 
 			TaskLaunchRequest request = new TaskLaunchRequest(this.processorProperties.getUri(), null, properties, null,
-					this.processorProperties.getApplicationName());
+		this.processorProperties.getApplicationName());
 
 			return MessageBuilder.withPayload(request).build();
 		};

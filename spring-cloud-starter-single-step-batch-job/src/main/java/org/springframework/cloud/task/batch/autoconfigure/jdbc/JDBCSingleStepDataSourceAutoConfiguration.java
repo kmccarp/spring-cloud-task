@@ -46,7 +46,7 @@ class JDBCSingleStepDataSourceAutoConfiguration {
 	}
 
 	@ConditionalOnProperty(prefix = "spring.batch.job.jdbcsinglestep.datasource", name = "enable", havingValue = "true",
-			matchIfMissing = true)
+matchIfMissing = true)
 	@ConditionalOnMissingBean(name = "springDataSourceProperties")
 	@Bean(name = "springDataSourceProperties")
 	@ConfigurationProperties("spring.datasource")
@@ -56,11 +56,11 @@ class JDBCSingleStepDataSourceAutoConfiguration {
 	}
 
 	@ConditionalOnProperty(prefix = "spring.batch.job.jdbcsinglestep.datasource", name = "enable", havingValue = "true",
-			matchIfMissing = true)
+matchIfMissing = true)
 	@Bean(name = "springDataSource")
 	@Primary
 	public DataSource dataSource(
-			@Qualifier("springDataSourceProperties") DataSourceProperties springDataSourceProperties) {
+@Qualifier("springDataSourceProperties") DataSourceProperties springDataSourceProperties) {
 		DataSource dataSource = springDataSourceProperties.initializeDataSourceBuilder().build();
 		return dataSource;
 	}

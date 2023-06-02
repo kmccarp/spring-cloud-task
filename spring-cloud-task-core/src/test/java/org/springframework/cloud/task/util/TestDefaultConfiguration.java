@@ -80,18 +80,18 @@ public class TestDefaultConfiguration implements InitializingBean {
 
 	@Bean
 	public TaskListenerExecutorObjectFactory taskListenerExecutorObjectProvider(
-			ConfigurableApplicationContext context) {
+ConfigurableApplicationContext context) {
 		return new TaskListenerExecutorObjectFactory(context);
 	}
 
 	@Bean
 	public TaskLifecycleListener taskHandler(TaskExplorer taskExplorer,
-			@Autowired(required = false) io.micrometer.core.instrument.MeterRegistry meterRegistry,
-			@Autowired(required = false) ObservationRegistry observationRegistry) {
+@Autowired(required = false) io.micrometer.core.instrument.MeterRegistry meterRegistry,
+@Autowired(required = false) ObservationRegistry observationRegistry) {
 
 		return new TaskLifecycleListener(taskRepository(), taskNameResolver(), this.applicationArguments, taskExplorer,
-				this.taskProperties, taskListenerExecutorObjectProvider(this.context), observationRegistry,
-				new TaskObservationCloudKeyValues());
+	this.taskProperties, taskListenerExecutorObjectProvider(this.context), observationRegistry,
+	new TaskObservationCloudKeyValues());
 	}
 
 	@Override

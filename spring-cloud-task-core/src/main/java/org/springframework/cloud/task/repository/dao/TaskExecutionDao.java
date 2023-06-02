@@ -43,7 +43,7 @@ public interface TaskExecutionDao {
 	 * @return A fully qualified {@link TaskExecution} instance.
 	 */
 	TaskExecution createTaskExecution(String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId);
+String externalExecutionId);
 
 	/**
 	 * Save a new {@link TaskExecution}.
@@ -56,7 +56,7 @@ public interface TaskExecutionDao {
 	 * @since 1.2.0
 	 */
 	TaskExecution createTaskExecution(String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId, Long parentExecutionId);
+String externalExecutionId, Long parentExecutionId);
 
 	/**
 	 * Update and existing {@link TaskExecution} to mark it as started.
@@ -70,7 +70,7 @@ public interface TaskExecutionDao {
 	 * @since 1.1.0
 	 */
 	TaskExecution startTaskExecution(long executionId, String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId);
+String externalExecutionId);
 
 	/**
 	 * Update and existing {@link TaskExecution} to mark it as started.
@@ -85,7 +85,7 @@ public interface TaskExecutionDao {
 	 * @since 1.2.0
 	 */
 	TaskExecution startTaskExecution(long executionId, String taskName, LocalDateTime startTime, List<String> arguments,
-			String externalExecutionId, Long parentExecutionId);
+String externalExecutionId, Long parentExecutionId);
 
 	/**
 	 * Update and existing {@link TaskExecution} to mark it as completed.
@@ -97,7 +97,7 @@ public interface TaskExecutionDao {
 	 * @since 1.1.0
 	 */
 	void completeTaskExecution(long executionId, Integer exitCode, LocalDateTime endTime, String exitMessage,
-			String errorMessage);
+String errorMessage);
 
 	/**
 	 * Update and existing {@link TaskExecution}.

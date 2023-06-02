@@ -54,7 +54,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@EmbeddedKafka(partitions = 1, topics = { "test" })
+@EmbeddedKafka(partitions = 1, topics = {"test"})
 public class KafkaItemReaderAutoConfigurationTests {
 
 	private static EmbeddedKafkaBroker embeddedKafkaBroker;
@@ -63,7 +63,7 @@ public class KafkaItemReaderAutoConfigurationTests {
 	public static void setupTest(EmbeddedKafkaBroker embeddedKafka) {
 		embeddedKafkaBroker = embeddedKafka;
 		embeddedKafka.addTopics(new NewTopic("topic1", 1, (short) 1), new NewTopic("topic2", 2, (short) 1),
-				new NewTopic("topic3", 1, (short) 1));
+	new NewTopic("topic3", 1, (short) 1));
 	}
 
 	@Test
@@ -71,17 +71,17 @@ public class KafkaItemReaderAutoConfigurationTests {
 		final String topicName = "topic1";
 		populateSingleTopic(topicName);
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(CustomMappingConfiguration.class)
-				.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
-						BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
-						KafkaItemReaderAutoConfiguration.class, DataSourceAutoConfiguration.class))
-				.withPropertyValues("spring.batch.job.jobName=job", "spring.batch.job.stepName=step1",
-						"spring.batch.job.chunkSize=5",
-						"spring.kafka.consumer.bootstrap-servers=" + embeddedKafkaBroker.getBrokersAsString(),
-						"spring.kafka.consumer.group-id=1", "spring.batch.job.kafkaitemreader.name=kafkaItemReader",
-						"spring.batch.job.kafkaitemreader.poll-time-out-in-seconds=2",
-						"spring.batch.job.kafkaitemreader.topic=" + topicName,
-						"spring.kafka.consumer.value-deserializer=" + JsonDeserializer.class.getName());
+	.withUserConfiguration(CustomMappingConfiguration.class)
+	.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
+BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
+KafkaItemReaderAutoConfiguration.class, DataSourceAutoConfiguration.class))
+	.withPropertyValues("spring.batch.job.jobName=job", "spring.batch.job.stepName=step1",
+"spring.batch.job.chunkSize=5",
+"spring.kafka.consumer.bootstrap-servers=" + embeddedKafkaBroker.getBrokersAsString(),
+"spring.kafka.consumer.group-id=1", "spring.batch.job.kafkaitemreader.name=kafkaItemReader",
+"spring.batch.job.kafkaitemreader.poll-time-out-in-seconds=2",
+"spring.batch.job.kafkaitemreader.topic=" + topicName,
+"spring.kafka.consumer.value-deserializer=" + JsonDeserializer.class.getName());
 
 		applicationContextRunner.run((context) -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
@@ -113,18 +113,18 @@ public class KafkaItemReaderAutoConfigurationTests {
 		final String topicName = "topic2";
 		populateSingleTopic(topicName);
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(CustomMappingConfiguration.class)
-				.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
-						BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
-						KafkaItemReaderAutoConfiguration.class, DataSourceAutoConfiguration.class))
-				.withPropertyValues("spring.batch.job.jobName=job", "spring.batch.job.stepName=step1",
-						"spring.batch.job.chunkSize=5",
-						"spring.kafka.consumer.bootstrap-servers=" + embeddedKafkaBroker.getBrokersAsString(),
-						"spring.kafka.consumer.group-id=1", "spring.batch.job.kafkaitemreader.name=kafkaItemReader",
-						"spring.batch.job.kafkaitemreader.partitions=0,1",
-						"spring.batch.job.kafkaitemreader.poll-time-out-in-seconds=2",
-						"spring.batch.job.kafkaitemreader.topic=" + topicName,
-						"spring.kafka.consumer.value-deserializer=" + JsonDeserializer.class.getName());
+	.withUserConfiguration(CustomMappingConfiguration.class)
+	.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
+BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
+KafkaItemReaderAutoConfiguration.class, DataSourceAutoConfiguration.class))
+	.withPropertyValues("spring.batch.job.jobName=job", "spring.batch.job.stepName=step1",
+"spring.batch.job.chunkSize=5",
+"spring.kafka.consumer.bootstrap-servers=" + embeddedKafkaBroker.getBrokersAsString(),
+"spring.kafka.consumer.group-id=1", "spring.batch.job.kafkaitemreader.name=kafkaItemReader",
+"spring.batch.job.kafkaitemreader.partitions=0,1",
+"spring.batch.job.kafkaitemreader.poll-time-out-in-seconds=2",
+"spring.batch.job.kafkaitemreader.topic=" + topicName,
+"spring.kafka.consumer.value-deserializer=" + JsonDeserializer.class.getName());
 
 		applicationContextRunner.run((context) -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
@@ -150,16 +150,16 @@ public class KafkaItemReaderAutoConfigurationTests {
 		final String topicName = "topic3";
 		populateSingleTopic(topicName);
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(CustomMappingConfiguration.class)
-				.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
-						BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
-						KafkaItemReaderAutoConfiguration.class, DataSourceAutoConfiguration.class))
-				.withPropertyValues("spring.batch.job.jobName=job", "spring.batch.job.stepName=step1",
-						"spring.batch.job.chunkSize=5",
-						"spring.kafka.consumer.bootstrap-servers=" + embeddedKafkaBroker.getBrokersAsString(),
-						"spring.kafka.consumer.group-id=1", "spring.batch.job.kafkaitemreader.name=kafkaItemReader",
-						"spring.batch.job.kafkaitemreader.topic=" + topicName,
-						"spring.kafka.consumer.value-deserializer=" + JsonDeserializer.class.getName());
+	.withUserConfiguration(CustomMappingConfiguration.class)
+	.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
+BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
+KafkaItemReaderAutoConfiguration.class, DataSourceAutoConfiguration.class))
+	.withPropertyValues("spring.batch.job.jobName=job", "spring.batch.job.stepName=step1",
+"spring.batch.job.chunkSize=5",
+"spring.kafka.consumer.bootstrap-servers=" + embeddedKafkaBroker.getBrokersAsString(),
+"spring.kafka.consumer.group-id=1", "spring.batch.job.kafkaitemreader.name=kafkaItemReader",
+"spring.batch.job.kafkaitemreader.topic=" + topicName,
+"spring.kafka.consumer.value-deserializer=" + JsonDeserializer.class.getName());
 		Date startTime = new Date();
 		applicationContextRunner.run((context) -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
@@ -196,7 +196,7 @@ public class KafkaItemReaderAutoConfigurationTests {
 	private void populateSingleTopic(String topic) {
 		Map<String, Object> configps = new HashMap<>(KafkaTestUtils.producerProps(embeddedKafkaBroker));
 		Producer<String, Object> producer = new DefaultKafkaProducerFactory<>(configps, new StringSerializer(),
-				new JsonSerializer<>()).createProducer();
+	new JsonSerializer<>()).createProducer();
 		Map<String, Object> testMap = new HashMap<>();
 		testMap.put("first_name", "jane");
 		producer.send(new ProducerRecord<>(topic, "my-aggregate-id", testMap));

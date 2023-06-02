@@ -85,11 +85,11 @@ public class TaskLauncherHandler implements Runnable {
 	 * @param workerStepExecution The {@link StepExecution} for the paritition.
 	 */
 	public TaskLauncherHandler(CommandLineArgsProvider commandLineArgsProvider, TaskRepository taskRepository,
-			boolean defaultArgsAsEnvironmentVars, String stepName, TaskExecution taskExecution,
-			EnvironmentVariablesProvider environmentVariablesProvider, Resource resource,
-			Map<String, String> deploymentProperties,
-			org.springframework.cloud.deployer.spi.task.TaskLauncher taskLauncher, String applicationName,
-			StepExecution workerStepExecution) {
+boolean defaultArgsAsEnvironmentVars, String stepName, TaskExecution taskExecution,
+EnvironmentVariablesProvider environmentVariablesProvider, Resource resource,
+Map<String, String> deploymentProperties,
+org.springframework.cloud.deployer.spi.task.TaskLauncher taskLauncher, String applicationName,
+StepExecution workerStepExecution) {
 		this.commandLineArgsProvider = commandLineArgsProvider;
 		this.taskRepository = taskRepository;
 		this.defaultArgsAsEnvironmentVars = defaultArgsAsEnvironmentVars;
@@ -124,10 +124,10 @@ public class TaskLauncherHandler implements Runnable {
 	 * @param applicationName The name to be associated with task.
 	 */
 	public TaskLauncherHandler(CommandLineArgsProvider commandLineArgsProvider, TaskRepository taskRepository,
-			boolean defaultArgsAsEnvironmentVars, String stepName, TaskExecution taskExecution,
-			EnvironmentVariablesProvider environmentVariablesProvider, Resource resource,
-			Map<String, String> deploymentProperties,
-			org.springframework.cloud.deployer.spi.task.TaskLauncher taskLauncher, String applicationName) {
+boolean defaultArgsAsEnvironmentVars, String stepName, TaskExecution taskExecution,
+EnvironmentVariablesProvider environmentVariablesProvider, Resource resource,
+Map<String, String> deploymentProperties,
+org.springframework.cloud.deployer.spi.task.TaskLauncher taskLauncher, String applicationName) {
 		this.commandLineArgsProvider = commandLineArgsProvider;
 		this.taskRepository = taskRepository;
 		this.defaultArgsAsEnvironmentVars = defaultArgsAsEnvironmentVars;
@@ -167,48 +167,48 @@ public class TaskLauncherHandler implements Runnable {
 
 		if (!this.defaultArgsAsEnvironmentVars) {
 			arguments.add(formatArgument(DeployerPartitionHandler.SPRING_CLOUD_TASK_JOB_EXECUTION_ID,
-					String.valueOf(workerStepExecution.getJobExecution().getId())));
+		String.valueOf(workerStepExecution.getJobExecution().getId())));
 			arguments.add(formatArgument(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_EXECUTION_ID,
-					String.valueOf(workerStepExecution.getId())));
+		String.valueOf(workerStepExecution.getId())));
 			arguments.add(formatArgument(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_NAME, this.stepName));
 			arguments.add(formatArgument(DeployerPartitionHandler.SPRING_CLOUD_TASK_NAME,
-					String.format("%s_%s_%s", this.taskExecution.getTaskName(),
-							workerStepExecution.getJobExecution().getJobInstance().getJobName(),
-							workerStepExecution.getStepName())));
+		String.format("%s_%s_%s", this.taskExecution.getTaskName(),
+	workerStepExecution.getJobExecution().getJobInstance().getJobName(),
+	workerStepExecution.getStepName())));
 			arguments.add(formatArgument(DeployerPartitionHandler.SPRING_CLOUD_TASK_PARENT_EXECUTION_ID,
-					String.valueOf(this.taskExecution.getExecutionId())));
+		String.valueOf(this.taskExecution.getExecutionId())));
 
 			if (partitionTaskExecution != null) {
 				arguments.add(formatArgument(DeployerPartitionHandler.SPRING_CLOUD_TASK_EXECUTION_ID,
-						String.valueOf(partitionTaskExecution.getExecutionId())));
+			String.valueOf(partitionTaskExecution.getExecutionId())));
 			}
 		}
 
 		copyContext = new ExecutionContext(workerStepExecution.getExecutionContext());
 
 		Map<String, String> environmentVariables = this.environmentVariablesProvider
-				.getEnvironmentVariables(copyContext);
+	.getEnvironmentVariables(copyContext);
 
 		if (this.defaultArgsAsEnvironmentVars) {
 			environmentVariables.put(DeployerPartitionHandler.SPRING_CLOUD_TASK_JOB_EXECUTION_ID,
-					String.valueOf(workerStepExecution.getJobExecution().getId()));
+		String.valueOf(workerStepExecution.getJobExecution().getId()));
 			environmentVariables.put(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_EXECUTION_ID,
-					String.valueOf(workerStepExecution.getId()));
+		String.valueOf(workerStepExecution.getId()));
 			environmentVariables.put(DeployerPartitionHandler.SPRING_CLOUD_TASK_STEP_NAME, this.stepName);
 			environmentVariables.put(DeployerPartitionHandler.SPRING_CLOUD_TASK_NAME,
-					String.format("%s_%s_%s", this.taskExecution.getTaskName(),
-							workerStepExecution.getJobExecution().getJobInstance().getJobName(),
-							workerStepExecution.getStepName()));
+		String.format("%s_%s_%s", this.taskExecution.getTaskName(),
+	workerStepExecution.getJobExecution().getJobInstance().getJobName(),
+	workerStepExecution.getStepName()));
 			environmentVariables.put(DeployerPartitionHandler.SPRING_CLOUD_TASK_PARENT_EXECUTION_ID,
-					String.valueOf(this.taskExecution.getExecutionId()));
+		String.valueOf(this.taskExecution.getExecutionId()));
 			environmentVariables.put(DeployerPartitionHandler.SPRING_CLOUD_TASK_EXECUTION_ID,
-					String.valueOf(partitionTaskExecution.getExecutionId()));
+		String.valueOf(partitionTaskExecution.getExecutionId()));
 		}
 
 		AppDefinition definition = new AppDefinition(resolveApplicationName(), environmentVariables);
 
 		AppDeploymentRequest request = new AppDeploymentRequest(definition, this.resource, this.deploymentProperties,
-				arguments);
+	arguments);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("Requesting the launch of the following application: " + request);

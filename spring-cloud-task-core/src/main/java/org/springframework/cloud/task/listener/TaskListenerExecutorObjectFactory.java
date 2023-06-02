@@ -96,7 +96,7 @@ public class TaskListenerExecutorObjectFactory implements ObjectFactory<TaskExec
 					if (ScopedObject.class.isAssignableFrom(type)) {
 						try {
 							type = AutoProxyUtils.determineTargetClass(factory,
-									ScopedProxyUtils.getTargetBeanName(beanName));
+						ScopedProxyUtils.getTargetBeanName(beanName));
 						}
 						catch (RuntimeException ex) {
 							// An invalid scoped proxy arrangement - let's ignore it.
@@ -110,8 +110,8 @@ public class TaskListenerExecutorObjectFactory implements ObjectFactory<TaskExec
 					}
 					catch (RuntimeException ex) {
 						throw new BeanInitializationException(
-								"Failed to process @BeforeTask " + "annotation on bean with name '" + beanName + "'",
-								ex);
+					"Failed to process @BeforeTask " + "annotation on bean with name '" + beanName + "'",
+					ex);
 					}
 				}
 			}
@@ -122,10 +122,10 @@ public class TaskListenerExecutorObjectFactory implements ObjectFactory<TaskExec
 	private void processBean(String beanName, final Class<?> type) {
 		if (!this.nonAnnotatedClasses.contains(type)) {
 			Map<Method, BeforeTask> beforeTaskMethods = (new MethodGetter<BeforeTask>()).getMethods(type,
-					BeforeTask.class);
+		BeforeTask.class);
 			Map<Method, AfterTask> afterTaskMethods = (new MethodGetter<AfterTask>()).getMethods(type, AfterTask.class);
 			Map<Method, FailedTask> failedTaskMethods = (new MethodGetter<FailedTask>()).getMethods(type,
-					FailedTask.class);
+		FailedTask.class);
 
 			if (beforeTaskMethods.isEmpty() && afterTaskMethods.isEmpty()) {
 				this.nonAnnotatedClasses.add(type);
@@ -134,19 +134,19 @@ public class TaskListenerExecutorObjectFactory implements ObjectFactory<TaskExec
 			if (!beforeTaskMethods.isEmpty()) {
 				for (Method beforeTaskMethod : beforeTaskMethods.keySet()) {
 					this.beforeTaskInstances.computeIfAbsent(beforeTaskMethod, k -> new LinkedHashSet<>())
-							.add(this.context.getBean(beanName));
+				.add(this.context.getBean(beanName));
 				}
 			}
 			if (!afterTaskMethods.isEmpty()) {
 				for (Method afterTaskMethod : afterTaskMethods.keySet()) {
 					this.afterTaskInstances.computeIfAbsent(afterTaskMethod, k -> new LinkedHashSet<>())
-							.add(this.context.getBean(beanName));
+				.add(this.context.getBean(beanName));
 				}
 			}
 			if (!failedTaskMethods.isEmpty()) {
 				for (Method failedTaskMethod : failedTaskMethods.keySet()) {
 					this.failedTaskInstances.computeIfAbsent(failedTaskMethod, k -> new LinkedHashSet<>())
-							.add(this.context.getBean(beanName));
+				.add(this.context.getBean(beanName));
 				}
 			}
 		}
@@ -156,8 +156,8 @@ public class TaskListenerExecutorObjectFactory implements ObjectFactory<TaskExec
 
 		public Map<Method, T> getMethods(final Class<?> type, final Class<T> annotationClass) {
 			return MethodIntrospector.selectMethods(type,
-					(MethodIntrospector.MetadataLookup<T>) method -> AnnotationUtils.findAnnotation(method,
-							annotationClass));
+		(MethodIntrospector.MetadataLookup<T>) method -> AnnotationUtils.findAnnotation(method,
+	annotationClass));
 		}
 
 	}

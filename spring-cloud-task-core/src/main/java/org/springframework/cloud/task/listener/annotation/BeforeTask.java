@@ -41,7 +41,7 @@ import org.springframework.cloud.task.repository.TaskExecution;
  *
  * @author Glenn Renfro
  */
-@Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Reflective

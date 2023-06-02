@@ -110,10 +110,10 @@ public class AmqpItemWriterAutoConfigurationTests {
 		admin.declareQueue(new Queue(QUEUE_NAME));
 		admin.declareExchange(new TopicExchange(EXCHANGE_NAME));
 		admin.declareBinding(new Binding(QUEUE_NAME, Binding.DestinationType.QUEUE, EXCHANGE_NAME, "#", null));
-		this.configurations = new String[] { "spring.batch.job.jobName=integrationJob",
-				"spring.batch.job.stepName=step1", "spring.batch.job.chunkSize=5",
-				"spring.rabbitmq.template.exchange=" + EXCHANGE_NAME, "spring.rabbitmq.host=" + host,
-				"spring.batch.job.amqpitemwriter.enabled=true", "spring.rabbitmq.port=" + amqpPort };
+		this.configurations = new String[]{"spring.batch.job.jobName=integrationJob",
+	"spring.batch.job.stepName=step1", "spring.batch.job.chunkSize=5",
+	"spring.rabbitmq.template.exchange=" + EXCHANGE_NAME, "spring.rabbitmq.host=" + host,
+	"spring.batch.job.amqpitemwriter.enabled=true", "spring.rabbitmq.port=" + amqpPort};
 	}
 
 	@AfterEach
@@ -126,12 +126,10 @@ public class AmqpItemWriterAutoConfigurationTests {
 	@Test
 	void basicTest() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(BaseConfiguration.class)
-				.withConfiguration(
-						AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class, BatchAutoConfiguration.class,
-								SingleStepJobAutoConfiguration.class, AmqpItemWriterAutoConfiguration.class,
-								RabbitAutoConfiguration.class, DataSourceAutoConfiguration.class))
-				.withPropertyValues(this.configurations);
+	.withUserConfiguration(BaseConfiguration.class)
+	.withConfiguration(
+AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class, BatchAutoConfiguration.class,SingleStepJobAutoConfiguration.class, AmqpItemWriterAutoConfiguration.class,RabbitAutoConfiguration.class, DataSourceAutoConfiguration.class))
+	.withPropertyValues(this.configurations);
 
 		applicationContextRunner.run((context) -> {
 			JobExecution jobExecution = runJob(context);
@@ -151,11 +149,11 @@ public class AmqpItemWriterAutoConfigurationTests {
 	@Test
 	void useAmqpTemplateTest() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(MockConfiguration.class)
-				.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
-						BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
-						AmqpItemWriterAutoConfiguration.class, DataSourceAutoConfiguration.class))
-				.withPropertyValues(this.configurations);
+	.withUserConfiguration(MockConfiguration.class)
+	.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
+BatchAutoConfiguration.class, SingleStepJobAutoConfiguration.class,
+AmqpItemWriterAutoConfiguration.class, DataSourceAutoConfiguration.class))
+	.withPropertyValues(this.configurations);
 
 		applicationContextRunner.run((context) -> {
 			runJob(context);

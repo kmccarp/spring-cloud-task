@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mock;
  * @author Mahmoud Ben Hassine
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { EmbeddedDataSourceConfiguration.class })
+@ContextConfiguration(classes = {EmbeddedDataSourceConfiguration.class})
 public class DefaultTaskConfigurerTests {
 
 	@Autowired
@@ -52,10 +52,10 @@ public class DefaultTaskConfigurerTests {
 	public void resourcelessTransactionManagerTest() {
 		DefaultTaskConfigurer defaultTaskConfigurer = new DefaultTaskConfigurer();
 		assertThat(defaultTaskConfigurer.getTransactionManager().getClass().getName())
-				.isEqualTo("org.springframework.batch.support.transaction.ResourcelessTransactionManager");
+	.isEqualTo("org.springframework.batch.support.transaction.ResourcelessTransactionManager");
 		defaultTaskConfigurer = new DefaultTaskConfigurer("foo");
 		assertThat(defaultTaskConfigurer.getTransactionManager().getClass().getName())
-				.isEqualTo("org.springframework.batch.support.transaction.ResourcelessTransactionManager");
+	.isEqualTo("org.springframework.batch.support.transaction.ResourcelessTransactionManager");
 	}
 
 	@Test
@@ -64,22 +64,22 @@ public class DefaultTaskConfigurerTests {
 		localContext.register(EmbeddedDataSourceConfiguration.class, EntityManagerConfiguration.class);
 		localContext.refresh();
 		DefaultTaskConfigurer defaultTaskConfigurer = new DefaultTaskConfigurer(this.dataSource,
-				TaskProperties.DEFAULT_TABLE_PREFIX, localContext);
+	TaskProperties.DEFAULT_TABLE_PREFIX, localContext);
 		assertThat(defaultTaskConfigurer.getTransactionManager().getClass().getName())
-				.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
+	.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
 	}
 
 	@Test
 	public void dataSourceTransactionManagerTest() {
 		DefaultTaskConfigurer defaultTaskConfigurer = new DefaultTaskConfigurer(this.dataSource);
 		assertThat(defaultTaskConfigurer.getTransactionManager().getClass().getName())
-				.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
+	.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
 		defaultTaskConfigurer = new DefaultTaskConfigurer(this.dataSource, "FOO", null);
 		assertThat(defaultTaskConfigurer.getTransactionManager().getClass().getName())
-				.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
+	.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
 		defaultTaskConfigurer = new DefaultTaskConfigurer(this.dataSource, "FOO", this.context);
 		assertThat(defaultTaskConfigurer.getTransactionManager().getClass().getName())
-				.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
+	.isEqualTo("org.springframework.jdbc.support.JdbcTransactionManager");
 	}
 
 	@Test

@@ -31,15 +31,15 @@ public class SqlServerPagingQueryProvider extends AbstractSqlPagingQueryProvider
 	public String getPageQuery(Pageable pageable) {
 		long offset = pageable.getOffset() + 1;
 		return generateRowNumSqlQueryWithNesting(getSelectClause(), false,
-				"TMP_ROW_NUM >= " + offset + " AND TMP_ROW_NUM < " + (offset + pageable.getPageSize()));
+	"TMP_ROW_NUM >= " + offset + " AND TMP_ROW_NUM < " + (offset + pageable.getPageSize()));
 	}
 
 	private String generateRowNumSqlQueryWithNesting(String selectClause, boolean remainingPageQuery,
-			String rowNumClause) {
+String rowNumClause) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ").append(selectClause).append(" FROM (SELECT ").append(selectClause).append(", ")
-				.append("ROW_NUMBER() OVER (ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this))
-				.append(") AS TMP_ROW_NUM ").append(" FROM ").append(getFromClause());
+	.append("ROW_NUMBER() OVER (ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this))
+	.append(") AS TMP_ROW_NUM ").append(" FROM ").append(getFromClause());
 		SqlPagingQueryUtils.buildWhereClause(this, remainingPageQuery, sql);
 		sql.append(") TASK_EXECUTION_PAGE ");
 		sql.append(" WHERE ").append(rowNumClause);

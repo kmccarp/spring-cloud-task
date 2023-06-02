@@ -56,10 +56,9 @@ import org.springframework.test.util.TestSocketUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { TaskLauncherSinkApplication.class, TaskLauncherSinkTests.TaskLauncherConfiguration.class },
-		properties = { "maven.remote-repositories.repo1.url=https://repo.spring.io/release",
+@SpringBootTest(classes = {TaskLauncherSinkApplication.class, TaskLauncherSinkTests.TaskLauncherConfiguration.class},properties = {"maven.remote-repositories.repo1.url=https://repo.spring.io/release",
 				"spring.cloud.stream.function.bindings.taskLauncherSink-in-0=input",
-				"spring.cloud.stream.bindings.input.destination=taskLauncherSinkExchange" })
+				"spring.cloud.stream.bindings.input.destination=taskLauncherSinkExchange"})
 public class TaskLauncherSinkTests {
 
 	private final static int WAIT_INTERVAL = 500;
@@ -83,7 +82,7 @@ public class TaskLauncherSinkTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	@Autowired
@@ -132,13 +131,13 @@ public class TaskLauncherSinkTests {
 		assertThat(taskExecutions.getTotalElements()).as("Only one row is expected").isEqualTo(1);
 		assertThat(waitForTaskToComplete()).isTrue();
 		assertThat(taskExecutions.iterator().next().getExitCode().intValue()).as("return code should be 0")
-				.isEqualTo(0);
+	.isEqualTo(0);
 	}
 
 	private boolean tableExists() throws SQLException {
 		boolean result;
 		try (Connection conn = this.dataSource.getConnection();
-				ResultSet res = conn.getMetaData().getTables(null, null, "TASK_EXECUTION", new String[] { "TABLE" })) {
+				ResultSet res = conn.getMetaData().getTables(null, null, "TASK_EXECUTION", new String[]{"TABLE"})) {
 			result = res.next();
 		}
 		return result;
@@ -191,7 +190,7 @@ public class TaskLauncherSinkTests {
 			Server server;
 			try {
 				server = Server.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
-						String.valueOf(randomPort)).start();
+			String.valueOf(randomPort)).start();
 			}
 			catch (SQLException e) {
 				throw new IllegalStateException(e);

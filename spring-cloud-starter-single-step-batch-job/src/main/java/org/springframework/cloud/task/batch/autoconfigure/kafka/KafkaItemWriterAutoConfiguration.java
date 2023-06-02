@@ -47,7 +47,7 @@ import org.springframework.util.Assert;
  * @since 2.3
  */
 @AutoConfiguration
-@EnableConfigurationProperties({ KafkaProperties.class, KafkaItemWriterProperties.class })
+@EnableConfigurationProperties({KafkaProperties.class, KafkaItemWriterProperties.class})
 @AutoConfigureAfter(BatchAutoConfiguration.class)
 public class KafkaItemWriterAutoConfiguration {
 
@@ -58,15 +58,15 @@ public class KafkaItemWriterAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = "spring.batch.job.kafkaitemwriter", name = "topic")
 	public KafkaItemWriter<Object, Map<String, Object>> kafkaItemWriter(
-			KafkaItemWriterProperties kafkaItemWriterProperties,
-			ProducerFactory<Object, Map<String, Object>> producerFactory,
-			@Qualifier("batchItemKeyMapper") Converter<Map<String, Object>, Object> itemKeyMapper) {
+KafkaItemWriterProperties kafkaItemWriterProperties,
+ProducerFactory<Object, Map<String, Object>> producerFactory,
+@Qualifier("batchItemKeyMapper") Converter<Map<String, Object>, Object> itemKeyMapper) {
 
 		validateProperties(kafkaItemWriterProperties);
 		KafkaTemplate template = new KafkaTemplate(producerFactory);
 		template.setDefaultTopic(kafkaItemWriterProperties.getTopic());
 		return new KafkaItemWriterBuilder<Object, Map<String, Object>>().delete(kafkaItemWriterProperties.isDelete())
-				.kafkaTemplate(template).itemKeyMapper(itemKeyMapper).build();
+	.kafkaTemplate(template).itemKeyMapper(itemKeyMapper).build();
 	}
 
 	@Bean

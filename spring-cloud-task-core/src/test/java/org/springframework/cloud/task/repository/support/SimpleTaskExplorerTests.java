@@ -69,7 +69,7 @@ public class SimpleTaskExplorerTests {
 	private TaskRepository taskRepository;
 
 	public static Collection<Object> data() {
-		return Arrays.asList(new Object[] { DaoType.jdbc, DaoType.map });
+		return Arrays.asList(new Object[]{DaoType.jdbc, DaoType.map});
 	}
 
 	public void testDefaultContext(DaoType testType) {
@@ -96,7 +96,7 @@ public class SimpleTaskExplorerTests {
 		for (Long taskExecutionId : expectedResults.keySet()) {
 			TaskExecution actualTaskExecution = this.taskExplorer.getTaskExecution(taskExecutionId);
 			assertThat(actualTaskExecution)
-					.as(String.format("expected a taskExecution but got null for test type %s", testType)).isNotNull();
+		.as(String.format("expected a taskExecution but got null for test type %s", testType)).isNotNull();
 			TestVerifierUtils.verifyTaskExecution(expectedResults.get(taskExecutionId), actualTaskExecution);
 		}
 	}
@@ -109,7 +109,7 @@ public class SimpleTaskExplorerTests {
 
 		TaskExecution actualTaskExecution = this.taskExplorer.getTaskExecution(-5);
 		assertThat(actualTaskExecution).as(String.format("expected null for actualTaskExecution %s", testType))
-				.isNull();
+	.isNull();
 	}
 
 	@ParameterizedTest
@@ -120,8 +120,8 @@ public class SimpleTaskExplorerTests {
 		for (Map.Entry<Long, TaskExecution> entry : expectedResults.entrySet()) {
 			String taskName = entry.getValue().getTaskName();
 			assertThat(this.taskExplorer.getTaskExecutionCountByTaskName(taskName)).as(
-					String.format("task count for task name did not match expected result for testType %s", testType))
-					.isEqualTo(1);
+		String.format("task count for task name did not match expected result for testType %s", testType))
+		.isEqualTo(1);
 		}
 	}
 
@@ -131,7 +131,7 @@ public class SimpleTaskExplorerTests {
 		testDefaultContext(testType);
 		createSampleDataSet(33);
 		assertThat(this.taskExplorer.getTaskExecutionCount())
-				.as(String.format("task count did not match expected result for test Type %s", testType)).isEqualTo(33);
+	.as(String.format("task count did not match expected result for test Type %s", testType)).isEqualTo(33);
 	}
 
 	@ParameterizedTest
@@ -140,7 +140,7 @@ public class SimpleTaskExplorerTests {
 		testDefaultContext(testType);
 		createSampleDataSet(33);
 		assertThat(this.taskExplorer.getRunningTaskExecutionCount())
-				.as(String.format("task count did not match expected result for test Type %s", testType)).isEqualTo(33);
+	.as(String.format("task count did not match expected result for test Type %s", testType)).isEqualTo(33);
 	}
 
 	@ParameterizedTest
@@ -165,16 +165,16 @@ public class SimpleTaskExplorerTests {
 
 		Page<TaskExecution> actualResults = this.taskExplorer.findRunningTaskExecutions(TASK_NAME, pageable);
 		assertThat(actualResults.getNumberOfElements()).as(String
-				.format("Running task count for task name did not match expected result for testType %s", testType))
-				.isEqualTo(TEST_COUNT);
+	.format("Running task count for task name did not match expected result for testType %s", testType))
+	.isEqualTo(TEST_COUNT);
 
 		for (TaskExecution result : actualResults) {
 			assertThat(expectedResults.containsKey(result.getExecutionId()))
-					.as(String.format("result returned from repo %s not expected for testType %s",
-							result.getExecutionId(), testType))
-					.isTrue();
+		.as(String.format("result returned from repo %s not expected for testType %s",
+	result.getExecutionId(), testType))
+		.isTrue();
 			assertThat(result.getEndTime())
-					.as(String.format("result had non null for endTime for the testType %s", testType)).isNull();
+		.as(String.format("result had non null for endTime for the testType %s", testType)).isNull();
 		}
 	}
 
@@ -199,16 +199,16 @@ public class SimpleTaskExplorerTests {
 		Pageable pageable = PageRequest.of(0, 10);
 		Page<TaskExecution> resultSet = this.taskExplorer.findTaskExecutionsByName(TASK_NAME, pageable);
 		assertThat(resultSet.getNumberOfElements()).as(String
-				.format("Running task count for task name did not match expected result for testType %s", testType))
-				.isEqualTo(TEST_COUNT);
+	.format("Running task count for task name did not match expected result for testType %s", testType))
+	.isEqualTo(TEST_COUNT);
 
 		for (TaskExecution result : resultSet) {
 			assertThat(expectedResults.containsKey(result.getExecutionId())).as(
-					String.format("result returned from %s repo %s not expected", testType, result.getExecutionId()))
-					.isTrue();
+		String.format("result returned from %s repo %s not expected", testType, result.getExecutionId()))
+		.isTrue();
 			assertThat(result.getTaskName())
-					.as(String.format("taskName for taskExecution is incorrect for testType %s", testType))
-					.isEqualTo(TASK_NAME);
+		.as(String.format("taskName for taskExecution is incorrect for testType %s", testType))
+		.isEqualTo(TASK_NAME);
 		}
 	}
 
@@ -225,7 +225,7 @@ public class SimpleTaskExplorerTests {
 		List<String> actualTaskNames = this.taskExplorer.getTaskNames();
 		for (String taskName : actualTaskNames) {
 			assertThat(expectedResults.contains(taskName))
-					.as(String.format("taskName was not in expected results for testType %s", testType)).isTrue();
+		.as(String.format("taskName was not in expected results for testType %s", testType)).isTrue();
 		}
 	}
 
@@ -282,11 +282,11 @@ public class SimpleTaskExplorerTests {
 		Map<Long, TaskExecution> expectedResults = createSampleDataSet(5);
 		for (Map.Entry<Long, TaskExecution> taskExecutionMapEntry : expectedResults.entrySet()) {
 			TaskExecution latestTaskExecution = this.taskExplorer
-					.getLatestTaskExecutionForTaskName(taskExecutionMapEntry.getValue().getTaskName());
+		.getLatestTaskExecutionForTaskName(taskExecutionMapEntry.getValue().getTaskName());
 			assertThat(latestTaskExecution)
-					.as(String.format("expected a taskExecution but got null for test type %s", testType)).isNotNull();
+		.as(String.format("expected a taskExecution but got null for test type %s", testType)).isNotNull();
 			TestVerifierUtils.verifyTaskExecution(expectedResults.get(latestTaskExecution.getExecutionId()),
-					latestTaskExecution);
+		latestTaskExecution);
 		}
 	}
 
@@ -303,13 +303,13 @@ public class SimpleTaskExplorerTests {
 		}
 
 		final List<TaskExecution> latestTaskExecutions = this.taskExplorer
-				.getLatestTaskExecutionsByTaskNames(taskNamesAsList.toArray(new String[taskNamesAsList.size()]));
+	.getLatestTaskExecutionsByTaskNames(taskNamesAsList.toArray(new String[taskNamesAsList.size()]));
 
 		for (TaskExecution latestTaskExecution : latestTaskExecutions) {
 			assertThat(latestTaskExecution)
-					.as(String.format("expected a taskExecution but got null for test type %s", testType)).isNotNull();
+		.as(String.format("expected a taskExecution but got null for test type %s", testType)).isNotNull();
 			TestVerifierUtils.verifyTaskExecution(expectedResults.get(latestTaskExecution.getExecutionId()),
-					latestTaskExecution);
+		latestTaskExecution);
 		}
 	}
 
@@ -321,9 +321,9 @@ public class SimpleTaskExplorerTests {
 		Page<TaskExecution> taskPage = this.taskExplorer.findAll(pageable);
 		int pagesExpected = (int) Math.ceil(totalNumberOfExecs / ((double) pageable.getPageSize()));
 		assertThat(taskPage.getTotalPages()).as("actual page count return was not the expected total")
-				.isEqualTo(pagesExpected);
+	.isEqualTo(pagesExpected);
 		assertThat(taskPage.getTotalElements()).as("actual element count was not the expected count")
-				.isEqualTo(totalNumberOfExecs);
+	.isEqualTo(totalNumberOfExecs);
 
 		// Verify pagination
 		Pageable actualPageable = PageRequest.of(0, pageable.getPageSize());
@@ -339,14 +339,14 @@ public class SimpleTaskExplorerTests {
 				expectedPageSize = totalNumberOfExecs % pageable.getPageSize();
 			}
 			assertThat(actualTaskExecutions.size())
-					.as(String.format("Element count on page did not match on the %n page", pageNumber))
-					.isEqualTo(expectedPageSize);
+		.as(String.format("Element count on page did not match on the %n page", pageNumber))
+		.isEqualTo(expectedPageSize);
 			for (TaskExecution actualExecution : actualTaskExecutions) {
 				assertThat(actualExecution.getExecutionId())
-						.as(String.format("Element on page %n did not match expected", pageNumber))
-						.isEqualTo((long) expectedTaskExecutionIter.next());
+			.as(String.format("Element on page %n did not match expected", pageNumber))
+			.isEqualTo((long) expectedTaskExecutionIter.next());
 				TestVerifierUtils.verifyTaskExecution(expectedResults.get(actualExecution.getExecutionId()),
-						actualExecution);
+			actualExecution);
 				elementCount++;
 			}
 			actualPageable = taskPage.nextPageable();
@@ -366,11 +366,11 @@ public class SimpleTaskExplorerTests {
 	private void initializeJdbcExplorerTest() {
 		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(TestConfiguration.class, EmbeddedDataSourceConfiguration.class,
-				PropertyPlaceholderAutoConfiguration.class);
+	PropertyPlaceholderAutoConfiguration.class);
 		this.context.refresh();
 
 		this.context.getAutowireCapableBeanFactory().autowireBeanProperties(this,
-				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
+	AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
 	}
 
 	private void initializeMapExplorerTest() {
@@ -379,7 +379,7 @@ public class SimpleTaskExplorerTests {
 		this.context.refresh();
 
 		this.context.getAutowireCapableBeanFactory().autowireBeanProperties(this,
-				AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
+	AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
 	}
 
 	private Map<Long, TaskExecution> createSampleDataSet(int count) {

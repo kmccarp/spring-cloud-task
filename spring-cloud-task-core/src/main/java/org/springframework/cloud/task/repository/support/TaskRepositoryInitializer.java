@@ -53,7 +53,7 @@ public final class TaskRepositoryInitializer implements InitializingBean {
 	private static final Log logger = LogFactory.getLog(TaskRepositoryInitializer.class);
 
 	private static final String DEFAULT_SCHEMA_LOCATION = "classpath:org/springframework/"
-			+ "cloud/task/schema-@@platform@@.sql";
++ "cloud/task/schema-@@platform@@.sql";
 
 	/**
 	 * Path to the SQL file to use to initialize the database schema.
@@ -97,9 +97,9 @@ public final class TaskRepositoryInitializer implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		boolean isInitializeEnabled = (this.taskProperties.isInitializeEnabled() != null)
-				? this.taskProperties.isInitializeEnabled() : this.taskInitializationEnabled;
+	? this.taskProperties.isInitializeEnabled() : this.taskInitializationEnabled;
 		if (this.dataSource != null && isInitializeEnabled
-				&& this.taskProperties.getTablePrefix().equals(TaskProperties.DEFAULT_TABLE_PREFIX)) {
+	&& this.taskProperties.getTablePrefix().equals(TaskProperties.DEFAULT_TABLE_PREFIX)) {
 			String platform = getDatabaseType(this.dataSource);
 			if ("hsql".equals(platform)) {
 				platform = "hsqldb";

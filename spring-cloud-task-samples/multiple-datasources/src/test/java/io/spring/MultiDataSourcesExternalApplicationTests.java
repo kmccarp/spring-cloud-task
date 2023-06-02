@@ -36,8 +36,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Glenn Renfro
  */
-@ExtendWith({ OutputCaptureExtension.class, SpringExtension.class })
-@SpringBootTest(classes = { MultiDataSourcesExternalApplicationTests.TaskLauncherConfiguration.class })
+@ExtendWith({OutputCaptureExtension.class, SpringExtension.class})
+@SpringBootTest(classes = {MultiDataSourcesExternalApplicationTests.TaskLauncherConfiguration.class})
 public class MultiDataSourcesExternalApplicationTests {
 
 	private final static String DATASOURCE_URL;
@@ -57,33 +57,33 @@ public class MultiDataSourcesExternalApplicationTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 		secondRandomPort = TestSocketUtils.findAvailableTcpPort();
 		SECOND_DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	@Test
 	public void testTimeStampApp(CapturedOutput capturedOutput) throws Exception {
 
 		SpringApplication.run(MultipleDataSourcesApplication.class, "--spring.profiles.active=external",
-				"--spring.datasource.url=" + DATASOURCE_URL, "--spring.datasource.username=" + DATASOURCE_USER_NAME,
-				"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD,
-				"--spring.datasource.driverClassName=" + DATASOURCE_DRIVER_CLASS_NAME,
-				"--second.datasource.url=" + SECOND_DATASOURCE_URL,
-				"--second.datasource.username=" + DATASOURCE_USER_NAME,
-				"--second.datasource.password=" + DATASOURCE_USER_PASSWORD,
-				"--second.datasource.driverClassName=" + DATASOURCE_DRIVER_CLASS_NAME);
+	"--spring.datasource.url=" + DATASOURCE_URL, "--spring.datasource.username=" + DATASOURCE_USER_NAME,
+	"--spring.datasource.password=" + DATASOURCE_USER_PASSWORD,
+	"--spring.datasource.driverClassName=" + DATASOURCE_DRIVER_CLASS_NAME,
+	"--second.datasource.url=" + SECOND_DATASOURCE_URL,
+	"--second.datasource.username=" + DATASOURCE_USER_NAME,
+	"--second.datasource.password=" + DATASOURCE_USER_PASSWORD,
+	"--second.datasource.driverClassName=" + DATASOURCE_DRIVER_CLASS_NAME);
 
 		String output = capturedOutput.toString();
 
 		assertThat(output.contains("There are 2 DataSources within this application"))
-			.as("Unable to find CommandLineRunner output: " + output)
-			.isTrue();
+	.as("Unable to find CommandLineRunner output: " + output)
+	.isTrue();
 		assertThat(output.contains("Creating: TaskExecution{")).as("Unable to find start task message: " + output)
-			.isTrue();
+	.isTrue();
 		assertThat(output.contains("Updating: TaskExecution")).as("Unable to find update task message: " + output)
-			.isTrue();
+	.isTrue();
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -99,9 +99,9 @@ public class MultiDataSourcesExternalApplicationTests {
 			try {
 				if (defaultServer == null) {
 					server = Server
-						.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
-								String.valueOf(randomPort))
-						.start();
+				.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
+			String.valueOf(randomPort))
+				.start();
 					defaultServer = server;
 				}
 			}
@@ -117,9 +117,9 @@ public class MultiDataSourcesExternalApplicationTests {
 			try {
 				if (secondServer == null) {
 					server = Server
-						.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
-								String.valueOf(secondRandomPort))
-						.start();
+				.createTcpServer("-ifNotExists", "-tcp", "-tcpAllowOthers", "-tcpPort",
+			String.valueOf(secondRandomPort))
+				.start();
 					secondServer = server;
 				}
 			}

@@ -63,9 +63,8 @@ import static org.assertj.core.api.Assertions.fail;
 public class TaskJobLauncherApplicationRunnerCoreTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
-					TransactionAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class))
-			.withUserConfiguration(BatchConfiguration.class);
+.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,TransactionAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class))
+.withUserConfiguration(BatchConfiguration.class);
 
 	@Test
 	void basicExecution() {
@@ -95,8 +94,8 @@ public class TaskJobLauncherApplicationRunnerCoreTests {
 			PlatformTransactionManager transactionManager = context.getBean(PlatformTransactionManager.class);
 			JobLauncherApplicationRunnerContext jobLauncherContext = new JobLauncherApplicationRunnerContext(context);
 			Job job = jobLauncherContext.jobBuilder()
-					.start(jobLauncherContext.stepBuilder().tasklet(throwingTasklet(), transactionManager).build())
-					.build();
+		.start(jobLauncherContext.stepBuilder().tasklet(throwingTasklet(), transactionManager).build())
+		.build();
 			// start a job instance
 			JobParameters jobParameters = new JobParametersBuilder().addString("name", "foo").toJobParameters();
 			runFailedJob(jobLauncherContext, job, jobParameters);
@@ -115,8 +114,8 @@ public class TaskJobLauncherApplicationRunnerCoreTests {
 			PlatformTransactionManager transactionManager = context.getBean(PlatformTransactionManager.class);
 			JobLauncherApplicationRunnerContext jobLauncherContext = new JobLauncherApplicationRunnerContext(context);
 			Job job = jobLauncherContext.jobBuilder().preventRestart()
-					.start(jobLauncherContext.stepBuilder().tasklet(throwingTasklet(), transactionManager).build())
-					.incrementer(new RunIdIncrementer()).build();
+		.start(jobLauncherContext.stepBuilder().tasklet(throwingTasklet(), transactionManager).build())
+		.incrementer(new RunIdIncrementer()).build();
 			runFailedJob(jobLauncherContext, job, new JobParameters());
 			runFailedJob(jobLauncherContext, job, new JobParameters());
 			// A failed job that is not restartable does not re-use the job params of
@@ -125,7 +124,7 @@ public class TaskJobLauncherApplicationRunnerCoreTests {
 			assertThatExceptionOfType(JobRestartException.class).isThrownBy(() -> {
 				// try to re-run a failed execution
 				jobLauncherContext.runner.execute(job,
-						new JobParametersBuilder().addLong("run.id", 1L).toJobParameters());
+			new JobParametersBuilder().addLong("run.id", 1L).toJobParameters());
 				fail("expected JobRestartException");
 			}).withMessageContaining("JobInstance already exists and is not restartable");
 		});
@@ -137,15 +136,15 @@ public class TaskJobLauncherApplicationRunnerCoreTests {
 			PlatformTransactionManager transactionManager = context.getBean(PlatformTransactionManager.class);
 			JobLauncherApplicationRunnerContext jobLauncherContext = new JobLauncherApplicationRunnerContext(context);
 			Job job = jobLauncherContext.jobBuilder()
-					.start(jobLauncherContext.stepBuilder().tasklet(throwingTasklet(), transactionManager).build())
-					.incrementer(new RunIdIncrementer()).build();
+		.start(jobLauncherContext.stepBuilder().tasklet(throwingTasklet(), transactionManager).build())
+		.incrementer(new RunIdIncrementer()).build();
 			JobParameters jobParameters = new JobParametersBuilder().addLong("id", 1L, false).addLong("foo", 2L, false)
-					.toJobParameters();
+		.toJobParameters();
 			runFailedJob(jobLauncherContext, job, jobParameters);
 			assertThat(jobLauncherContext.jobInstances()).hasSize(1);
 			// try to re-run a failed execution with non identifying parameters
 			runFailedJob(jobLauncherContext, job,
-					new JobParametersBuilder(jobParameters).addLong("run.id", 1L).toJobParameters());
+		new JobParametersBuilder(jobParameters).addLong("run.id", 1L).toJobParameters());
 			assertThat(jobLauncherContext.jobInstances()).hasSize(1);
 		});
 	}
@@ -157,7 +156,7 @@ public class TaskJobLauncherApplicationRunnerCoreTests {
 	}
 
 	private void runFailedJob(JobLauncherApplicationRunnerContext jobLauncherContext, Job job,
-			JobParameters jobParameters) throws Exception {
+JobParameters jobParameters) throws Exception {
 		boolean isExceptionThrown = false;
 		try {
 			jobLauncherContext.runner.execute(job, jobParameters);
@@ -192,7 +191,7 @@ public class TaskJobLauncherApplicationRunnerCoreTests {
 			this.job = this.jobBuilder.start(this.step).build();
 			this.jobExplorer = context.getBean(JobExplorer.class);
 			this.runner = new TaskJobLauncherApplicationRunner(jobLauncher, this.jobExplorer, jobRepository,
-					new TaskBatchProperties());
+		new TaskBatchProperties());
 		}
 
 		List<JobInstance> jobInstances() {

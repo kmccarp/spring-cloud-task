@@ -72,23 +72,23 @@ public class BatchEventsApplication {
 		@Bean
 		public Step step2() {
 			return new StepBuilder("step2", this.jobRepository)
-				.<String, String>chunk(DEFAULT_CHUNK_COUNT, this.transactionManager)
-				.reader(new ListItemReader<>(Arrays.asList("1", "2", "3", "4", "5", "6")))
-				.processor(new ItemProcessor<String, String>() {
-					@Override
-					public String process(String item) throws Exception {
-						return String.valueOf(Integer.parseInt(item) * -1);
-					}
-				})
-				.writer(new ItemWriter<String>() {
-					@Override
-					public void write(Chunk<? extends String> items) throws Exception {
-						for (String item : items) {
-							System.out.println(">> " + item);
-						}
-					}
-				})
-				.build();
+		.<String, String>chunk(DEFAULT_CHUNK_COUNT, this.transactionManager)
+		.reader(new ListItemReader<>(Arrays.asList("1", "2", "3", "4", "5", "6")))
+		.processor(new ItemProcessor<String, String>() {
+			@Override
+			public String process(String item) throws Exception {
+				return String.valueOf(Integer.parseInt(item) * -1);
+			}
+		})
+		.writer(new ItemWriter<String>() {
+			@Override
+			public void write(Chunk<? extends String> items) throws Exception {
+				for (String item : items) {
+					System.out.println(">> " + item);
+				}
+			}
+		})
+		.build();
 		}
 
 		@Bean

@@ -57,10 +57,9 @@ import org.springframework.util.CollectionUtils;
  */
 @AutoConfiguration
 @EnableTransactionManagement
-@EnableConfigurationProperties({ TaskProperties.class })
+@EnableConfigurationProperties({TaskProperties.class})
 // @checkstyle:off
-@ConditionalOnProperty(prefix = "spring.cloud.task.autoconfiguration", name = "enabled", havingValue = "true",
-		matchIfMissing = true)
+@ConditionalOnProperty(prefix = "spring.cloud.task.autoconfiguration", name = "enabled", havingValue = "true",matchIfMissing = true)
 // @checkstyle:on
 @Import(DatabaseInitializationDependencyConfigurer.class)
 public class SimpleTaskAutoConfiguration {
@@ -150,7 +149,7 @@ public class SimpleTaskAutoConfiguration {
 			TaskConfigurer taskConfigurer;
 			if (!CollectionUtils.isEmpty(this.dataSources) && this.dataSources.size() == 1) {
 				taskConfigurer = new DefaultTaskConfigurer(this.dataSources.iterator().next(),
-						this.taskProperties.getTablePrefix(), this.context);
+			this.taskProperties.getTablePrefix(), this.context);
 			}
 			else {
 				taskConfigurer = new DefaultTaskConfigurer(this.taskProperties.getTablePrefix());
@@ -173,11 +172,11 @@ public class SimpleTaskAutoConfiguration {
 		// retrieve the count of dataSources (without instantiating them) excluding
 		// DataSource proxy beans
 		long dataSources = Arrays.stream(this.context.getBeanNamesForType(DataSource.class))
-				.filter((name -> !ScopedProxyUtils.isScopedTarget(name))).count();
+	.filter((name -> !ScopedProxyUtils.isScopedTarget(name))).count();
 
 		if (configurers == 0 && dataSources > 1) {
 			throw new IllegalStateException("To use the default TaskConfigurer the context must contain no more than"
-					+ " one DataSource, found " + dataSources);
+		+ " one DataSource, found " + dataSources);
 		}
 	}
 

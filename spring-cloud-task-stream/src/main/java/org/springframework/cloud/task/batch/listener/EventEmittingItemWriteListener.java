@@ -57,7 +57,7 @@ public class EventEmittingItemWriteListener implements ItemWriteListener, Ordere
 	}
 
 	public EventEmittingItemWriteListener(MessagePublisher messagePublisher, int order,
-			TaskEventProperties properties) {
+TaskEventProperties properties) {
 		this(messagePublisher, properties);
 		this.order = order;
 	}
@@ -65,7 +65,7 @@ public class EventEmittingItemWriteListener implements ItemWriteListener, Ordere
 	@Override
 	public void beforeWrite(Chunk items) {
 		this.messagePublisher.publish(this.properties.getItemWriteEventBindingName(),
-				items.size() + " items to be written.");
+	items.size() + " items to be written.");
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class EventEmittingItemWriteListener implements ItemWriteListener, Ordere
 			logger.debug("Executing afterWrite: " + items);
 		}
 		this.messagePublisher.publish(this.properties.getItemWriteEventBindingName(),
-				items.size() + " items have been written.");
+	items.size() + " items have been written.");
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class EventEmittingItemWriteListener implements ItemWriteListener, Ordere
 		}
 		String payload = "Exception while " + items.size() + " items are attempted to be written.";
 		this.messagePublisher.publishWithThrowableHeader(this.properties.getItemWriteEventBindingName(), payload,
-				exception.getMessage());
+	exception.getMessage());
 	}
 
 	@Override

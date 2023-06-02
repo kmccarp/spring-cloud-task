@@ -75,8 +75,8 @@ public class SingleInstanceTaskListener implements ApplicationListener<Applicati
 	private PlatformTransactionManager platformTransactionManager;
 
 	public SingleInstanceTaskListener(LockRegistry lockRegistry, TaskNameResolver taskNameResolver,
-			TaskProperties taskProperties, ApplicationEventPublisher applicationEventPublisher,
-			ApplicationContext applicationContext) {
+TaskProperties taskProperties, ApplicationEventPublisher applicationEventPublisher,
+ApplicationContext applicationContext) {
 		this.lockRegistry = lockRegistry;
 		this.taskNameResolver = taskNameResolver;
 		this.taskProperties = taskProperties;
@@ -86,15 +86,15 @@ public class SingleInstanceTaskListener implements ApplicationListener<Applicati
 	}
 
 	public SingleInstanceTaskListener(DataSource dataSource, TaskNameResolver taskNameResolver,
-			TaskProperties taskProperties, ApplicationEventPublisher applicationEventPublisher,
-			ApplicationContext applicationContext) {
+TaskProperties taskProperties, ApplicationEventPublisher applicationEventPublisher,
+ApplicationContext applicationContext) {
 		this.taskNameResolver = taskNameResolver;
 		this.applicationEventPublisher = applicationEventPublisher;
 		this.dataSource = dataSource;
 		this.taskProperties = taskProperties;
 		this.applicationContext = applicationContext;
 		this.platformTransactionManager = this.applicationContext.getBean("springCloudTaskTransactionManager",
-				PlatformTransactionManager.class);
+	PlatformTransactionManager.class);
 	}
 
 	@BeforeTask
@@ -103,7 +103,7 @@ public class SingleInstanceTaskListener implements ApplicationListener<Applicati
 			this.lockRegistry = getDefaultLockRegistry(taskExecution.getExecutionId());
 		}
 		this.lockRegistryLeaderInitiator = new LockRegistryLeaderInitiator(this.lockRegistry, new DefaultCandidate(
-				String.valueOf(taskExecution.getExecutionId()), this.taskNameResolver.getTaskName()));
+	String.valueOf(taskExecution.getExecutionId()), this.taskNameResolver.getTaskName()));
 		this.lockRegistryLeaderInitiator.setApplicationEventPublisher(this.applicationEventPublisher);
 		this.lockRegistryLeaderInitiator.setPublishFailedEvents(true);
 		this.lockRegistryLeaderInitiator.start();
@@ -116,7 +116,7 @@ public class SingleInstanceTaskListener implements ApplicationListener<Applicati
 			}
 			if (this.lockFailed) {
 				String errorMessage = String.format("Task with name \"%s\" is already running.",
-						this.taskNameResolver.getTaskName());
+			this.taskNameResolver.getTaskName());
 				try {
 					this.lockRegistryLeaderInitiator.destroy();
 				}

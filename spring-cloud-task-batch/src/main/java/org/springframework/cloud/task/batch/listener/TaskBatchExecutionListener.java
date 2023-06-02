@@ -61,7 +61,7 @@ public class TaskBatchExecutionListener implements JobExecutionListener, Ordered
 		}
 		else {
 			logger.info(String.format("The job execution id %s was run within the task execution %s",
-					jobExecution.getId(), this.taskExecution.getExecutionId()));
+		jobExecution.getId(), this.taskExecution.getExecutionId()));
 			this.taskBatchDao.saveRelationship(this.taskExecution, jobExecution);
 		}
 	}

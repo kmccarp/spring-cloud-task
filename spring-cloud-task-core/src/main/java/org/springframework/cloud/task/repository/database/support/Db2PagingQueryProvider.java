@@ -32,14 +32,14 @@ public class Db2PagingQueryProvider extends AbstractSqlPagingQueryProvider {
 	public String getPageQuery(Pageable pageable) {
 		long offset = pageable.getOffset() + 1;
 		return generateRowNumSqlQueryWithNesting(getSelectClause(), false,
-				"TMP_ROW_NUM >= " + offset + " AND TMP_ROW_NUM < " + (offset + pageable.getPageSize()));
+	"TMP_ROW_NUM >= " + offset + " AND TMP_ROW_NUM < " + (offset + pageable.getPageSize()));
 	}
 
 	private String generateRowNumSqlQueryWithNesting(String selectClause, boolean remainingPageQuery,
-			String rowNumClause) {
+String rowNumClause) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ").append(selectClause).append(" FROM (SELECT ").append(selectClause).append(", ")
-				.append("ROW_NUMBER() OVER() as TMP_ROW_NUM");
+	.append("ROW_NUMBER() OVER() as TMP_ROW_NUM");
 		sql.append(" FROM (SELECT ").append(selectClause).append(" FROM ").append(this.getFromClause());
 		SqlPagingQueryUtils.buildWhereClause(this, remainingPageQuery, sql);
 		sql.append(" ORDER BY ").append(SqlPagingQueryUtils.buildSortClause(this));

@@ -66,9 +66,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @Tag("DockerRequired")
 @Testcontainers
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { TestConfiguration.class,
-		JdbcTaskExecutionDaoMariaDBIntegrationTests.TestDataSourceConfiguration.class,
-		PropertyPlaceholderAutoConfiguration.class })
+@ContextConfiguration(classes = {TestConfiguration.class,JdbcTaskExecutionDaoMariaDBIntegrationTests.TestDataSourceConfiguration.class,PropertyPlaceholderAutoConfiguration.class})
 public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecutionDaoTestCases {
 
 	private static final DockerImageName MARIADB_IMAGE = DockerImageName.parse("mariadb:10.9.3");
@@ -106,11 +104,11 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 		expectedTaskExecution.setTaskName(UUID.randomUUID().toString());
 
 		this.dao.startTaskExecution(expectedTaskExecution.getExecutionId(), expectedTaskExecution.getTaskName(),
-				expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(),
-				expectedTaskExecution.getExternalExecutionId());
+	expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(),
+	expectedTaskExecution.getExternalExecutionId());
 
 		TestVerifierUtils.verifyTaskExecution(expectedTaskExecution,
-				TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
+	TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
 	}
 
 	@Test
@@ -118,11 +116,11 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 	public void createTaskExecution() {
 		TaskExecution expectedTaskExecution = TestVerifierUtils.createSampleTaskExecutionNoArg();
 		expectedTaskExecution = this.dao.createTaskExecution(expectedTaskExecution.getTaskName(),
-				expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(),
-				expectedTaskExecution.getExternalExecutionId());
+	expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(),
+	expectedTaskExecution.getExternalExecutionId());
 
 		TestVerifierUtils.verifyTaskExecution(expectedTaskExecution,
-				TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
+	TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
 	}
 
 	@Test
@@ -131,7 +129,7 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 		TaskExecution expectedTaskExecution = this.dao.createTaskExecution(null, null, new ArrayList<>(0), null);
 
 		TestVerifierUtils.verifyTaskExecution(expectedTaskExecution,
-				TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
+	TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
 	}
 
 	@Test
@@ -139,12 +137,12 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 	public void completeTaskExecution() {
 		TaskExecution expectedTaskExecution = TestVerifierUtils.endSampleTaskExecutionNoArg();
 		expectedTaskExecution = this.dao.createTaskExecution(expectedTaskExecution.getTaskName(),
-				expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(),
-				expectedTaskExecution.getExternalExecutionId());
+	expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(),
+	expectedTaskExecution.getExternalExecutionId());
 		this.dao.completeTaskExecution(expectedTaskExecution.getExecutionId(), expectedTaskExecution.getExitCode(),
-				expectedTaskExecution.getEndTime(), expectedTaskExecution.getExitMessage());
+	expectedTaskExecution.getEndTime(), expectedTaskExecution.getExitMessage());
 		TestVerifierUtils.verifyTaskExecution(expectedTaskExecution,
-				TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
+	TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
 	}
 
 	@Test
@@ -155,7 +153,7 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 		TaskExecution expectedTaskExecution = TestVerifierUtils.endSampleTaskExecutionNoArg();
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> {
 			dao.completeTaskExecution(expectedTaskExecution.getExecutionId(), expectedTaskExecution.getExitCode(),
-					expectedTaskExecution.getEndTime(), expectedTaskExecution.getExitMessage());
+		expectedTaskExecution.getEndTime(), expectedTaskExecution.getExitMessage());
 		});
 	}
 
@@ -196,9 +194,9 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 		TaskExecution expectedTaskExecution = initializeTaskExecutionWithExternalExecutionId();
 
 		this.dao.startTaskExecution(expectedTaskExecution.getExecutionId(), expectedTaskExecution.getTaskName(),
-				expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(), null);
+	expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(), null);
 		TestVerifierUtils.verifyTaskExecution(expectedTaskExecution,
-				TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
+	TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
 	}
 
 	@Test
@@ -207,10 +205,10 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 		TaskExecution expectedTaskExecution = initializeTaskExecutionWithExternalExecutionId();
 
 		this.dao.startTaskExecution(expectedTaskExecution.getExecutionId(), expectedTaskExecution.getTaskName(),
-				expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(), "BAR");
+	expectedTaskExecution.getStartTime(), expectedTaskExecution.getArguments(), "BAR");
 		expectedTaskExecution.setExternalExecutionId("BAR");
 		TestVerifierUtils.verifyTaskExecution(expectedTaskExecution,
-				TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
+	TestDBUtils.getTaskExecutionFromDB(this.dataSource, expectedTaskExecution.getExecutionId()));
 	}
 
 	@Test
@@ -218,8 +216,8 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 	public void testFindRunningTaskExecutions() {
 		initializeRepositoryNotInOrderWithMultipleTaskExecutions();
 		assertThat(
-				this.dao.findRunningTaskExecutions("FOO1", PageRequest.of(1, Integer.MAX_VALUE, Sort.by("START_TIME")))
-						.getTotalElements()).isEqualTo(4);
+	this.dao.findRunningTaskExecutions("FOO1", PageRequest.of(1, Integer.MAX_VALUE, Sort.by("START_TIME")))
+.getTotalElements()).isEqualTo(4);
 	}
 
 	@Test
@@ -227,9 +225,9 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 	public void testFindRunningTaskExecutionsIllegalSort() {
 		initializeRepositoryNotInOrderWithMultipleTaskExecutions();
 		assertThatThrownBy(() -> this.dao
-				.findRunningTaskExecutions("FOO1", PageRequest.of(1, Integer.MAX_VALUE, Sort.by("ILLEGAL_SORT")))
-				.getTotalElements()).isInstanceOf(IllegalArgumentException.class)
-						.hasMessage("Invalid sort option selected: ILLEGAL_SORT");
+	.findRunningTaskExecutions("FOO1", PageRequest.of(1, Integer.MAX_VALUE, Sort.by("ILLEGAL_SORT")))
+	.getTotalElements()).isInstanceOf(IllegalArgumentException.class)
+	.hasMessage("Invalid sort option selected: ILLEGAL_SORT");
 	}
 
 	@Test
@@ -237,19 +235,19 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 	public void testFindRunningTaskExecutionsSortWithDifferentCase() {
 		initializeRepositoryNotInOrderWithMultipleTaskExecutions();
 		assertThat(
-				this.dao.findRunningTaskExecutions("FOO1", PageRequest.of(1, Integer.MAX_VALUE, Sort.by("StArT_TiMe")))
-						.getTotalElements()).isEqualTo(4);
+	this.dao.findRunningTaskExecutions("FOO1", PageRequest.of(1, Integer.MAX_VALUE, Sort.by("StArT_TiMe")))
+.getTotalElements()).isEqualTo(4);
 	}
 
 	private TaskExecution initializeTaskExecutionWithExternalExecutionId() {
 		TaskExecution expectedTaskExecution = TestVerifierUtils.createSampleTaskExecutionNoArg();
 		return this.dao.createTaskExecution(expectedTaskExecution.getTaskName(), expectedTaskExecution.getStartTime(),
-				expectedTaskExecution.getArguments(), "FOO1");
+	expectedTaskExecution.getArguments(), "FOO1");
 	}
 
 	private Iterator<TaskExecution> getPageIterator(int pageNum, int pageSize, Sort sort) {
 		Pageable pageable = (sort == null) ? PageRequest.of(pageNum, pageSize)
-				: PageRequest.of(pageNum, pageSize, sort);
+	: PageRequest.of(pageNum, pageSize, sort);
 		Page<TaskExecution> page = this.dao.findAll(pageable);
 		assertThat(page.getTotalElements()).isEqualTo(3);
 		assertThat(page.getTotalPages()).isEqualTo(2);
@@ -282,7 +280,7 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 			if (firstTime) {
 				ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 				databasePopulator
-						.addScript(new ClassPathResource("/org/springframework/cloud/task/schema-mariadb.sql"));
+			.addScript(new ClassPathResource("/org/springframework/cloud/task/schema-mariadb.sql"));
 				databasePopulator.execute(datasource);
 				firstTime = false;
 			}

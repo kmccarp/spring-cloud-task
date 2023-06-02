@@ -58,8 +58,8 @@ public class TaskSinkApplicationTests {
 		Map<String, String> properties = new HashMap();
 		properties.put("server.port", "0");
 		TaskLaunchRequest request = new TaskLaunchRequest(
-				"maven://org.springframework.cloud.task.app:" + "timestamp-task:jar:1.0.1.RELEASE", null, properties,
-				null, null);
+	"maven://org.springframework.cloud.task.app:" + "timestamp-task:jar:1.0.1.RELEASE", null, properties,
+	null, null);
 		GenericMessage<TaskLaunchRequest> message = new GenericMessage<>(request);
 		this.streamBridge.send("taskLauncherSink-in-0", message);
 
@@ -72,8 +72,8 @@ public class TaskSinkApplicationTests {
 		assertThat(actualRequest.getCommandlineArguments().isEmpty()).isTrue();
 		assertThat(actualRequest.getDefinition().getProperties().get("server.port")).isEqualTo("0");
 		assertThat(actualRequest.getResource()
-			.toString()
-			.contains("org.springframework.cloud.task.app:timestamp-task:jar:1.0.1.RELEASE")).isTrue();
+	.toString()
+	.contains("org.springframework.cloud.task.app:timestamp-task:jar:1.0.1.RELEASE")).isTrue();
 	}
 
 }

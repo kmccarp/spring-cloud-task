@@ -41,10 +41,10 @@ public class DefaultTaskExecutionObservationConvention implements TaskExecutionO
 	private KeyValues getKeyValuesForTaskExecution(TaskExecutionObservationContext context) {
 		TaskExecution execution = context.getTaskExecution();
 		return KeyValues.of(TaskExecutionObservation.TaskKeyValues.TASK_STATUS.asString(), context.getStatus(),
-				TaskExecutionObservation.TaskKeyValues.TASK_EXIT_CODE.asString(),
-				String.valueOf(execution.getExitCode()),
-				TaskExecutionObservation.TaskKeyValues.TASK_EXECUTION_ID.asString(),
-				String.valueOf(execution.getExecutionId()));
+	TaskExecutionObservation.TaskKeyValues.TASK_EXIT_CODE.asString(),
+	String.valueOf(execution.getExitCode()),
+	TaskExecutionObservation.TaskKeyValues.TASK_EXECUTION_ID.asString(),
+	String.valueOf(execution.getExecutionId()));
 	}
 
 	@Override

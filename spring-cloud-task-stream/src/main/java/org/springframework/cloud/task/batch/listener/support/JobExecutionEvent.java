@@ -74,7 +74,7 @@ public class JobExecutionEvent extends Entity {
 	public JobExecutionEvent(JobExecution original) {
 		this.jobParameters = new JobParametersEvent(original.getJobParameters().getParameters());
 		this.jobInstance = new JobInstanceEvent(original.getJobInstance().getId(),
-				original.getJobInstance().getJobName());
+	original.getJobInstance().getJobName());
 		for (StepExecution stepExecution : original.getStepExecutions()) {
 			this.stepExecutions.add(new StepExecutionEvent(stepExecution));
 		}
@@ -261,9 +261,9 @@ public class JobExecutionEvent extends Entity {
 	@Override
 	public String toString() {
 		return super.toString() + String.format(
-				", startTime=%s, endTime=%s, lastUpdated=%s, status=%s, exitStatus=%s, job=[%s], jobParameters=[%s]",
-				this.startTime, this.endTime, this.lastUpdated, this.status, this.exitStatus, this.jobInstance,
-				this.jobParameters);
+	", startTime=%s, endTime=%s, lastUpdated=%s, status=%s, exitStatus=%s, job=[%s], jobParameters=[%s]",
+	this.startTime, this.endTime, this.lastUpdated, this.status, this.exitStatus, this.jobInstance,
+	this.jobParameters);
 	}
 
 }

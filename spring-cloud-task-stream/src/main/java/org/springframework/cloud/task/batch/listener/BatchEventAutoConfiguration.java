@@ -62,9 +62,8 @@ import org.springframework.context.annotation.Lazy;
 // @checkstyle:off
 @AutoConfiguration(after = SimpleTaskAutoConfiguration.class)
 @ConditionalOnClass(Job.class)
-@ConditionalOnBean({ Job.class, TaskLifecycleListener.class })
-@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events", name = "enabled", havingValue = "true",
-		matchIfMissing = true)
+@ConditionalOnBean({Job.class, TaskLifecycleListener.class})
+@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events", name = "enabled", havingValue = "true",matchIfMissing = true)
 // @checkstyle:on
 public class BatchEventAutoConfiguration {
 
@@ -126,78 +125,78 @@ public class BatchEventAutoConfiguration {
 		@Bean
 		@Lazy
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.job-execution", name = "enabled",
-				havingValue = "true", matchIfMissing = true)
+	havingValue = "true", matchIfMissing = true)
 		// @checkstyle:on
 		public JobExecutionListener jobExecutionEventsListener(MessagePublisher messagePublisher,
-				TaskEventProperties properties) {
+	TaskEventProperties properties) {
 			return new EventEmittingJobExecutionListener(messagePublisher,
-					this.taskEventProperties.getJobExecutionOrder(), properties);
+		this.taskEventProperties.getJobExecutionOrder(), properties);
 		}
 
 		// @checkstyle:off
 		@Bean
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.step-execution", name = "enabled",
-				havingValue = "true", matchIfMissing = true)
+	havingValue = "true", matchIfMissing = true)
 		// @checkstyle:on
 		public StepExecutionListener stepExecutionEventsListener(MessagePublisher messagePublisher,
-				TaskEventProperties properties) {
+	TaskEventProperties properties) {
 			return new EventEmittingStepExecutionListener(messagePublisher,
-					this.taskEventProperties.getStepExecutionOrder(), properties);
+		this.taskEventProperties.getStepExecutionOrder(), properties);
 		}
 
 		// @checkstyle:off
 		@Bean
 		@Lazy
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.chunk", name = "enabled", havingValue = "true",
-				matchIfMissing = true)
+	matchIfMissing = true)
 		// @checkstyle:on
 		public EventEmittingChunkListener chunkEventsListener(MessagePublisher messagePublisher,
-				TaskEventProperties properties) {
+	TaskEventProperties properties) {
 			return new EventEmittingChunkListener(messagePublisher, this.taskEventProperties.getChunkOrder(),
-					properties);
+		properties);
 		}
 
 		// @checkstyle:off
 		@Bean
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.item-read", name = "enabled",
-				havingValue = "true", matchIfMissing = true)
+	havingValue = "true", matchIfMissing = true)
 		// @checkstyle:on
 		public ItemReadListener itemReadEventsListener(MessagePublisher messagePublisher,
-				TaskEventProperties properties) {
+	TaskEventProperties properties) {
 			return new EventEmittingItemReadListener(messagePublisher, this.taskEventProperties.getItemReadOrder(),
-					properties);
+		properties);
 		}
 
 		// @checkstyle:off
 		@Bean
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.item-write", name = "enabled",
-				havingValue = "true", matchIfMissing = true)
+	havingValue = "true", matchIfMissing = true)
 		// @checkstyle:on
 		public ItemWriteListener itemWriteEventsListener(MessagePublisher messagePublisher,
-				TaskEventProperties properties) {
+	TaskEventProperties properties) {
 			return new EventEmittingItemWriteListener(messagePublisher, this.taskEventProperties.getItemWriteOrder(),
-					properties);
+		properties);
 		}
 
 		// @checkstyle:off
 		@Bean
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.item-process", name = "enabled",
-				havingValue = "true", matchIfMissing = true)
+	havingValue = "true", matchIfMissing = true)
 		// @checkstyle:on
 		public ItemProcessListener itemProcessEventsListener(MessagePublisher messagePublisher,
-				TaskEventProperties properties) {
+	TaskEventProperties properties) {
 			return new EventEmittingItemProcessListener(messagePublisher,
-					this.taskEventProperties.getItemProcessOrder(), properties);
+		this.taskEventProperties.getItemProcessOrder(), properties);
 		}
 
 		// @checkstyle:off
 		@Bean
 		@ConditionalOnProperty(prefix = "spring.cloud.task.batch.events.skip", name = "enabled", havingValue = "true",
-				matchIfMissing = true)
+	matchIfMissing = true)
 		// @checkstyle:on
 		public SkipListener skipEventsListener(MessagePublisher messagePublisher, TaskEventProperties properties) {
 			return new EventEmittingSkipListener(messagePublisher, this.taskEventProperties.getItemProcessOrder(),
-					properties);
+		properties);
 		}
 
 		@Bean

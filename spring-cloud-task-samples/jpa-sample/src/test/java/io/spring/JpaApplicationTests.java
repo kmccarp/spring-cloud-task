@@ -58,7 +58,7 @@ public class JpaApplicationTests {
 	static {
 		randomPort = TestSocketUtils.findAvailableTcpPort();
 		DATASOURCE_URL = "jdbc:h2:tcp://localhost:" + randomPort + "/mem:dataflow;DB_CLOSE_DELAY=-1;"
-				+ "DB_CLOSE_ON_EXIT=FALSE";
+	+ "DB_CLOSE_ON_EXIT=FALSE";
 	}
 
 	private ConfigurableApplicationContext context;
@@ -77,8 +77,8 @@ public class JpaApplicationTests {
 		this.dataSource = dataSource;
 		try {
 			this.server = Server
-				.createTcpServer("-tcp", "-ifNotExists", "-tcpAllowOthers", "-tcpPort", String.valueOf(randomPort))
-				.start();
+		.createTcpServer("-tcp", "-ifNotExists", "-tcpAllowOthers", "-tcpPort", String.valueOf(randomPort))
+		.start();
 		}
 		catch (SQLException e) {
 			throw new IllegalStateException(e);
@@ -97,9 +97,9 @@ public class JpaApplicationTests {
 	public void testBatchJobApp(CapturedOutput capturedOutput) {
 		final String INSERT_MESSAGE = "Hibernate: insert into task_run_output (";
 		this.context = SpringApplication.run(JpaApplication.class, "--spring.datasource.url=" + DATASOURCE_URL,
-				"--spring.datasource.username=" + DATASOURCE_USER_NAME,
-				"--spring.datasource.driverClassName=" + DATASOURCE_DRIVER_CLASS_NAME,
-				"--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect");
+	"--spring.datasource.username=" + DATASOURCE_USER_NAME,
+	"--spring.datasource.driverClassName=" + DATASOURCE_DRIVER_CLASS_NAME,
+	"--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect");
 		String output = capturedOutput.toString();
 		assertThat(output.contains(INSERT_MESSAGE)).as("Unable to find the insert message: " + output).isTrue();
 		JdbcTemplate template = new JdbcTemplate(this.dataSource);

@@ -136,11 +136,11 @@ public class SqlPagingQueryProviderFactoryBean implements FactoryBean<PagingQuer
 		DatabaseType type;
 		try {
 			type = this.databaseType != null ? DatabaseType.valueOf(this.databaseType.toUpperCase())
-					: DatabaseType.fromMetaData(this.dataSource);
+		: DatabaseType.fromMetaData(this.dataSource);
 		}
 		catch (MetaDataAccessException e) {
 			throw new IllegalArgumentException(
-					"Could not inspect meta data for database type.  You have to supply it explicitly.", e);
+		"Could not inspect meta data for database type.  You have to supply it explicitly.", e);
 		}
 
 		AbstractSqlPagingQueryProvider provider = this.providers.get(type);

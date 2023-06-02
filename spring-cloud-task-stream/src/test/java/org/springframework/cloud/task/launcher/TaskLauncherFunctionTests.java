@@ -48,7 +48,7 @@ public class TaskLauncherFunctionTests {
 	private final static String PARAM2 = "BAR";
 
 	private final static String VALID_URL = "maven://org.springframework.cloud.task.app:"
-			+ "timestamp-task:jar:1.0.1.RELEASE";
++ "timestamp-task:jar:1.0.1.RELEASE";
 
 	private final static String INVALID_URL = "maven://not.real.group:" + "invalid:jar:1.0.0.BUILD-SNAPSHOT";
 
@@ -59,12 +59,12 @@ public class TaskLauncherFunctionTests {
 	@Test
 	public void testProcessorFromFunction() {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
-				TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
-						.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
+	TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
+	.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
 
 			InputDestination source = context.getBean(InputDestination.class);
 			TaskLaunchRequest request = new TaskLaunchRequest(VALID_URL, Collections.emptyList(),
-					Collections.emptyMap(), null, "TESTAPP1");
+		Collections.emptyMap(), null, "TESTAPP1");
 			GenericMessage<TaskLaunchRequest> message = new GenericMessage<>(request);
 			source.send(message);
 			TaskConfiguration.TestTaskLauncher target = context.getBean(TaskConfiguration.TestTaskLauncher.class);
@@ -78,10 +78,10 @@ public class TaskLauncherFunctionTests {
 		commandLineArgs.add(PARAM1);
 		commandLineArgs.add(PARAM2);
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
-				TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
-						.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
+	TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
+	.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
 			TaskConfiguration.TestTaskLauncher testTaskLauncher = launchTaskString(VALID_URL, commandLineArgs, null,
-					context);
+		context);
 			verifySuccessWithParams(testTaskLauncher);
 
 			testTaskLauncher = launchTaskByteArray(VALID_URL, commandLineArgs, null, context);
@@ -95,8 +95,8 @@ public class TaskLauncherFunctionTests {
 	@Test
 	public void testSuccessWithAppName() throws Exception {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
-				TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
-						.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
+	TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
+	.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
 			TaskConfiguration.TestTaskLauncher testTaskLauncher = launchTaskString(VALID_URL, null, APP_NAME, context);
 			verifySuccessWithAppName(testTaskLauncher);
 
@@ -111,10 +111,10 @@ public class TaskLauncherFunctionTests {
 	@Test
 	public void testInvalidJar() throws Exception {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
-				TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
-						.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
+	TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
+	.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
 			TaskConfiguration.TestTaskLauncher testTaskLauncher = launchTaskTaskLaunchRequest(INVALID_URL, null,
-					APP_NAME, context);
+		APP_NAME, context);
 			verifySuccessWithAppName(testTaskLauncher);
 		}
 	}
@@ -122,10 +122,10 @@ public class TaskLauncherFunctionTests {
 	@Test
 	public void testNoRun() {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
-				TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
-						.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
+	TestChannelBinderConfiguration.getCompleteConfiguration(TaskLauncherSinkTestApplication.class))
+	.web(WebApplicationType.NONE).run("--spring.jmx.enabled=false")) {
 			TaskConfiguration.TestTaskLauncher testTaskLauncher = context
-					.getBean(TaskConfiguration.TestTaskLauncher.class);
+		.getBean(TaskConfiguration.TestTaskLauncher.class);
 			assertThat(testTaskLauncher.status(DEFAULT_STATUS).getState()).isEqualTo(LaunchState.unknown);
 		}
 	}
@@ -137,9 +137,9 @@ public class TaskLauncherFunctionTests {
 	}
 
 	private String getStringTaskLaunchRequest(String artifactURL, List<String> commandLineArgs, String applicationName)
-			throws Exception {
+throws Exception {
 		TaskLaunchRequest request = new TaskLaunchRequest(artifactURL, commandLineArgs, this.properties, null,
-				applicationName);
+	applicationName);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(request);
 	}
@@ -153,7 +153,7 @@ public class TaskLauncherFunctionTests {
 	}
 
 	private TaskConfiguration.TestTaskLauncher launchTaskString(String artifactURL, List<String> commandLineArgs,
-			String applicationName, ConfigurableApplicationContext context) throws Exception {
+String applicationName, ConfigurableApplicationContext context) throws Exception {
 		TaskConfiguration.TestTaskLauncher testTaskLauncher = context.getBean(TaskConfiguration.TestTaskLauncher.class);
 		String stringRequest = getStringTaskLaunchRequest(artifactURL, commandLineArgs, applicationName);
 		GenericMessage<String> message = new GenericMessage<>(stringRequest);
@@ -163,7 +163,7 @@ public class TaskLauncherFunctionTests {
 	}
 
 	private TaskConfiguration.TestTaskLauncher launchTaskByteArray(String artifactURL, List<String> commandLineArgs,
-			String applicationName, ConfigurableApplicationContext context) throws Exception {
+String applicationName, ConfigurableApplicationContext context) throws Exception {
 		TaskConfiguration.TestTaskLauncher testTaskLauncher = context.getBean(TaskConfiguration.TestTaskLauncher.class);
 		String stringRequest = getStringTaskLaunchRequest(artifactURL, commandLineArgs, applicationName);
 		GenericMessage<byte[]> message = new GenericMessage<>(stringRequest.getBytes());
@@ -173,11 +173,11 @@ public class TaskLauncherFunctionTests {
 	}
 
 	private TaskConfiguration.TestTaskLauncher launchTaskTaskLaunchRequest(String artifactURL,
-			List<String> commandLineArgs, String applicationName, ConfigurableApplicationContext context)
-			throws Exception {
+List<String> commandLineArgs, String applicationName, ConfigurableApplicationContext context)
+throws Exception {
 		TaskConfiguration.TestTaskLauncher testTaskLauncher = context.getBean(TaskConfiguration.TestTaskLauncher.class);
 		TaskLaunchRequest request = new TaskLaunchRequest(artifactURL, commandLineArgs, this.properties, null,
-				applicationName);
+	applicationName);
 		GenericMessage<TaskLaunchRequest> message = new GenericMessage<>(request);
 		InputDestination source = context.getBean(InputDestination.class);
 		source.send(message);
@@ -185,7 +185,7 @@ public class TaskLauncherFunctionTests {
 	}
 
 	@SpringBootApplication
-	@Import({ TaskLauncherSink.class })
+	@Import({TaskLauncherSink.class})
 	public static class TaskLauncherSinkTestApplication {
 
 	}

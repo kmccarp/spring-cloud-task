@@ -100,9 +100,9 @@ public class TaskExecutionDaoFactoryBean implements FactoryBean<TaskExecutionDao
 			if (StringUtils.hasText(databaseType) && databaseType.equals("SQLSERVER")) {
 				String incrementerName = this.tablePrefix + "SEQ";
 				DataFieldMaxValueIncrementerFactory incrementerFactory = new DefaultDataFieldMaxValueIncrementerFactory(
-						dataSource);
+			dataSource);
 				DataFieldMaxValueIncrementer incrementer = incrementerFactory.getIncrementer(databaseType,
-						incrementerName);
+			incrementerName);
 				if (!isSqlServerTableSequenceAvailable(incrementerName)) {
 					incrementer = new SqlServerSequenceMaxValueIncrementer(dataSource, this.tablePrefix + "SEQ");
 				}
@@ -124,7 +124,7 @@ public class TaskExecutionDaoFactoryBean implements FactoryBean<TaskExecutionDao
 
 	private void buildTaskExecutionDao(DataSource dataSource) {
 		DataFieldMaxValueIncrementerFactory incrementerFactory = new DefaultDataFieldMaxValueIncrementerFactory(
-				dataSource);
+	dataSource);
 		this.dao = new JdbcTaskExecutionDao(dataSource, this.tablePrefix);
 		String databaseType;
 		try {
@@ -137,7 +137,7 @@ public class TaskExecutionDaoFactoryBean implements FactoryBean<TaskExecutionDao
 			throw new IllegalStateException(e);
 		}
 		((JdbcTaskExecutionDao) this.dao)
-				.setTaskIncrementer(incrementerFactory.getIncrementer(databaseType, this.tablePrefix + "SEQ"));
+	.setTaskIncrementer(incrementerFactory.getIncrementer(databaseType, this.tablePrefix + "SEQ"));
 	}
 
 	private boolean isSqlServerTableSequenceAvailable(String incrementerName) {
@@ -145,7 +145,7 @@ public class TaskExecutionDaoFactoryBean implements FactoryBean<TaskExecutionDao
 		DatabaseMetaData metaData = null;
 		try {
 			metaData = dataSource.getConnection().getMetaData();
-			String[] types = { "TABLE" };
+			String[] types = {"TABLE"};
 			ResultSet tables = metaData.getTables(null, null, "%", types);
 			while (tables.next()) {
 				if (tables.getString("TABLE_NAME").equals(incrementerName)) {

@@ -83,7 +83,7 @@ public class StepExecutionEvent extends Entity {
 		super();
 		Assert.notNull(stepExecution, "StepExecution must be provided to re-hydrate an existing StepExecutionEvent");
 		Assert.notNull(stepExecution.getJobExecution(),
-				"JobExecution must be provided to re-hydrate an existing StepExecutionEvent");
+	"JobExecution must be provided to re-hydrate an existing StepExecutionEvent");
 		setId(stepExecution.getId());
 		this.jobExecutionId = stepExecution.getJobExecutionId();
 		this.stepName = stepExecution.getStepName();
@@ -392,7 +392,7 @@ public class StepExecutionEvent extends Entity {
 		StepExecution other = (StepExecution) obj;
 
 		return this.stepName.equals(other.getStepName()) && (this.jobExecutionId == other.getJobExecutionId())
-				&& getId().equals(other.getId());
+	&& getId().equals(other.getId());
 	}
 
 	/*
@@ -405,7 +405,7 @@ public class StepExecutionEvent extends Entity {
 		Object jobExecutionId = getJobExecutionId();
 		Long id = getId();
 		return super.hashCode() + 31 * (this.stepName != null ? this.stepName.hashCode() : 0)
-				+ 91 * (jobExecutionId != null ? jobExecutionId.hashCode() : 0) + 59 * (id != null ? id.hashCode() : 0);
+	+ 91 * (jobExecutionId != null ? jobExecutionId.hashCode() : 0) + 59 * (id != null ? id.hashCode() : 0);
 	}
 
 	@Override
@@ -415,12 +415,12 @@ public class StepExecutionEvent extends Entity {
 
 	public String getSummary() {
 		return super.toString() + String.format(
-				", name=%s, status=%s, exitStatus=%s, readCount=%d, "
-						+ "filterCount=%d, writeCount=%d readSkipCount=%d, writeSkipCount=%d"
-						+ ", processSkipCount=%d, commitCount=%d, rollbackCount=%d",
-				this.stepName, this.status, this.exitStatus.getExitCode(), this.readCount, this.filterCount,
-				this.writeCount, this.readSkipCount, this.writeSkipCount, this.processSkipCount, this.commitCount,
-				this.rollbackCount);
+	", name=%s, status=%s, exitStatus=%s, readCount=%d, "
++ "filterCount=%d, writeCount=%d readSkipCount=%d, writeSkipCount=%d"
++ ", processSkipCount=%d, commitCount=%d, rollbackCount=%d",
+	this.stepName, this.status, this.exitStatus.getExitCode(), this.readCount, this.filterCount,
+	this.writeCount, this.readSkipCount, this.writeSkipCount, this.processSkipCount, this.commitCount,
+	this.rollbackCount);
 	}
 
 }

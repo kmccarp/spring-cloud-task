@@ -51,11 +51,11 @@ public class TaskJobLauncherAutoConfiguration {
 	@Bean
 	@ConditionalOnClass(name = "org.springframework.boot.autoconfigure.batch.JobLauncherApplicationRunner")
 	public TaskJobLauncherApplicationRunnerFactoryBean taskJobLauncherApplicationRunner(JobLauncher jobLauncher,
-			JobExplorer jobExplorer, List<Job> jobs, JobRegistry jobRegistry, JobRepository jobRepository,
-			BatchProperties batchProperties) {
+JobExplorer jobExplorer, List<Job> jobs, JobRegistry jobRegistry, JobRepository jobRepository,
+BatchProperties batchProperties) {
 		TaskJobLauncherApplicationRunnerFactoryBean taskJobLauncherApplicationRunnerFactoryBean;
 		taskJobLauncherApplicationRunnerFactoryBean = new TaskJobLauncherApplicationRunnerFactoryBean(jobLauncher,
-				jobExplorer, jobs, this.properties, jobRegistry, jobRepository, batchProperties);
+	jobExplorer, jobs, this.properties, jobRegistry, jobRepository, batchProperties);
 
 		return taskJobLauncherApplicationRunnerFactoryBean;
 	}

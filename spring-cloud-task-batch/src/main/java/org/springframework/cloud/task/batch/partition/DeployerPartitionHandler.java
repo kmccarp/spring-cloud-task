@@ -159,8 +159,8 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 	 * {@link ThreadPoolTaskExecutor}. Default is null.
 	 */
 	public DeployerPartitionHandler(org.springframework.cloud.deployer.spi.task.TaskLauncher taskLauncher,
-			JobExplorer jobExplorer, Resource resource, String stepName, TaskRepository taskRepository,
-			TaskExecutor taskExecutor) {
+JobExplorer jobExplorer, Resource resource, String stepName, TaskRepository taskRepository,
+TaskExecutor taskExecutor) {
 		Assert.notNull(taskLauncher, "A taskLauncher is required");
 		Assert.notNull(jobExplorer, "A jobExplorer is required");
 		Assert.notNull(resource, "A resource is required");
@@ -185,7 +185,7 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 	 * @param stepName The name of the step.
 	 */
 	public DeployerPartitionHandler(org.springframework.cloud.deployer.spi.task.TaskLauncher taskLauncher,
-			JobExplorer jobExplorer, Resource resource, String stepName, TaskRepository taskRepository) {
+JobExplorer jobExplorer, Resource resource, String stepName, TaskRepository taskRepository) {
 		this(taskLauncher, jobExplorer, resource, stepName, taskRepository, new SyncTaskExecutor());
 	}
 
@@ -282,7 +282,7 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 
 	@Override
 	public Collection<StepExecution> handle(StepExecutionSplitter stepSplitter, StepExecution stepExecution)
-			throws Exception {
+throws Exception {
 
 		final Set<StepExecution> tempCandidates = stepSplitter.split(stepExecution, this.gridSize);
 
@@ -309,16 +309,16 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 
 	private void launchWorkers(Set<StepExecution> candidates, Set<StepExecution> executed) {
 		TaskLauncherHandler taskLauncherHandler = new TaskLauncherHandler(this.commandLineArgsProvider,
-				this.taskRepository, this.defaultArgsAsEnvironmentVars, this.stepName, this.taskExecution,
-				this.environmentVariablesProvider, this.resource, this.deploymentProperties, this.taskLauncher,
-				this.applicationName);
+	this.taskRepository, this.defaultArgsAsEnvironmentVars, this.stepName, this.taskExecution,
+	this.environmentVariablesProvider, this.resource, this.deploymentProperties, this.taskLauncher,
+	this.applicationName);
 		for (StepExecution execution : candidates) {
 			if (this.currentWorkers < this.maxWorkers || this.maxWorkers < 0) {
 				if (this.taskExecutor != null) {
 					TaskLauncherHandler taskLauncherThread = new TaskLauncherHandler(this.commandLineArgsProvider,
-							this.taskRepository, this.defaultArgsAsEnvironmentVars, this.stepName, this.taskExecution,
-							this.environmentVariablesProvider, this.resource, this.deploymentProperties,
-							this.taskLauncher, this.applicationName, execution);
+				this.taskRepository, this.defaultArgsAsEnvironmentVars, this.stepName, this.taskExecution,
+				this.environmentVariablesProvider, this.resource, this.deploymentProperties,
+				this.taskLauncher, this.applicationName, execution);
 					this.taskExecutor.execute(taskLauncherThread);
 				}
 				else {
@@ -331,7 +331,7 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 	}
 
 	private Collection<StepExecution> pollReplies(final StepExecution masterStepExecution,
-			final Set<StepExecution> executed, final Set<StepExecution> candidates, final int size) throws Exception {
+final Set<StepExecution> executed, final Set<StepExecution> candidates, final int size) throws Exception {
 
 		final Collection<StepExecution> result = new ArrayList<>(executed.size());
 
@@ -343,7 +343,7 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 				for (StepExecution curStepExecution : executed) {
 					if (!result.contains(curStepExecution)) {
 						StepExecution partitionStepExecution = DeployerPartitionHandler.this.jobExplorer
-								.getStepExecution(masterStepExecution.getJobExecutionId(), curStepExecution.getId());
+					.getStepExecution(masterStepExecution.getJobExecutionId(), curStepExecution.getId());
 
 						BatchStatus batchStatus = partitionStepExecution.getStatus();
 						if (batchStatus != null && isComplete(batchStatus)) {

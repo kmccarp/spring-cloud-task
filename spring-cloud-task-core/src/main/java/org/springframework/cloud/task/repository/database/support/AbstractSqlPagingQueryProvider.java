@@ -148,7 +148,7 @@ public abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
 		if (namedParameters.size() > 0) {
 			if (this.parameterCount != namedParameters.size()) {
 				throw new InvalidDataAccessApiUsageException(
-						"You can't use both named parameters and classic \"?\" placeholders: " + sql);
+			"You can't use both named parameters and classic \"?\" placeholders: " + sql);
 			}
 			this.usingNamedParameters = true;
 		}
