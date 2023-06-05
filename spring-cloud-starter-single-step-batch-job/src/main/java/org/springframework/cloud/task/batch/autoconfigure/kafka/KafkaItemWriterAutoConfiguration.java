@@ -72,12 +72,7 @@ public class KafkaItemWriterAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(name = "batchItemKeyMapper")
 	public Converter<Map<String, Object>, Object> batchItemKeyMapper() {
-		return new Converter<Map<String, Object>, Object>() {
-			@Override
-			public Object convert(Map<String, Object> source) {
-				return source;
-			}
-		};
+		return source -> source;
 	}
 
 	@Bean

@@ -150,10 +150,7 @@ public class TaskCoreTests {
 
 		@Bean
 		public CommandLineRunner commandLineRunner() {
-			return new CommandLineRunner() {
-				@Override
-				public void run(String... strings) throws Exception {
-				}
+			return strings -> {
 			};
 		}
 
@@ -165,10 +162,7 @@ public class TaskCoreTests {
 
 		@Bean
 		public CommandLineRunner commandLineRunner() {
-			return new CommandLineRunner() {
-				@Override
-				public void run(String... strings) throws Exception {
-				}
+			return strings -> {
 			};
 		}
 
@@ -180,11 +174,8 @@ public class TaskCoreTests {
 
 		@Bean
 		public CommandLineRunner commandLineRunner() {
-			return new CommandLineRunner() {
-				@Override
-				public void run(String... strings) throws Exception {
-					throw new IllegalStateException(EXCEPTION_MESSAGE);
-				}
+			return strings -> {
+				throw new IllegalStateException(EXCEPTION_MESSAGE);
 			};
 		}
 

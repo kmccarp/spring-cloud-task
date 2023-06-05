@@ -158,11 +158,11 @@ public class TaskLaunchRequest implements Serializable {
 
 	@Override
 	public int hashCode() {
-		final int HASH_DEFAULT = 31;
+		final int hashDefault = 31;
 		int result = this.uri.hashCode();
-		result = HASH_DEFAULT * result + this.commandlineArguments.hashCode();
-		result = HASH_DEFAULT * result + this.environmentProperties.hashCode();
-		result = HASH_DEFAULT * result + this.deploymentProperties.hashCode();
+		result = hashDefault * result + this.commandlineArguments.hashCode();
+		result = hashDefault * result + this.environmentProperties.hashCode();
+		result = hashDefault * result + this.deploymentProperties.hashCode();
 		return result;
 	}
 

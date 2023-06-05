@@ -29,6 +29,8 @@ import org.springframework.util.Assert;
 
 public class JobInstanceEvent extends Entity {
 
+	private static final long serialVersionUID = 1;
+
 	private String jobName;
 
 	public JobInstanceEvent() {

@@ -26,7 +26,6 @@ import java.util.UUID;
 
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.Appender;
-import org.mockito.ArgumentMatcher;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.cloud.task.repository.TaskExecution;
@@ -72,12 +71,7 @@ public final class TestVerifierUtils {
 	 * @param logSample The string to search for in the log entry.
 	 */
 	public static void verifyLogEntryExists(Appender mockAppender, final String logSample) {
-		verify(mockAppender).doAppend(argThat(new ArgumentMatcher() {
-			@Override
-			public boolean matches(final Object argument) {
-				return ((LoggingEvent) argument).getFormattedMessage().contains(logSample);
-			}
-		}));
+		verify(mockAppender).doAppend(argThat(argument -> ((LoggingEvent) argument).getFormattedMessage().contains(logSample)));
 	}
 
 	/**

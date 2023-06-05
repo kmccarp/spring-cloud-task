@@ -69,21 +69,21 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @SpringBootTest(classes = { TaskStartTests.TaskLauncherConfiguration.class })
 public class TaskStartTests {
 
-	private final static int WAIT_INTERVAL = 500;
+	private static final int WAIT_INTERVAL = 500;
 
-	private final static int MAX_WAIT_TIME = 5000;
+	private static final int MAX_WAIT_TIME = 5000;
 
-	private final static String URL = "maven://io.spring.cloud:" + "timestamp-task:jar:1.1.0.RELEASE";
+	private static final String URL = "maven://io.spring.cloud:" + "timestamp-task:jar:1.1.0.RELEASE";
 
-	private final static String DATASOURCE_URL;
+	private static final String DATASOURCE_URL;
 
-	private final static String DATASOURCE_USER_NAME = "SA";
+	private static final String DATASOURCE_USER_NAME = "SA";
 
-	private final static String DATASOURCE_USER_PASSWORD = "''";
+	private static final String DATASOURCE_USER_PASSWORD = "''";
 
-	private final static String DATASOURCE_DRIVER_CLASS_NAME = "org.h2.Driver";
+	private static final String DATASOURCE_DRIVER_CLASS_NAME = "org.h2.Driver";
 
-	private final static String TASK_NAME = "TASK_LAUNCHER_SINK_TEST";
+	private static final String TASK_NAME = "TASK_LAUNCHER_SINK_TEST";
 
 	private static int randomPort;
 
@@ -170,10 +170,10 @@ public class TaskStartTests {
 
 	@Test
 	public void testWithGeneratedTaskExecutionWithName() throws Exception {
-		final String TASK_EXECUTION_NAME = "PRE-EXECUTION-TEST-NAME";
-		this.taskRepository.createTaskExecution(TASK_EXECUTION_NAME);
+		final String taskExecutionName = "PRE-EXECUTION-TEST-NAME";
+		this.taskRepository.createTaskExecution(taskExecutionName);
 		assertThat(this.taskExplorer.getTaskExecutionCount()).as("Only one row is expected").isEqualTo(1);
-		assertThat(this.taskExplorer.getTaskExecution(1).getTaskName()).isEqualTo(TASK_EXECUTION_NAME);
+		assertThat(this.taskExplorer.getTaskExecution(1).getTaskName()).isEqualTo(taskExecutionName);
 
 		this.applicationContext = getTaskApplication(1).run(new String[0]);
 		assertThat(waitForDBToBePopulated()).isTrue();

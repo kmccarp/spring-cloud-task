@@ -20,15 +20,10 @@ import java.util.Arrays;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.Chunk;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,12 +55,9 @@ public class BatchEventsApplication {
 
 		@Bean
 		public Step step1() {
-			return new StepBuilder("step1", this.jobRepository).tasklet(new Tasklet() {
-				@Override
-				public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-					System.out.println("Tasklet has run");
-					return RepeatStatus.FINISHED;
-				}
+			return new StepBuilder("step1", this.jobRepository).tasklet((contribution, chunkContext) -> {
+				System.out.println("Tasklet has run");
+				return RepeatStatus.FINISHED;
 			}, transactionManager).build();
 		}
 
@@ -74,18 +66,10 @@ public class BatchEventsApplication {
 			return new StepBuilder("step2", this.jobRepository)
 				.<String, String>chunk(DEFAULT_CHUNK_COUNT, this.transactionManager)
 				.reader(new ListItemReader<>(Arrays.asList("1", "2", "3", "4", "5", "6")))
-				.processor(new ItemProcessor<String, String>() {
-					@Override
-					public String process(String item) throws Exception {
-						return String.valueOf(Integer.parseInt(item) * -1);
-					}
-				})
-				.writer(new ItemWriter<String>() {
-					@Override
-					public void write(Chunk<? extends String> items) throws Exception {
-						for (String item : items) {
-							System.out.println(">> " + item);
-						}
+				.processor(item -> String.valueOf(Integer.parseInt(item) * -1))
+				.writer(items -> {
+					for (String item : items) {
+						System.out.println(">> " + item);
 					}
 				})
 				.build();

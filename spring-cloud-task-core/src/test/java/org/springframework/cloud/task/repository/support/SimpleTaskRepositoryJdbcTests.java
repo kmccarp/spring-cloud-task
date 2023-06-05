@@ -246,14 +246,14 @@ public class SimpleTaskRepositoryJdbcTests {
 
 	@Test
 	public void testMaxTaskNameSizeForConstructor() {
-		final int MAX_EXIT_MESSAGE_SIZE = 10;
-		final int MAX_ERROR_MESSAGE_SIZE = 20;
-		final int MAX_TASK_NAME_SIZE = 30;
+		final int maxExitMessageSize = 10;
+		final int maxErrorMessageSize = 20;
+		final int maxTaskNameSize = 30;
 		SimpleTaskRepository simpleTaskRepository = new SimpleTaskRepository(
-				new TaskExecutionDaoFactoryBean(this.dataSource), MAX_EXIT_MESSAGE_SIZE, MAX_TASK_NAME_SIZE,
-				MAX_ERROR_MESSAGE_SIZE);
+				new TaskExecutionDaoFactoryBean(this.dataSource), maxExitMessageSize, maxTaskNameSize,
+				maxErrorMessageSize);
 		TaskExecution expectedTaskExecution = TestVerifierUtils.createSampleTaskExecutionNoArg();
-		expectedTaskExecution.setTaskName(new String(new char[MAX_TASK_NAME_SIZE + 1]));
+		expectedTaskExecution.setTaskName(new String(new char[maxTaskNameSize + 1]));
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
 			simpleTaskRepository.createTaskExecution(expectedTaskExecution);
 		});

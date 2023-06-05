@@ -23,7 +23,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.support.DatabaseMetaDataCallback;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.jdbc.support.MetaDataAccessException;
 import org.springframework.util.StringUtils;
@@ -115,24 +114,11 @@ public enum DatabaseType {
 	 * @throws MetaDataAccessException thrown if failure occurs on metadata lookup.
 	 */
 	public static DatabaseType fromMetaData(DataSource dataSource) throws SQLException, MetaDataAccessException {
-		String databaseProductName = JdbcUtils.extractDatabaseMetaData(dataSource, new DatabaseMetaDataCallback() {
-
-			@Override
-			public Object processMetaData(DatabaseMetaData dbmd) throws SQLException, MetaDataAccessException {
-				return dbmd.getDatabaseProductName();
-			}
-		}).toString();
-		if (StringUtils.hasText(databaseProductName) && !databaseProductName.equals("DB2/Linux")
+		String databaseProductName = JdbcUtils.extractDatabaseMetaData(dataSource, dbmd -> dbmd.getDatabaseProductName()).toString();
+		if (StringUtils.hasText(databaseProductName) && !"DB2/Linux".equals(databaseProductName)
 				&& databaseProductName.startsWith("DB2")) {
 			String databaseProductVersion = JdbcUtils
-					.extractDatabaseMetaData(dataSource, new DatabaseMetaDataCallback() {
-
-						@Override
-						public Object processMetaData(DatabaseMetaData dbmd)
-								throws SQLException, MetaDataAccessException {
-							return dbmd.getDatabaseProductVersion();
-						}
-					}).toString();
+					.extractDatabaseMetaData(dataSource, dbmd -> dbmd.getDatabaseProductVersion()).toString();
 
 			if (databaseProductVersion.startsWith("ARI")) {
 				databaseProductName = "DB2VSE";

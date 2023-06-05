@@ -37,7 +37,6 @@ import org.springframework.cloud.task.repository.database.PagingQueryProvider;
 import org.springframework.cloud.task.repository.database.support.SqlPagingQueryProviderFactoryBean;
 import org.springframework.cloud.task.repository.support.DatabaseType;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.MetaDataAccessException;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 import org.springframework.util.StringUtils;
@@ -68,18 +67,12 @@ public final class TestDBUtils {
 		String sql = "SELECT * FROM TASK_EXECUTION WHERE " + "TASK_EXECUTION_ID = '" + taskExecutionId + "'";
 
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		List<TaskExecution> rows = jdbcTemplate.query(sql, new RowMapper<TaskExecution>() {
-			@Override
-			public TaskExecution mapRow(ResultSet rs, int rownumber) throws SQLException {
-				TaskExecution taskExecution = new TaskExecution(rs.getLong("TASK_EXECUTION_ID"),
-						StringUtils.hasText(rs.getString("EXIT_CODE")) ? Integer.valueOf(rs.getString("EXIT_CODE"))
-								: null,
-						rs.getString("TASK_NAME"), rs.getObject("START_TIME", LocalDateTime.class),
-						rs.getObject("END_TIME", LocalDateTime.class), rs.getString("EXIT_MESSAGE"), new ArrayList<>(0),
-						rs.getString("ERROR_MESSAGE"), rs.getString("EXTERNAL_EXECUTION_ID"));
-				return taskExecution;
-			}
-		});
+		List<TaskExecution> rows = jdbcTemplate.query(sql, (rs, rownumber) -> new TaskExecution(rs.getLong("TASK_EXECUTION_ID"),
+	StringUtils.hasText(rs.getString("EXIT_CODE")) ? Integer.valueOf(rs.getString("EXIT_CODE"))
+: null,
+	rs.getString("TASK_NAME"), rs.getObject("START_TIME", LocalDateTime.class),
+	rs.getObject("END_TIME", LocalDateTime.class), rs.getString("EXIT_MESSAGE"), new ArrayList<>(0),
+	rs.getString("ERROR_MESSAGE"), rs.getString("EXTERNAL_EXECUTION_ID")));
 		assertThat(rows.size()).as("only one row should be returned").isEqualTo(1);
 		TaskExecution taskExecution = rows.get(0);
 

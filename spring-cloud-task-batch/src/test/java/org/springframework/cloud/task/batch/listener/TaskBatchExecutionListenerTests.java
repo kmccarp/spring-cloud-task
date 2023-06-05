@@ -35,7 +35,6 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.FactoryBean;
@@ -95,27 +94,21 @@ public class TaskBatchExecutionListenerTests {
 	public void testNoAutoConfigurationEnabled() {
 		this.applicationContext = SpringApplication.run(JobConfiguration.class,
 				"--spring.cloud.task.batch.listener.enabled=false");
-		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
-			validateContext();
-		});
+		assertThatExceptionOfType(AssertionError.class).isThrownBy(this::validateContext);
 	}
 
 	@Test
 	public void testNoAutoConfigurationEnable() {
 		this.applicationContext = SpringApplication.run(JobConfiguration.class,
 				"--spring.cloud.task.batch.listener.enable=false");
-		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
-			validateContext();
-		});
+		assertThatExceptionOfType(AssertionError.class).isThrownBy(this::validateContext);
 	}
 
 	@Test
 	public void testNoAutoConfigurationBothDisabled() {
 		this.applicationContext = SpringApplication.run(JobConfiguration.class,
 				"--spring.cloud.task.batch.listener.enable=false --spring.cloud.task.batch.listener.enabled=false");
-		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
-			validateContext();
-		});
+		assertThatExceptionOfType(AssertionError.class).isThrownBy(this::validateContext);
 	}
 
 	@Test
@@ -365,14 +358,10 @@ public class TaskBatchExecutionListenerTests {
 		@Bean
 		public Job job(JobRepository jobRepository) {
 			return new JobBuilder("job", jobRepository)
-					.start(new StepBuilder("step1", jobRepository).tasklet(new Tasklet() {
-						@Override
-						public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
-								throws Exception {
-							System.out.println("Executed");
-							return RepeatStatus.FINISHED;
-						}
-					}, new ResourcelessTransactionManager()).build()).build();
+					.start(new StepBuilder("step1", jobRepository).tasklet((contribution, chunkContext) -> {
+				System.out.println("Executed");
+				return RepeatStatus.FINISHED;
+			}, new ResourcelessTransactionManager()).build()).build();
 		}
 
 		@Bean

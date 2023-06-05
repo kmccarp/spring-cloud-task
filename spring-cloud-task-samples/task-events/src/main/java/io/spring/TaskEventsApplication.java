@@ -36,11 +36,8 @@ public class TaskEventsApplication {
 
 		@Bean
 		public CommandLineRunner commandLineRunner() {
-			return new CommandLineRunner() {
-				@Override
-				public void run(String... args) throws Exception {
-					System.out.println("The CommandLineRunner was executed");
-				}
+			return args -> {
+				System.out.println("The CommandLineRunner was executed");
 			};
 		}
 

@@ -158,9 +158,9 @@ public class EventListenerTests {
 
 	@Test
 	public void EventEmittingSkipListenerSkipWrite() {
-		final String MESSAGE = "\"HELLO_SKIP_WRITE\"";
-		this.eventEmittingSkipListener.onSkipInWrite(MESSAGE, new RuntimeException("Text Exception"));
-		assertThat(getStringFromDestination(this.taskEventProperties.getSkipEventBindingName())).isEqualTo(MESSAGE);
+		final String message = "\"HELLO_SKIP_WRITE\"";
+		this.eventEmittingSkipListener.onSkipInWrite(message, new RuntimeException("Text Exception"));
+		assertThat(getStringFromDestination(this.taskEventProperties.getSkipEventBindingName())).isEqualTo(message);
 	}
 
 	@Test
@@ -236,8 +236,8 @@ public class EventListenerTests {
 
 	@Test
 	public void EventEmittingStepExecutionListenerBeforeStep() throws IOException {
-		final String STEP_MESSAGE = "BEFORE_STEP_MESSAGE";
-		StepExecution stepExecution = new StepExecution(STEP_MESSAGE, getJobExecution());
+		final String stepMessage = "BEFORE_STEP_MESSAGE";
+		StepExecution stepExecution = new StepExecution(stepMessage, getJobExecution());
 		this.eventEmittingStepExecutionListener.beforeStep(stepExecution);
 
 		List<Message<byte[]>> result = testListener(this.taskEventProperties.getStepExecutionEventBindingName(), 1);
@@ -245,7 +245,7 @@ public class EventListenerTests {
 
 		StepExecutionEvent stepExecutionEvent = this.objectMapper.readValue(result.get(0).getPayload(),
 				StepExecutionEvent.class);
-		assertThat(stepExecutionEvent.getStepName()).isEqualTo(STEP_MESSAGE);
+		assertThat(stepExecutionEvent.getStepName()).isEqualTo(stepMessage);
 	}
 
 	@Test
@@ -263,10 +263,10 @@ public class EventListenerTests {
 
 	@Test
 	public void EventEmittingChunkExecutionListenerBeforeChunk() {
-		final String CHUNK_MESSAGE = "Before Chunk Processing";
+		final String chunkMessage = "Before Chunk Processing";
 		this.eventEmittingChunkListener.beforeChunk(getChunkContext());
 		assertThat(getStringFromDestination(this.taskEventProperties.getChunkEventBindingName()))
-				.isEqualTo(CHUNK_MESSAGE);
+				.isEqualTo(chunkMessage);
 	}
 
 	@Test
@@ -284,8 +284,8 @@ public class EventListenerTests {
 	}
 
 	private JobExecution getJobExecution() {
-		final String JOB_NAME = UUID.randomUUID().toString();
-		JobInstance jobInstance = new JobInstance(1L, JOB_NAME);
+		final String jobName = UUID.randomUUID().toString();
+		JobInstance jobInstance = new JobInstance(1L, jobName);
 		return new JobExecution(jobInstance, 1L, new JobParameters());
 	}
 
@@ -294,15 +294,14 @@ public class EventListenerTests {
 		testList.add("Hello");
 		testList.add("World");
 		testList.add("foo");
-		return new Chunk<String>(testList);
+		return new Chunk<>(testList);
 	}
 
 	private ChunkContext getChunkContext() {
 		JobExecution jobExecution = getJobExecution();
 		StepExecution stepExecution = new StepExecution("STEP1", jobExecution);
 		StepContext stepContext = new StepContext(stepExecution);
-		ChunkContext chunkContext = new ChunkContext(stepContext);
-		return chunkContext;
+		return new ChunkContext(stepContext);
 	}
 
 	private List<Message<byte[]>> testListener(String bindingName, int numberToRead) {

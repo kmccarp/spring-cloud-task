@@ -112,7 +112,7 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 
 	private int gridSize = 1;
 
-	private int currentWorkers = 0;
+	private int currentWorkers;
 
 	private TaskLauncher taskLauncher;
 
@@ -140,7 +140,7 @@ public class DeployerPartitionHandler implements PartitionHandler, EnvironmentAw
 
 	private CommandLineArgsProvider commandLineArgsProvider;
 
-	private boolean defaultArgsAsEnvironmentVars = false;
+	private boolean defaultArgsAsEnvironmentVars;
 
 	private TaskExecutor taskExecutor;
 

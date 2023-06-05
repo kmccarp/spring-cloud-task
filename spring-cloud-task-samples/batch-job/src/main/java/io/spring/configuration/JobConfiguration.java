@@ -25,12 +25,9 @@ import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.TypeReference;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -57,12 +54,9 @@ public class JobConfiguration {
 	@Bean
 	public Job job1() {
 		return new JobBuilder("job1", this.jobRepository)
-			.start(new StepBuilder("job1step1", this.jobRepository).tasklet(new Tasklet() {
-				@Override
-				public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-					logger.info("Job1 was run");
-					return RepeatStatus.FINISHED;
-				}
+			.start(new StepBuilder("job1step1", this.jobRepository).tasklet((contribution, chunkContext) -> {
+				logger.info("Job1 was run");
+				return RepeatStatus.FINISHED;
 			}, transactionManager).build())
 			.build();
 	}

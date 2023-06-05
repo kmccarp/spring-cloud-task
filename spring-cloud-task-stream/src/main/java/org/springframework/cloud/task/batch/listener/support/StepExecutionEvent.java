@@ -35,31 +35,33 @@ import org.springframework.util.Assert;
  */
 public class StepExecutionEvent extends Entity {
 
+	private static final long serialVersionUID = 1;
+
 	private long jobExecutionId;
 
 	private String stepName;
 
 	private BatchStatus status = BatchStatus.STARTING;
 
-	private long readCount = 0;
+	private long readCount;
 
-	private long writeCount = 0;
+	private long writeCount;
 
-	private long commitCount = 0;
+	private long commitCount;
 
-	private long rollbackCount = 0;
+	private long rollbackCount;
 
-	private long readSkipCount = 0;
+	private long readSkipCount;
 
-	private long processSkipCount = 0;
+	private long processSkipCount;
 
-	private long writeSkipCount = 0;
+	private long writeSkipCount;
 
 	private LocalDateTime startTime = LocalDateTime.now();
 
-	private LocalDateTime endTime = null;
+	private LocalDateTime endTime;
 
-	private LocalDateTime lastUpdated = null;
+	private LocalDateTime lastUpdated;
 
 	private ExecutionContext executionContext = new ExecutionContext();
 

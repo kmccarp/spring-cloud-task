@@ -35,12 +35,9 @@ public class TaskStartApplication {
 
 	@Bean
 	public CommandLineRunner testCommandLineRunner() {
-		return new CommandLineRunner() {
-			@Override
-			public void run(String... strings) throws Exception {
-				for (String s : strings) {
-					System.out.println("Test" + s);
-				}
+		return strings -> {
+			for (String s : strings) {
+				System.out.println("Test" + s);
 			}
 		};
 	}

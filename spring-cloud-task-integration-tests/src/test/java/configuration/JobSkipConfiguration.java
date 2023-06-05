@@ -18,13 +18,9 @@ package configuration;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -52,12 +48,9 @@ public class JobSkipConfiguration {
 
 	@Bean
 	public Step step1() {
-		return new StepBuilder("step1", this.jobRepository).tasklet(new Tasklet() {
-			@Override
-			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-				System.out.println("Executed");
-				return RepeatStatus.FINISHED;
-			}
+		return new StepBuilder("step1", this.jobRepository).tasklet((contribution, chunkContext) -> {
+			System.out.println("Executed");
+			return RepeatStatus.FINISHED;
 		}, transactionManager).build();
 	}
 
@@ -65,12 +58,7 @@ public class JobSkipConfiguration {
 	public Step step2() {
 		return new StepBuilder("step2", this.jobRepository).chunk(3, transactionManager).faultTolerant()
 				.skip(IllegalStateException.class).skipLimit(100).reader(new SkipItemReader())
-				.processor(new ItemProcessor<Object, Object>() {
-					@Override
-					public String process(Object item) throws Exception {
-						return String.valueOf(Integer.parseInt((String) item) * -1);
-					}
-				}).writer(new SkipItemWriter()).build();
+				.processor(item -> String.valueOf(Integer.parseInt((String) item) * -1)).writer(new SkipItemWriter()).build();
 	}
 
 }

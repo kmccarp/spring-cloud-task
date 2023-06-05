@@ -43,7 +43,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -453,18 +452,15 @@ public class JdbcTaskExecutionDao implements TaskExecutionDao {
 
 		try {
 			return this.jdbcTemplate.query(getQuery(FIND_JOB_EXECUTION_BY_TASK_EXECUTION_ID), queryParameters,
-					new ResultSetExtractor<Set<Long>>() {
-						@Override
-						public Set<Long> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-							Set<Long> jobExecutionIds = new TreeSet<>();
+		resultSet -> {
+			Set<Long> jobExecutionIds = new TreeSet<>();
 
-							while (resultSet.next()) {
-								jobExecutionIds.add(resultSet.getLong("JOB_EXECUTION_ID"));
-							}
+			while (resultSet.next()) {
+				jobExecutionIds.add(resultSet.getLong("JOB_EXECUTION_ID"));
+			}
 
-							return jobExecutionIds;
-						}
-					});
+			return jobExecutionIds;
+		});
 		}
 		catch (DataAccessException e) {
 			return Collections.emptySet();
@@ -558,11 +554,8 @@ public class JdbcTaskExecutionDao implements TaskExecutionDao {
 
 	private List<String> getTaskArguments(long taskExecutionId) {
 		final List<String> params = new ArrayList<>();
-		RowCallbackHandler handler = new RowCallbackHandler() {
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				params.add(rs.getString(2));
-			}
+		RowCallbackHandler handler = rs -> {
+			params.add(rs.getString(2));
 		};
 		this.jdbcTemplate.query(getQuery(FIND_ARGUMENT_FROM_ID),
 				new MapSqlParameterSource("taskExecutionId", taskExecutionId), handler);

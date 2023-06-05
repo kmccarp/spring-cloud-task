@@ -48,9 +48,9 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 
 	private final AtomicLong currentId = new AtomicLong(0L);
 
-	private ConcurrentMap<Long, TaskExecution> taskExecutions;
+	private final ConcurrentMap<Long, TaskExecution> taskExecutions;
 
-	private ConcurrentMap<Long, Set<Long>> batchJobAssociations;
+	private final ConcurrentMap<Long, Set<Long>> batchJobAssociations;
 
 	public MapTaskExecutionDao() {
 		this.taskExecutions = new ConcurrentHashMap<>();
@@ -247,7 +247,7 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 			public int compare(TaskExecution e1, TaskExecution e2) {
 				int result = e1.getStartTime().compareTo(e2.getStartTime());
 				if (result == 0) {
-					result = Long.valueOf(e1.getExecutionId()).compareTo(e2.getExecutionId());
+					result = Long.compare(e1.getExecutionId(), e2.getExecutionId());
 				}
 				return result;
 			}
@@ -317,6 +317,8 @@ public class MapTaskExecutionDao implements TaskExecutionDao {
 	}
 
 	private static class TaskExecutionComparator implements Comparator<TaskExecution>, Serializable {
+
+		private static final long serialVersionUID = 1;
 
 		@Override
 		public int compare(TaskExecution firstTaskExecution, TaskExecution secondTaskExecution) {

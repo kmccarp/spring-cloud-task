@@ -26,14 +26,12 @@ import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.partition.PartitionHandler;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ExecutionContext;
@@ -120,21 +118,18 @@ public class JobConfiguration {
 
 	@Bean
 	public Partitioner partitioner() {
-		return new Partitioner() {
-			@Override
-			public Map<String, ExecutionContext> partition(int gridSize) {
+		return gridSize -> {
 
-				Map<String, ExecutionContext> partitions = new HashMap<>(gridSize);
+			Map<String, ExecutionContext> partitions = new HashMap<>(gridSize);
 
-				for (int i = 0; i < GRID_SIZE; i++) {
-					ExecutionContext context1 = new ExecutionContext();
-					context1.put("partitionNumber", i);
+			for (int i = 0; i < GRID_SIZE; i++) {
+				ExecutionContext context1 = new ExecutionContext();
+				context1.put("partitionNumber", i);
 
-					partitions.put("partition" + i, context1);
-				}
-
-				return partitions;
+				partitions.put("partition" + i, context1);
 			}
+
+			return partitions;
 		};
 	}
 
@@ -148,13 +143,10 @@ public class JobConfiguration {
 	@StepScope
 	public Tasklet workerTasklet(final @Value("#{stepExecutionContext['partitionNumber']}") Integer partitionNumber) {
 
-		return new Tasklet() {
-			@Override
-			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-				System.out.println("This tasklet ran partition: " + partitionNumber);
+		return (contribution, chunkContext) -> {
+			System.out.println("This tasklet ran partition: " + partitionNumber);
 
-				return RepeatStatus.FINISHED;
-			}
+			return RepeatStatus.FINISHED;
 		};
 	}
 

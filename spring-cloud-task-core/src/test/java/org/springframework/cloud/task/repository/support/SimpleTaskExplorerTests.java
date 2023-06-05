@@ -56,9 +56,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class SimpleTaskExplorerTests {
 
-	private final static String TASK_NAME = "FOOBAR";
+	private static final String TASK_NAME = "FOOBAR";
 
-	private final static String EXTERNAL_EXECUTION_ID = "123ABC";
+	private static final String EXTERNAL_EXECUTION_ID = "123ABC";
 
 	private AnnotationConfigApplicationContext context;
 
@@ -147,17 +147,17 @@ public class SimpleTaskExplorerTests {
 	@MethodSource("data")
 	public void findRunningTasks(DaoType testType) {
 		testDefaultContext(testType);
-		final int TEST_COUNT = 2;
-		final int COMPLETE_COUNT = 5;
+		final int testCount = 2;
+		final int completeCount = 5;
 
 		Map<Long, TaskExecution> expectedResults = new HashMap<>();
 		// Store completed jobs
 		int i = 0;
-		for (; i < COMPLETE_COUNT; i++) {
+		for (; i < completeCount; i++) {
 			createAndSaveTaskExecution(i);
 		}
 
-		for (; i < (COMPLETE_COUNT + TEST_COUNT); i++) {
+		for (; i < (completeCount + testCount); i++) {
 			TaskExecution expectedTaskExecution = this.taskRepository.createTaskExecution(getSimpleTaskExecution());
 			expectedResults.put(expectedTaskExecution.getExecutionId(), expectedTaskExecution);
 		}
@@ -166,7 +166,7 @@ public class SimpleTaskExplorerTests {
 		Page<TaskExecution> actualResults = this.taskExplorer.findRunningTaskExecutions(TASK_NAME, pageable);
 		assertThat(actualResults.getNumberOfElements()).as(String
 				.format("Running task count for task name did not match expected result for testType %s", testType))
-				.isEqualTo(TEST_COUNT);
+				.isEqualTo(testCount);
 
 		for (TaskExecution result : actualResults) {
 			assertThat(expectedResults.containsKey(result.getExecutionId()))
@@ -408,7 +408,7 @@ public class SimpleTaskExplorerTests {
 			public int compare(TaskExecution e1, TaskExecution e2) {
 				int result = e1.getStartTime().compareTo(e2.getStartTime());
 				if (result == 0) {
-					result = Long.valueOf(e1.getExecutionId()).compareTo(e2.getExecutionId());
+					result = Long.compare(e1.getExecutionId(), e2.getExecutionId());
 				}
 				return result;
 			}

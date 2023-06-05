@@ -41,6 +41,8 @@ import org.springframework.batch.item.ExecutionContext;
  */
 public class JobExecutionEvent extends Entity {
 
+	private static final long serialVersionUID = 1;
+
 	private JobParametersEvent jobParameters;
 
 	private JobInstanceEvent jobInstance;
@@ -49,13 +51,13 @@ public class JobExecutionEvent extends Entity {
 
 	private BatchStatus status = BatchStatus.STARTING;
 
-	private LocalDateTime startTime = null;
+	private LocalDateTime startTime;
 
 	private LocalDateTime createTime = LocalDateTime.now();
 
-	private LocalDateTime endTime = null;
+	private LocalDateTime endTime;
 
-	private LocalDateTime lastUpdated = null;
+	private LocalDateTime lastUpdated;
 
 	private ExitStatus exitStatus = new ExitStatus(new org.springframework.batch.core.ExitStatus("UNKNOWN"));
 
