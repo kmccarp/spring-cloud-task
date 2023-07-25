@@ -97,7 +97,7 @@ public class FlatFileItemReaderAutoConfigurationTests {
 						"spring.batch.job.flatfileitemreader.names=foo,bar,baz",
 						"spring.batch.job.flatfileitemreader.parsingStrict=false");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -146,7 +146,7 @@ public class FlatFileItemReaderAutoConfigurationTests {
 						"spring.batch.job.flatfileitemreader.names=foo,bar,baz",
 						"spring.batch.job.flatfileitemreader.parsingStrict=false");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -198,7 +198,7 @@ public class FlatFileItemReaderAutoConfigurationTests {
 						"spring.batch.job.flatfileitemreader.resource=/test.txt",
 						"spring.batch.job.flatfileitemreader.strict=true");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -240,7 +240,7 @@ public class FlatFileItemReaderAutoConfigurationTests {
 						"spring.batch.job.flatfileitemreader.names=foo,bar,baz",
 						"spring.batch.job.flatfileitemreader.strict=true");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -280,7 +280,7 @@ public class FlatFileItemReaderAutoConfigurationTests {
 						"spring.batch.job.flatfileitemreader.maxItemCount=1",
 						"spring.batch.job.flatfileitemreader.strict=true");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);

@@ -58,7 +58,7 @@ public final class TaskRepositoryInitializer implements InitializingBean {
 	/**
 	 * Path to the SQL file to use to initialize the database schema.
 	 */
-	private static String schema = DEFAULT_SCHEMA_LOCATION;
+	private static final String schema = DEFAULT_SCHEMA_LOCATION;
 
 	private DataSource dataSource;
 
@@ -67,7 +67,7 @@ public final class TaskRepositoryInitializer implements InitializingBean {
 	@Value("${spring.cloud.task.initialize.enable:true}")
 	private boolean taskInitializationEnabled;
 
-	private TaskProperties taskProperties;
+	private final TaskProperties taskProperties;
 
 	public TaskRepositoryInitializer(TaskProperties taskProperties) {
 		this.taskProperties = taskProperties;

@@ -152,7 +152,7 @@ public class FlatFileItemWriterAutoConfigurationTests {
 						"spring.batch.job.flatfileitemwriter.shouldDeleteIfExists=false",
 						"spring.batch.job.flatfileitemwriter.transactional=false");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -197,7 +197,7 @@ public class FlatFileItemWriterAutoConfigurationTests {
 						"spring.batch.job.flatfileitemwriter.minimumLength=8",
 						"spring.batch.job.flatfileitemwriter.maximumLength=10");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -234,7 +234,7 @@ public class FlatFileItemWriterAutoConfigurationTests {
 						"spring.batch.job.flatfileitemwriter.names=item",
 						"spring.batch.job.flatfileitemwriter.format=item = %s");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -269,7 +269,7 @@ public class FlatFileItemWriterAutoConfigurationTests {
 						"spring.batch.job.flatfileitemwriter.encoding=UTF-8",
 						"spring.batch.job.flatfileitemwriter.delimited=true");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -303,7 +303,7 @@ public class FlatFileItemWriterAutoConfigurationTests {
 								this.outputFile.getAbsolutePath()),
 						"spring.batch.job.flatfileitemwriter.encoding=UTF-8");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);
@@ -339,7 +339,7 @@ public class FlatFileItemWriterAutoConfigurationTests {
 						"spring.batch.job.flatfileitemwriter.delimited=true",
 						"spring.batch.job.flatfileitemwriter.names=item");
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 
 			Job job = context.getBean(Job.class);

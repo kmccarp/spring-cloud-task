@@ -103,10 +103,10 @@ public class BatchExecutionEventTests {
 		for (int i = 0; i < 4; i++) {
 			StepExecutionEvent stepExecutionEvent = this.objectMapper.readValue(result.get(i).getPayload(),
 					StepExecutionEvent.class);
-			if (stepExecutionEvent.getStepName().equals("step1")) {
+			if ("step1".equals(stepExecutionEvent.getStepName())) {
 				stepOneCount++;
 			}
-			if (stepExecutionEvent.getStepName().equals("step2")) {
+			if ("step2".equals(stepExecutionEvent.getStepName())) {
 				stepTwoCount++;
 			}
 		}

@@ -294,15 +294,14 @@ public class EventListenerTests {
 		testList.add("Hello");
 		testList.add("World");
 		testList.add("foo");
-		return new Chunk<String>(testList);
+		return new Chunk<>(testList);
 	}
 
 	private ChunkContext getChunkContext() {
 		JobExecution jobExecution = getJobExecution();
 		StepExecution stepExecution = new StepExecution("STEP1", jobExecution);
 		StepContext stepContext = new StepContext(stepExecution);
-		ChunkContext chunkContext = new ChunkContext(stepContext);
-		return chunkContext;
+		return new ChunkContext(stepContext);
 	}
 
 	private List<Message<byte[]>> testListener(String bindingName, int numberToRead) {
