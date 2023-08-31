@@ -64,7 +64,7 @@ public class SimpleTaskAutoConfigurationTests {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
 				.withConfiguration(AutoConfigurations.of(PropertyPlaceholderAutoConfiguration.class,
 						SimpleTaskAutoConfiguration.class, SingleTaskConfiguration.class));
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 
 			TaskRepository taskRepository = context.getBean(TaskRepository.class);
 			assertThat(taskRepository).isNotNull();
@@ -80,7 +80,7 @@ public class SimpleTaskAutoConfigurationTests {
 						SimpleTaskAutoConfiguration.class, SingleTaskConfiguration.class))
 				.withPropertyValues("spring.cloud.task.autoconfiguration.enabled=false");
 		Executable executable = () -> {
-			applicationContextRunner.run((context) -> {
+			applicationContextRunner.run(context -> {
 				context.getBean(TaskRepository.class);
 			});
 		};
@@ -96,7 +96,7 @@ public class SimpleTaskAutoConfigurationTests {
 				AutoConfigurations.of(EmbeddedDataSourceConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 						SimpleTaskAutoConfiguration.class, SingleTaskConfiguration.class))
 				.withUserConfiguration(TaskLifecycleListenerConfiguration.class);
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			TaskExplorer taskExplorer = context.getBean(TaskExplorer.class);
 			assertThat(taskExplorer.getTaskExecutionCount()).isEqualTo(1L);
 		});
@@ -108,7 +108,7 @@ public class SimpleTaskAutoConfigurationTests {
 				AutoConfigurations.of(EmbeddedDataSourceConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 						SimpleTaskAutoConfiguration.class, SingleTaskConfiguration.class))
 				.withUserConfiguration(TaskLifecycleListenerConfiguration.class);
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 			String[] taskRepositoryNames = beanFactory.getBeanNamesForType(TaskRepository.class);
 			assertThat(taskRepositoryNames).isNotEmpty();
@@ -159,7 +159,7 @@ public class SimpleTaskAutoConfigurationTests {
 	public void verifyExceptionThrownDefaultExecutable(Class classToCheck,
 			ApplicationContextRunner applicationContextRunner) {
 		Executable executable = () -> {
-			applicationContextRunner.run((context) -> {
+			applicationContextRunner.run(context -> {
 				Throwable expectedException = context.getStartupFailure();
 				assertThat(expectedException).isNotNull();
 				throw expectedException;
@@ -171,7 +171,7 @@ public class SimpleTaskAutoConfigurationTests {
 	public void verifyExceptionThrownDefaultExecutable(Class classToCheck, String message,
 			ApplicationContextRunner applicationContextRunner) {
 		Executable executable = () -> {
-			applicationContextRunner.run((context) -> {
+			applicationContextRunner.run(context -> {
 				Throwable expectedException = context.getStartupFailure();
 				assertThat(expectedException).isNotNull();
 				throw expectedException;
@@ -194,7 +194,7 @@ public class SimpleTaskAutoConfigurationTests {
 				AutoConfigurations.of(EmbeddedDataSourceConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 						SimpleTaskAutoConfiguration.class, SingleTaskConfiguration.class))
 				.withUserConfiguration(DataSourceProxyConfiguration.class);
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			assertThat(context.getBeanNamesForType(DataSource.class).length).isEqualTo(2);
 			SimpleTaskAutoConfiguration taskConfiguration = context.getBean(SimpleTaskAutoConfiguration.class);
 			assertThat(taskConfiguration).isNotNull();

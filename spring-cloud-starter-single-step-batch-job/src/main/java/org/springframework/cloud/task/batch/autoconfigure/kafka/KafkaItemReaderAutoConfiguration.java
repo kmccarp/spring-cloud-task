@@ -59,7 +59,7 @@ public class KafkaItemReaderAutoConfiguration {
 		consumerProperties.putAll(this.kafkaProperties.getConsumer().buildProperties());
 		validateProperties(kafkaItemReaderProperties);
 		if (kafkaItemReaderProperties.getPartitions() == null
-				|| kafkaItemReaderProperties.getPartitions().size() == 0) {
+				|| kafkaItemReaderProperties.getPartitions().isEmpty()) {
 			kafkaItemReaderProperties.setPartitions(new ArrayList<>(1));
 			kafkaItemReaderProperties.getPartitions().add(0);
 		}
@@ -81,7 +81,7 @@ public class KafkaItemReaderAutoConfiguration {
 			throw new IllegalArgumentException("GroupId must not be empty or null");
 		}
 		if (this.kafkaProperties.getBootstrapServers() == null
-				|| this.kafkaProperties.getBootstrapServers().size() == 0) {
+				|| this.kafkaProperties.getBootstrapServers().isEmpty()) {
 			throw new IllegalArgumentException("Bootstrap Servers must be configured");
 		}
 	}

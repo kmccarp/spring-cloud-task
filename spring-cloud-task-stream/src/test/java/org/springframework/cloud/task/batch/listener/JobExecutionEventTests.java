@@ -98,14 +98,14 @@ public class JobExecutionEventTests {
 
 	@Test
 	public void testJobParameters() {
-		String[] JOB_PARAM_KEYS = { "A", "B", "C", "D" };
+		String[] jobParamKeys = { "A", "B", "C", "D" };
 		Date testDate = new Date();
-		JobParameter[] PARAMETERS = { new JobParameter("FOO", String.class), new JobParameter(1L, Long.class),
+		JobParameter[] parameters = { new JobParameter("FOO", String.class), new JobParameter(1L, Long.class),
 				new JobParameter(1D, Double.class), new JobParameter(testDate, Date.class) };
 
 		Map<String, JobParameter<?>> jobParamMap = new LinkedHashMap<>();
-		for (int paramCount = 0; paramCount < JOB_PARAM_KEYS.length; paramCount++) {
-			jobParamMap.put(JOB_PARAM_KEYS[paramCount], PARAMETERS[paramCount]);
+		for (int paramCount = 0; paramCount < jobParamKeys.length; paramCount++) {
+			jobParamMap.put(jobParamKeys[paramCount], parameters[paramCount]);
 		}
 		this.jobParameters = new JobParameters(jobParamMap);
 		JobExecution jobExecution;
@@ -299,7 +299,7 @@ public class JobExecutionEventTests {
 						"--spring.cloud.task.batch.events.job-execution-order=5",
 						"--spring.cloud.task.batch.events.skip-order=5",
 						"--spring.cloud.task.batch.events.step-execution-order=5");
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			for (String beanName : LISTENER_BEAN_NAMES) {
 				Ordered ordered = (Ordered) context.getBean(beanName);
 				assertThat(5).as("Expected order value of 5 for " + beanName).isEqualTo(ordered.getOrder());
@@ -319,7 +319,7 @@ public class JobExecutionEventTests {
 						BatchEventTestApplication.class)
 				.withPropertyValues("--spring.cloud.task.closecontext_enabled=false",
 						"--spring.main.web-environment=false", "spring.batch.job.jobName=FOO");
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			NoSuchBeanDefinitionException exception = Assertions.assertThrows(NoSuchBeanDefinitionException.class,
 					() -> {
 						context.getBean("jobExecutionEventsListener");
@@ -340,7 +340,7 @@ public class JobExecutionEventTests {
 						BatchEventTestApplication.class)
 				.withPropertyValues("--spring.cloud.task.closecontext_enabled=false",
 						"--spring.main.web-environment=false", disabledPropertyArg);
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			boolean exceptionThrown = false;
 			for (String beanName : LISTENER_BEAN_NAMES) {
 				if (disabledListener != null && disabledListener.equals(beanName)) {
