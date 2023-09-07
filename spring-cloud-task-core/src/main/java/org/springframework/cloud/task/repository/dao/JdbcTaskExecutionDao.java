@@ -453,7 +453,7 @@ public class JdbcTaskExecutionDao implements TaskExecutionDao {
 
 		try {
 			return this.jdbcTemplate.query(getQuery(FIND_JOB_EXECUTION_BY_TASK_EXECUTION_ID), queryParameters,
-					new ResultSetExtractor<Set<Long>>() {
+					new ResultSetExtractor<>() {
 						@Override
 						public Set<Long> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 							Set<Long> jobExecutionIds = new TreeSet<>();

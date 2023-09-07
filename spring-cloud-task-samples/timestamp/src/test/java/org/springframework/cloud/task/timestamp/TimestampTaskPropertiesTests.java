@@ -39,9 +39,7 @@ public class TimestampTaskPropertiesTests {
 		context.register(Conf.class);
 		context.refresh();
 		TimestampTaskProperties properties = context.getBean(TimestampTaskProperties.class);
-		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			properties.getFormat();
-		});
+		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(properties::getFormat);
 	}
 
 	@Test

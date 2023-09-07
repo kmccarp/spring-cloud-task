@@ -465,7 +465,7 @@ public class DeployerPartitionHandlerTests {
 		while (resultsIterator.hasNext()) {
 			StepExecution curResult = resultsIterator.next();
 
-			if (curResult.getStepName().equals("step1:partition2")) {
+			if ("step1:partition2".equals(curResult.getStepName())) {
 				assertThat(curResult.getStatus()).isEqualTo(BatchStatus.FAILED);
 			}
 			else {
