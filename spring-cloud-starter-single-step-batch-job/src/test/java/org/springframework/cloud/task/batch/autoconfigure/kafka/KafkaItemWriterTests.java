@@ -78,7 +78,7 @@ public class KafkaItemWriterTests {
 					"spring.kafka.producer.keySerializer=org.springframework.kafka.support.serializer.JsonSerializer",
 					"spring.batch.job.kafkaitemwriter.topic=" + topicName);
 
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			waitForTopicPopulation(context);
 			validateResults(topicName);
 		});
