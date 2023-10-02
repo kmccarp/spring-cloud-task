@@ -61,7 +61,7 @@ public class TaskLaunchRequest implements Serializable {
 		Assert.hasText(uri, "uri must not be empty nor null.");
 
 		this.uri = uri;
-		this.commandlineArguments = (commandlineArguments == null) ? new ArrayList<>() : commandlineArguments;
+		this.commandlineArguments = commandlineArguments == null ? new ArrayList<>() : commandlineArguments;
 		this.environmentProperties = environmentProperties == null ? new HashMap<>() : environmentProperties;
 		this.deploymentProperties = deploymentProperties == null ? new HashMap<>() : deploymentProperties;
 		setApplicationName(applicationName);

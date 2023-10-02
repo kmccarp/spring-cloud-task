@@ -250,7 +250,7 @@ public class JdbcTaskExecutionDaoMariaDBIntegrationTests extends BaseTaskExecuti
 	}
 
 	private Iterator<TaskExecution> getPageIterator(int pageNum, int pageSize, Sort sort) {
-		Pageable pageable = (sort == null) ? PageRequest.of(pageNum, pageSize)
+		Pageable pageable = sort == null ? PageRequest.of(pageNum, pageSize)
 				: PageRequest.of(pageNum, pageSize, sort);
 		Page<TaskExecution> page = this.dao.findAll(pageable);
 		assertThat(page.getTotalElements()).isEqualTo(3);

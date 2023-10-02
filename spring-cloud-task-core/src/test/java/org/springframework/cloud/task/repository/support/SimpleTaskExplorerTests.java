@@ -56,9 +56,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class SimpleTaskExplorerTests {
 
-	private final static String TASK_NAME = "FOOBAR";
+	private static final String TASK_NAME = "FOOBAR";
 
-	private final static String EXTERNAL_EXECUTION_ID = "123ABC";
+	private static final String EXTERNAL_EXECUTION_ID = "123ABC";
 
 	private AnnotationConfigApplicationContext context;
 
@@ -466,7 +466,7 @@ public class SimpleTaskExplorerTests {
 			public int compare(TaskExecution e1, TaskExecution e2) {
 				int result = e1.getStartTime().compareTo(e2.getStartTime());
 				if (result == 0) {
-					result = Long.valueOf(e1.getExecutionId()).compareTo(e2.getExecutionId());
+					result = Long.compare(e1.getExecutionId(), e2.getExecutionId());
 				}
 				return result;
 			}
