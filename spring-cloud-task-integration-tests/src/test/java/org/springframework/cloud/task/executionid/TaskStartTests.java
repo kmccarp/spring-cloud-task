@@ -64,11 +64,11 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @Testcontainers
 public class TaskStartTests {
 
-	private final static int WAIT_INTERVAL = 500;
+	private static final int WAIT_INTERVAL = 500;
 
-	private final static int MAX_WAIT_TIME = 5000;
+	private static final int MAX_WAIT_TIME = 5000;
 
-	private final static String TASK_NAME = "TASK_LAUNCHER_SINK_TEST";
+	private static final String TASK_NAME = "TASK_LAUNCHER_SINK_TEST";
 
 	private static final DockerImageName MARIADB_IMAGE = DockerImageName.parse("mariadb:10.9.3");
 
