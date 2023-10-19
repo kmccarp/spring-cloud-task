@@ -246,7 +246,7 @@ public class TaskObservationsTests {
 	public void testCloudVariablesUninitialized() {
 		ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CloudConfigurationForDefaultValues.class));
-		applicationContextRunner.run((context) -> {
+		applicationContextRunner.run(context -> {
 			TaskObservationCloudKeyValues taskObservationCloudKeyValues = context
 				.getBean(TaskObservationCloudKeyValues.class);
 
